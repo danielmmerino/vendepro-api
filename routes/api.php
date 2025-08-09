@@ -16,6 +16,10 @@ use App\Http\Controllers\MetodoPagoController;
 use App\Http\Controllers\CategoriaProductoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\RecetaController;
+use App\Http\Controllers\ProductoImportController;
+use App\Http\Controllers\MenuController;
 
 Route::prefix('v1/auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -25,6 +29,8 @@ Route::prefix('v1/auth')->group(function () {
     Route::post('/change-password', [AuthController::class, 'changePassword'])->middleware('auth.jwt');
     Route::post('/force-invalidate', [AuthController::class, 'forceInvalidate'])->middleware('auth.jwt');
 });
+
+Route::get('/v1/menu', [MenuController::class, 'index']);
 
 Route::prefix('v1')->middleware('auth.jwt')->group(function () {
     Route::middleware('check.subscription')->group(function () {
@@ -92,6 +98,18 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
         Route::get('/categorias/{id}', [CategoriaProductoController::class, 'show'])->middleware('can:productos.crear_editar');
         Route::put('/categorias/{id}', [CategoriaProductoController::class, 'update'])->middleware('can:productos.crear_editar');
         Route::delete('/categorias/{id}', [CategoriaProductoController::class, 'destroy'])->middleware('can:productos.crear_editar');
+
+        Route::get('/productos', [ProductoController::class, 'index'])->middleware('can:productos.ver');
+        Route::post('/productos', [ProductoController::class, 'store'])->middleware('can:productos.crear_editar');
+        Route::get('/productos/{id}', [ProductoController::class, 'show'])->middleware('can:productos.ver');
+        Route::put('/productos/{id}', [ProductoController::class, 'update'])->middleware('can:productos.crear_editar');
+        Route::delete('/productos/{id}', [ProductoController::class, 'destroy'])->middleware('can:productos.crear_editar');
+
+        Route::get('/productos/{id}/receta', [RecetaController::class, 'index'])->middleware('can:productos.crear_editar');
+        Route::post('/productos/{id}/receta', [RecetaController::class, 'store'])->middleware('can:productos.crear_editar');
+        Route::delete('/productos/{id}/receta/{insumo_id}', [RecetaController::class, 'destroy'])->middleware('can:productos.crear_editar');
+
+        Route::post('/productos/import', [ProductoImportController::class, 'store'])->middleware('can:productos.crear_editar');
 
         Route::get('/clientes', [ClienteController::class, 'index'])->middleware('can:reportes.ver');
         Route::post('/clientes', [ClienteController::class, 'store'])->middleware('can.any:ventas.facturacion,config.usuarios.gestionar');
