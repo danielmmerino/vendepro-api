@@ -14,6 +14,8 @@ use App\Http\Controllers\UnidadMedidaController;
 use App\Http\Controllers\ImpuestoController;
 use App\Http\Controllers\MetodoPagoController;
 use App\Http\Controllers\CategoriaProductoController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ProveedorController;
 
 Route::prefix('v1/auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -90,6 +92,18 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
         Route::get('/categorias/{id}', [CategoriaProductoController::class, 'show'])->middleware('can:productos.crear_editar');
         Route::put('/categorias/{id}', [CategoriaProductoController::class, 'update'])->middleware('can:productos.crear_editar');
         Route::delete('/categorias/{id}', [CategoriaProductoController::class, 'destroy'])->middleware('can:productos.crear_editar');
+
+        Route::get('/clientes', [ClienteController::class, 'index'])->middleware('can:reportes.ver');
+        Route::post('/clientes', [ClienteController::class, 'store'])->middleware('can.any:ventas.facturacion,config.usuarios.gestionar');
+        Route::get('/clientes/{id}', [ClienteController::class, 'show'])->middleware('can:reportes.ver');
+        Route::put('/clientes/{id}', [ClienteController::class, 'update'])->middleware('can.any:ventas.facturacion,config.usuarios.gestionar');
+        Route::delete('/clientes/{id}', [ClienteController::class, 'destroy'])->middleware('can.any:ventas.facturacion,config.usuarios.gestionar');
+
+        Route::get('/proveedores', [ProveedorController::class, 'index'])->middleware('can:proveedores.gestionar');
+        Route::post('/proveedores', [ProveedorController::class, 'store'])->middleware('can:proveedores.gestionar');
+        Route::get('/proveedores/{id}', [ProveedorController::class, 'show'])->middleware('can:proveedores.gestionar');
+        Route::put('/proveedores/{id}', [ProveedorController::class, 'update'])->middleware('can:proveedores.gestionar');
+        Route::delete('/proveedores/{id}', [ProveedorController::class, 'destroy'])->middleware('can:proveedores.gestionar');
     });
 
     Route::get('/estado-suscripcion', SubscriptionStatusController::class);
