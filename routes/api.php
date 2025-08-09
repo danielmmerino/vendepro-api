@@ -7,6 +7,9 @@ use App\Http\Controllers\Tenancy\LocalController;
 use App\Http\Controllers\Tenancy\SuscripcionController;
 use App\Http\Controllers\Tenancy\SuscripcionLocalController;
 use App\Http\Controllers\Tenancy\SubscriptionStatusController;
+use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\RolController;
+use App\Http\Controllers\PermisoController;
 
 Route::prefix('v1/auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -40,6 +43,25 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
         Route::post('/suscripciones-locales', [SuscripcionLocalController::class, 'store']);
         Route::get('/suscripciones-locales/{id}', [SuscripcionLocalController::class, 'show']);
         Route::put('/suscripciones-locales/{id}', [SuscripcionLocalController::class, 'update']);
+
+        Route::get('/usuarios', [UsuarioController::class, 'index']);
+        Route::post('/usuarios', [UsuarioController::class, 'store']);
+        Route::get('/usuarios/{id}', [UsuarioController::class, 'show']);
+        Route::put('/usuarios/{id}', [UsuarioController::class, 'update']);
+        Route::delete('/usuarios/{id}', [UsuarioController::class, 'destroy']);
+        Route::post('/usuarios/{id}/roles', [UsuarioController::class, 'assignRoles']);
+
+        Route::get('/roles', [RolController::class, 'index']);
+        Route::post('/roles', [RolController::class, 'store']);
+        Route::get('/roles/{id}', [RolController::class, 'show']);
+        Route::put('/roles/{id}', [RolController::class, 'update']);
+        Route::delete('/roles/{id}', [RolController::class, 'destroy']);
+
+        Route::get('/permisos', [PermisoController::class, 'index']);
+        Route::post('/permisos', [PermisoController::class, 'store']);
+        Route::get('/permisos/{id}', [PermisoController::class, 'show']);
+        Route::put('/permisos/{id}', [PermisoController::class, 'update']);
+        Route::delete('/permisos/{id}', [PermisoController::class, 'destroy']);
     });
 
     Route::get('/estado-suscripcion', SubscriptionStatusController::class);
