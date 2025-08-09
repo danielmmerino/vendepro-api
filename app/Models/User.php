@@ -4,8 +4,13 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+
+/**
+ * @property int $local_id
+ */
 
 class User extends Authenticatable
 {
@@ -21,6 +26,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'token_version',
+        'local_id',
     ];
 
     /**
@@ -43,6 +50,12 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'token_version' => 'integer',
         ];
+    }
+
+    public function local(): BelongsTo
+    {
+        return $this->belongsTo(Local::class);
     }
 }
