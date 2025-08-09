@@ -10,6 +10,10 @@ use App\Http\Controllers\Tenancy\SubscriptionStatusController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\PermisoController;
+use App\Http\Controllers\UnidadMedidaController;
+use App\Http\Controllers\ImpuestoController;
+use App\Http\Controllers\MetodoPagoController;
+use App\Http\Controllers\CategoriaProductoController;
 
 Route::prefix('v1/auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -62,6 +66,30 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
         Route::get('/permisos/{id}', [PermisoController::class, 'show']);
         Route::put('/permisos/{id}', [PermisoController::class, 'update']);
         Route::delete('/permisos/{id}', [PermisoController::class, 'destroy']);
+
+        Route::get('/unidades', [UnidadMedidaController::class, 'index'])->middleware('can:productos.crear_editar');
+        Route::post('/unidades', [UnidadMedidaController::class, 'store'])->middleware('can:productos.crear_editar');
+        Route::get('/unidades/{id}', [UnidadMedidaController::class, 'show'])->middleware('can:productos.crear_editar');
+        Route::put('/unidades/{id}', [UnidadMedidaController::class, 'update'])->middleware('can:productos.crear_editar');
+        Route::delete('/unidades/{id}', [UnidadMedidaController::class, 'destroy'])->middleware('can:productos.crear_editar');
+
+        Route::get('/impuestos', [ImpuestoController::class, 'index'])->middleware('can:productos.crear_editar');
+        Route::post('/impuestos', [ImpuestoController::class, 'store'])->middleware('can:productos.crear_editar');
+        Route::get('/impuestos/{id}', [ImpuestoController::class, 'show'])->middleware('can:productos.crear_editar');
+        Route::put('/impuestos/{id}', [ImpuestoController::class, 'update'])->middleware('can:productos.crear_editar');
+        Route::delete('/impuestos/{id}', [ImpuestoController::class, 'destroy'])->middleware('can:productos.crear_editar');
+
+        Route::get('/metodos-pago', [MetodoPagoController::class, 'index'])->middleware('can:caja.cobrar');
+        Route::post('/metodos-pago', [MetodoPagoController::class, 'store'])->middleware('can:config.locales.gestionar');
+        Route::get('/metodos-pago/{id}', [MetodoPagoController::class, 'show'])->middleware('can:caja.cobrar');
+        Route::put('/metodos-pago/{id}', [MetodoPagoController::class, 'update'])->middleware('can:config.locales.gestionar');
+        Route::delete('/metodos-pago/{id}', [MetodoPagoController::class, 'destroy'])->middleware('can:config.locales.gestionar');
+
+        Route::get('/categorias', [CategoriaProductoController::class, 'index'])->middleware('can:productos.crear_editar');
+        Route::post('/categorias', [CategoriaProductoController::class, 'store'])->middleware('can:productos.crear_editar');
+        Route::get('/categorias/{id}', [CategoriaProductoController::class, 'show'])->middleware('can:productos.crear_editar');
+        Route::put('/categorias/{id}', [CategoriaProductoController::class, 'update'])->middleware('can:productos.crear_editar');
+        Route::delete('/categorias/{id}', [CategoriaProductoController::class, 'destroy'])->middleware('can:productos.crear_editar');
     });
 
     Route::get('/estado-suscripcion', SubscriptionStatusController::class);
