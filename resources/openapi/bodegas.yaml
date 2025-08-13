@@ -1,0 +1,103 @@
+openapi: 3.0.3
+info:
+  title: Bodegas API
+  version: '1.0'
+paths:
+  /v1/bodegas:
+    get:
+      summary: Listar bodegas
+      parameters:
+        - in: query
+          name: q
+          schema:
+            type: string
+        - in: query
+          name: estado
+          schema:
+            type: string
+            enum: [activa, inactiva]
+        - in: query
+          name: sort
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista paginada de bodegas
+    post:
+      summary: Crear bodega
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodegaInput'
+      responses:
+        '201':
+          description: Bodega creada
+  /v1/bodegas/{id}:
+    get:
+      summary: Obtener bodega
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Bodega
+        '404':
+          description: No encontrada
+    put:
+      summary: Actualizar bodega
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodegaInput'
+      responses:
+        '200':
+          description: Bodega actualizada
+    delete:
+      summary: Eliminar bodega
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Eliminada
+components:
+  schemas:
+    Bodega:
+      type: object
+      properties:
+        id:
+          type: integer
+        codigo:
+          type: string
+        nombre:
+          type: string
+        estado:
+          type: string
+          enum: [activa, inactiva]
+    BodegaInput:
+      type: object
+      required: [codigo, nombre, estado]
+      properties:
+        codigo:
+          type: string
+        nombre:
+          type: string
+        estado:
+          type: string
+          enum: [activa, inactiva]
