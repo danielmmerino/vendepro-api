@@ -120,6 +120,7 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
 
         Route::get('/proveedores', [ProveedorController::class, 'index'])->middleware('can:proveedores.gestionar');
         Route::post('/proveedores', [ProveedorController::class, 'store'])->middleware('can:proveedores.gestionar');
+
         Route::get('/proveedores/{id}', [ProveedorController::class, 'show'])->middleware('can:proveedores.gestionar');
         Route::put('/proveedores/{id}', [ProveedorController::class, 'update'])->middleware('can:proveedores.gestionar');
         Route::delete('/proveedores/{id}', [ProveedorController::class, 'destroy'])->middleware('can:proveedores.gestionar');
@@ -128,7 +129,13 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
         Route::get('/compras/{id}', [CompraController::class, 'show'])->middleware('can:compras.gestionar');
         Route::put('/compras/{id}', [CompraController::class, 'update'])->middleware('can:compras.gestionar');
         Route::delete('/compras/{id}', [CompraController::class, 'destroy'])->middleware('can:compras.gestionar');
+        Route::get('/bodegas', [\App\Http\Controllers\BodegaController::class, 'index']);
+          Route::post('/bodegas', [\App\Http\Controllers\BodegaController::class, 'store']);
+          Route::get('/bodegas/{id}', [\App\Http\Controllers\BodegaController::class, 'show']);
+          Route::put('/bodegas/{id}', [\App\Http\Controllers\BodegaController::class, 'update']);
+          Route::delete('/bodegas/{id}', [\App\Http\Controllers\BodegaController::class, 'destroy']);
     });
 
     Route::get('/estado-suscripcion', SubscriptionStatusController::class);
 });
+

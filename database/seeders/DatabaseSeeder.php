@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
             LocalesSeeder::class,
             UsersSeeder::class,
             CatalogosBasicosSeeder::class,
+            BodegaSeeder::class,
             // MesasSeeder::class,
             // ProductosDemoSeeder::class,
         ]);
