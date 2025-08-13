@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'auth.jwt' => \App\Http\Middleware\JwtMiddleware::class,
             'check.subscription' => \App\Http\Middleware\CheckSubscription::class,
             'can.any' => \App\Http\Middleware\CanAny::class,
+            'idempotency' => \App\Http\Middleware\IdempotencyMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

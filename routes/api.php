@@ -23,6 +23,7 @@ use App\Http\Controllers\CompraController;
 use App\Http\Controllers\CxpController;
 use App\Http\Controllers\PagoProveedorController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PedidoController;
 
 Route::prefix('v1/auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -34,6 +35,10 @@ Route::prefix('v1/auth')->group(function () {
 });
 
 Route::get('/v1/menu', [MenuController::class, 'index']);
+
+Route::prefix('v1')->middleware('idempotency')->group(function () {
+    Route::apiResource('pedidos', PedidoController::class);
+});
 
 Route::prefix('v1')->middleware('auth.jwt')->group(function () {
     Route::middleware('check.subscription')->group(function () {
