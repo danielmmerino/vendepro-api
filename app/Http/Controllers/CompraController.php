@@ -193,6 +193,82 @@ VALUES (:id, :proveedor_id, :fecha, :numero_factura, :subtotal, :descuento, :imp
         return ['data' => (array) $row];
     }
 
+    public function approve($id)
+    {
+        $row = DB::selectOne("SELECT id, estado FROM compras WHERE id = :id", ['id' => $id]);
+        if (!$row) {
+            return response()->json([
+                'error' => 'NotFound',
+                'message' => 'Recurso no encontrado',
+            ], 404);
+        }
+        if ($row->estado !== 'borrador') {
+            return response()->json([
+                'error' => 'Conflict',
+                'message' => 'Solo se puede aprobar en estado borrador',
+            ], 409);
+        }
+
+        DB::transaction(function () use ($id) {
+            DB::update(
+                "UPDATE compras SET estado = 'aprobada', fecha_aprobacion = NOW(), updated_at = NOW() WHERE id = :id",
+                ['id' => $id]
+            );
+
+            DB::insert(
+                "INSERT INTO inventario_movimientos(id, fecha, producto_id, bodega_destino_id, tipo, cantidad, costo_unitario, referencia, created_at, updated_at)
+SELECT gen_uuid(), NOW(), ci.producto_id, ci.bodega_id, 'entrada', ci.cantidad, ci.costo_unitario, c.numero_factura, NOW(), NOW()
+FROM compra_items ci
+JOIN compras c ON c.id = ci.compra_id
+WHERE ci.compra_id = :compra_id",
+                ['compra_id' => $id]
+            );
+
+            $items = DB::select(
+                "SELECT producto_id, bodega_id, cantidad, costo_unitario FROM compra_items WHERE compra_id = :compra_id",
+                ['compra_id' => $id]
+            );
+            foreach ($items as $item) {
+                $saldo = DB::selectOne(
+                    "SELECT cantidad, costo_promedio FROM inventario_saldos WHERE bodega_id = :bodega_id AND producto_id = :producto_id FOR UPDATE",
+                    ['bodega_id' => $item->bodega_id, 'producto_id' => $item->producto_id]
+                );
+                if ($saldo) {
+                    DB::update(
+                        "UPDATE inventario_saldos
+SET cantidad = cantidad + :cantidad,
+    costo_promedio = ((cantidad*costo_promedio)+(:cantidad*:costo_unitario))/(cantidad+:cantidad),
+    updated_at = NOW()
+WHERE bodega_id = :bodega_id AND producto_id = :producto_id",
+                        [
+                            'cantidad' => $item->cantidad,
+                            'costo_unitario' => $item->costo_unitario,
+                            'bodega_id' => $item->bodega_id,
+                            'producto_id' => $item->producto_id,
+                        ]
+                    );
+                } else {
+                    DB::insert(
+                        "INSERT INTO inventario_saldos(bodega_id, producto_id, cantidad, costo_promedio, created_at, updated_at)
+VALUES (:bodega_id, :producto_id, :cantidad, :costo_unitario, NOW(), NOW())",
+                        [
+                            'bodega_id' => $item->bodega_id,
+                            'producto_id' => $item->producto_id,
+                            'cantidad' => $item->cantidad,
+                            'costo_unitario' => $item->costo_unitario,
+                        ]
+                    );
+                }
+            }
+        });
+
+        $row = DB::selectOne("SELECT * FROM compras WHERE id = :id", ['id' => $id]);
+        $items = DB::select("SELECT * FROM compra_items WHERE compra_id = :id", ['id' => $id]);
+        $data = (array) $row;
+        $data['items'] = array_map(fn($i) => (array) $i, $items);
+        return ['data' => $data];
+    }
+
     public function destroy($id)
     {
         $row = DB::selectOne("SELECT estado FROM compras WHERE id = :id", ['id' => $id]);
