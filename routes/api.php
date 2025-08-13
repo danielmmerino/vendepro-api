@@ -145,6 +145,11 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
           Route::get('/bodegas/{id}', [\App\Http\Controllers\BodegaController::class, 'show']);
           Route::put('/bodegas/{id}', [\App\Http\Controllers\BodegaController::class, 'update']);
           Route::delete('/bodegas/{id}', [\App\Http\Controllers\BodegaController::class, 'destroy']);
+        Route::get('/mesas', [\App\Http\Controllers\MesaController::class, 'index']);
+          Route::post('/mesas', [\App\Http\Controllers\MesaController::class, 'store']);
+          Route::get('/mesas/{id}', [\App\Http\Controllers\MesaController::class, 'show']);
+          Route::put('/mesas/{id}', [\App\Http\Controllers\MesaController::class, 'update']);
+          Route::delete('/mesas/{id}', [\App\Http\Controllers\MesaController::class, 'destroy']);
     });
 
     Route::get('/estado-suscripcion', SubscriptionStatusController::class);
