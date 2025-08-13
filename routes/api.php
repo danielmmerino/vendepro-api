@@ -129,6 +129,7 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
         Route::get('/compras/{id}', [CompraController::class, 'show'])->middleware('can:compras.gestionar');
         Route::put('/compras/{id}', [CompraController::class, 'update'])->middleware('can:compras.gestionar');
         Route::delete('/compras/{id}', [CompraController::class, 'destroy'])->middleware('can:compras.gestionar');
+        Route::post('/compras/{id}/aprobar', [CompraController::class, 'approve'])->middleware('can:compras.gestionar');
         Route::get('/bodegas', [\App\Http\Controllers\BodegaController::class, 'index']);
           Route::post('/bodegas', [\App\Http\Controllers\BodegaController::class, 'store']);
           Route::get('/bodegas/{id}', [\App\Http\Controllers\BodegaController::class, 'show']);
