@@ -19,6 +19,7 @@ use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RecetaController;
 use App\Http\Controllers\ProductoImportController;
+use App\Http\Controllers\CompraController;
 use App\Http\Controllers\MenuController;
 
 Route::prefix('v1/auth')->group(function () {
@@ -122,6 +123,11 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
         Route::get('/proveedores/{id}', [ProveedorController::class, 'show'])->middleware('can:proveedores.gestionar');
         Route::put('/proveedores/{id}', [ProveedorController::class, 'update'])->middleware('can:proveedores.gestionar');
         Route::delete('/proveedores/{id}', [ProveedorController::class, 'destroy'])->middleware('can:proveedores.gestionar');
+        Route::get('/compras', [CompraController::class, 'index'])->middleware('can:compras.gestionar');
+        Route::post('/compras', [CompraController::class, 'store'])->middleware('can:compras.gestionar');
+        Route::get('/compras/{id}', [CompraController::class, 'show'])->middleware('can:compras.gestionar');
+        Route::put('/compras/{id}', [CompraController::class, 'update'])->middleware('can:compras.gestionar');
+        Route::delete('/compras/{id}', [CompraController::class, 'destroy'])->middleware('can:compras.gestionar');
     });
 
     Route::get('/estado-suscripcion', SubscriptionStatusController::class);
