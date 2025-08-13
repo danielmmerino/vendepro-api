@@ -43,6 +43,9 @@ Route::prefix('v1')->middleware('idempotency')->group(function () {
 
 Route::prefix('v1')->group(function () {
     Route::apiResource('reservas', ReservaController::class);
+    Route::post('reservas/{id}/confirmar', [ReservaController::class, 'confirm']);
+    Route::post('reservas/{id}/cancelar', [ReservaController::class, 'cancel']);
+    Route::post('reservas/{id}/no-show', [ReservaController::class, 'noShow']);
 });
 
 Route::prefix('v1')->middleware('auth.jwt')->group(function () {
