@@ -215,6 +215,110 @@ WHERE mesa_id = :mesa_id
         });
     }
 
+    public function confirm($id): JsonResponse
+    {
+        return DB::transaction(function () use ($id) {
+            $row = DB::selectOne(
+                "SELECT mesa_id, inicio, fin, estado FROM reservas WHERE id = :id FOR UPDATE",
+                ['id' => $id]
+            );
+            if (!$row) {
+                return response()->json([
+                    'error' => 'NotFound',
+                    'message' => 'Recurso no encontrado',
+                ], 404);
+            }
+            if ($row->estado !== 'pendiente') {
+                return response()->json([
+                    'error' => 'Conflict',
+                    'message' => 'Solo se puede confirmar si esta pendiente',
+                ], 409);
+            }
+            $conf = DB::selectOne(
+                "SELECT COUNT(1) AS conflictos
+FROM reservas
+WHERE mesa_id = :mesa_id
+  AND estado IN ('pendiente','confirmada')
+  AND id <> :id
+  AND (inicio < :fin AND fin > :inicio)",
+                [
+                    'mesa_id' => $row->mesa_id,
+                    'id' => $id,
+                    'inicio' => $row->inicio,
+                    'fin' => $row->fin,
+                ]
+            );
+            if ($conf->conflictos > 0) {
+                return response()->json([
+                    'error' => 'Conflict',
+                    'message' => 'La reserva se solapa con otra',
+                ], 409);
+            }
+            DB::update(
+                "UPDATE reservas SET estado = 'confirmada', updated_at = NOW() WHERE id = :id AND estado = 'pendiente'",
+                ['id' => $id]
+            );
+            $reserva = Reserva::find($id);
+            return response()->json(['data' => new ReservaResource($reserva)]);
+        });
+    }
+
+    public function cancel($id): JsonResponse
+    {
+        return DB::transaction(function () use ($id) {
+            $row = DB::selectOne(
+                "SELECT estado FROM reservas WHERE id = :id FOR UPDATE",
+                ['id' => $id]
+            );
+            if (!$row) {
+                return response()->json([
+                    'error' => 'NotFound',
+                    'message' => 'Recurso no encontrado',
+                ], 404);
+            }
+            if (!in_array($row->estado, ['pendiente','confirmada'])) {
+                return response()->json([
+                    'error' => 'Conflict',
+                    'message' => 'Solo se puede cancelar si esta pendiente o confirmada',
+                ], 409);
+            }
+            DB::update(
+                "UPDATE reservas SET estado = 'cancelada', updated_at = NOW() WHERE id = :id",
+                ['id' => $id]
+            );
+            $reserva = Reserva::find($id);
+            return response()->json(['data' => new ReservaResource($reserva)]);
+        });
+    }
+
+    public function noShow($id): JsonResponse
+    {
+        return DB::transaction(function () use ($id) {
+            $row = DB::selectOne(
+                "SELECT CASE WHEN NOW() > inicio THEN 1 ELSE 0 END AS vencida, estado FROM reservas WHERE id = :id FOR UPDATE",
+                ['id' => $id]
+            );
+            if (!$row) {
+                return response()->json([
+                    'error' => 'NotFound',
+                    'message' => 'Recurso no encontrado',
+                ], 404);
+            }
+            if ($row->estado !== 'confirmada' || !$row->vencida) {
+                return response()->json([
+                    'error' => 'Conflict',
+                    'message' => 'Solo se puede marcar no-show si esta confirmada y vencida',
+                ], 409);
+            }
+            DB::update(
+                "UPDATE reservas SET estado = 'no_show', updated_at = NOW() WHERE id = :id AND estado = 'confirmada'",
+                ['id' => $id]
+            );
+            $reserva = Reserva::find($id);
+            return response()->json(['data' => new ReservaResource($reserva)]);
+        });
+    }
+
     public function destroy(Reserva $reserva): JsonResponse
     {
         if (!in_array($reserva->estado, ['pendiente','confirmada'])) {
