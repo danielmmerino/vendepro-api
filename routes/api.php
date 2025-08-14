@@ -27,6 +27,9 @@ use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\CuentaController;
 use App\Http\Controllers\CuentaItemController;
+use App\Http\Controllers\FacturaController;
+use App\Http\Controllers\CxcVentaController;
+use App\Http\Controllers\NotaCreditoController;
 
 Route::prefix('v1/auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -162,6 +165,25 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
           Route::get('/mesas/{id}', [\App\Http\Controllers\MesaController::class, 'show']);
           Route::put('/mesas/{id}', [\App\Http\Controllers\MesaController::class, 'update']);
           Route::delete('/mesas/{id}', [\App\Http\Controllers\MesaController::class, 'destroy']);
+
+        Route::get('/ventas/facturas', [FacturaController::class,'index']);
+        Route::post('/ventas/facturas', [FacturaController::class,'store'])->middleware('idempotency');
+        Route::get('/ventas/facturas/{id}', [FacturaController::class,'show']);
+        Route::put('/ventas/facturas/{id}', [FacturaController::class,'update']);
+        Route::delete('/ventas/facturas/{id}', [FacturaController::class,'destroy']);
+        Route::post('/ventas/facturas/{id}/aprobar', [FacturaController::class,'aprobar']);
+        Route::post('/ventas/facturas/{id}/anular', [FacturaController::class,'anular']);
+
+        Route::get('/cxc', [CxcVentaController::class,'index']);
+        Route::get('/cxc/{id}', [CxcVentaController::class,'show']);
+        Route::post('/cxc/pagos', [CxcVentaController::class,'storePago'])->middleware('idempotency');
+        Route::get('/cxc/{id}/pagos', [CxcVentaController::class,'pagos']);
+
+        Route::get('/ventas/notas-credito', [NotaCreditoController::class,'index']);
+        Route::post('/ventas/notas-credito', [NotaCreditoController::class,'store'])->middleware('idempotency');
+        Route::get('/ventas/notas-credito/{id}', [NotaCreditoController::class,'show']);
+        Route::post('/ventas/notas-credito/{id}/aplicar', [NotaCreditoController::class,'aplicar']);
+        Route::post('/ventas/notas-credito/{id}/anular', [NotaCreditoController::class,'anular']);
     });
 
     Route::get('/estado-suscripcion', SubscriptionStatusController::class);

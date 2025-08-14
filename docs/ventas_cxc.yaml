@@ -1,0 +1,57 @@
+openapi: 3.1.0
+info:
+  title: Ventas y CxC
+  version: '1.0'
+paths:
+  /v1/ventas/facturas:
+    post:
+      summary: Crear factura
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              numero: F-001
+              fecha: 2024-01-01
+              subtotal: 100
+              impuesto: 0
+              total: 100
+              items:
+                - producto_id: 11111111-1111-1111-1111-111111111111
+                  concepto: Producto
+                  cantidad: 1
+                  precio_unit: 100
+                  total_linea: 100
+      responses:
+        '201':
+          description: creada
+  /v1/cxc/pagos:
+    post:
+      summary: Registrar pago
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              cxc_id: uuid
+              fecha_pago: 2024-01-02
+              monto: 50
+      responses:
+        '201': {description: creado}
+  /v1/ventas/notas-credito:
+    post:
+      summary: Crear nota de crédito
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              factura_id: uuid
+              numero: NC-1
+              fecha: 2024-01-03
+              motivo: ajuste
+              subtotal: 10
+              impuesto: 0
+              total: 10
+      responses:
+        '201': {description: creada}
