@@ -11,9 +11,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use App\Services\ReservaService;
 
 class ReservaController extends Controller
 {
+    public function __construct(protected ReservaService $reservaService)
+    {
+    }
     public function index(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
@@ -127,19 +131,10 @@ WHERE (:mesa_id IS NULL OR r.mesa_id = :mesa_id)
                 'fields' => ['inicio'=>['rango_invalido']],
             ], 422);
         }
-        $conf = DB::selectOne(
-            "SELECT COUNT(1) AS conflictos
-FROM reservas
-WHERE mesa_id = :mesa_id
-  AND estado IN ('pendiente','confirmada')
-  AND id <> COALESCE(:reserva_id,'00000000-0000-0000-0000-000000000000')
-  AND (inicio < :fin AND fin > :inicio)",
-            ['mesa_id'=>$data['mesa_id'],'reserva_id'=>null,'inicio'=>$data['inicio'],'fin'=>$data['fin']]
-        );
-        if ($conf->conflictos > 0) {
+        if (!$this->reservaService->mesaDisponible($data['mesa_id'], $data['inicio'], $data['fin'])) {
             return response()->json([
                 'error' => 'Validation',
-                'fields' => ['inicio'=>['conflicto']]
+                'fields' => ['inicio' => ['conflicto']]
             ], 422);
         }
         $data['estado'] = $data['estado'] ?? 'pendiente';
@@ -189,19 +184,10 @@ WHERE mesa_id = :mesa_id
                     'fields' => ['inicio'=>['rango_invalido']],
                 ], 422);
             }
-            $conf = DB::selectOne(
-                "SELECT COUNT(1) AS conflictos
-FROM reservas
-WHERE mesa_id = :mesa_id
-  AND estado IN ('pendiente','confirmada')
-  AND id <> :reserva_id
-  AND (inicio < :fin AND fin > :inicio)",
-                ['mesa_id'=>$mesaId,'reserva_id'=>$reserva->id,'inicio'=>$inicio,'fin'=>$fin]
-            );
-            if ($conf->conflictos > 0) {
+            if (!$this->reservaService->mesaDisponible($mesaId, $inicio, $fin, $reserva->id)) {
                 return response()->json([
                     'error' => 'Validation',
-                    'fields' => ['inicio'=>['conflicto']]
+                    'fields' => ['inicio' => ['conflicto']]
                 ], 422);
             }
         }
@@ -234,21 +220,7 @@ WHERE mesa_id = :mesa_id
                     'message' => 'Solo se puede confirmar si esta pendiente',
                 ], 409);
             }
-            $conf = DB::selectOne(
-                "SELECT COUNT(1) AS conflictos
-FROM reservas
-WHERE mesa_id = :mesa_id
-  AND estado IN ('pendiente','confirmada')
-  AND id <> :id
-  AND (inicio < :fin AND fin > :inicio)",
-                [
-                    'mesa_id' => $row->mesa_id,
-                    'id' => $id,
-                    'inicio' => $row->inicio,
-                    'fin' => $row->fin,
-                ]
-            );
-            if ($conf->conflictos > 0) {
+            if (!$this->reservaService->mesaDisponible($row->mesa_id, $row->inicio, $row->fin, $id)) {
                 return response()->json([
                     'error' => 'Conflict',
                     'message' => 'La reserva se solapa con otra',
