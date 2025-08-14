@@ -2,6 +2,9 @@
 
 API del sistema VendePro. A continuación se listan los endpoints disponibles y una breve descripción de su funcionalidad.
 
+## Colección de Postman
+Puedes importar el archivo `apis.json` en Postman para probar todos los endpoints como una colección. El archivo define la variable `base_url` que puedes ajustar según tu entorno.
+
 ## Autenticación
 | Método | Ruta | Descripción |
 | ------ | ---- | ----------- |
