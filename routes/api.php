@@ -25,6 +25,8 @@ use App\Http\Controllers\PagoProveedorController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ReservaController;
+use App\Http\Controllers\CuentaController;
+use App\Http\Controllers\CuentaItemController;
 
 Route::prefix('v1/auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -39,6 +41,8 @@ Route::get('/v1/menu', [MenuController::class, 'index']);
 
 Route::prefix('v1')->middleware('idempotency')->group(function () {
     Route::apiResource('pedidos', PedidoController::class);
+    Route::apiResource('cuentas', CuentaController::class);
+    Route::post('cuentas/{cuenta}/items', [CuentaItemController::class, 'store']);
 });
 
 Route::prefix('v1')->group(function () {
