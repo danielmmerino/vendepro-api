@@ -4257,8 +4257,14 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/planes",
-              "host": ["{{base_url}}"],
-              "path": ["api","v1","planes"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "planes"
+              ]
             }
           }
         },
@@ -4268,8 +4274,14 @@
             "method": "POST",
             "url": {
               "raw": "{{base_url}}/api/v1/planes",
-              "host": ["{{base_url}}"],
-              "path": ["api","v1","planes"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "planes"
+              ]
             }
           }
         }
@@ -4284,8 +4296,151 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/api/v1/tenancy/context",
-              "host": ["{{base_url}}"],
-              "path": ["api","v1","tenancy","context"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tenancy",
+                "context"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "notas-credito",
+      "item": [
+        {
+          "name": "POST notas-credito",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/notas-credito",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "notas-credito"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST notas-credito/{id}/emitir",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/notas-credito/{id}/emitir",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "notas-credito",
+                "{id}",
+                "emitir"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET notas-credito/{id}/xml",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/notas-credito/{id}/xml",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "notas-credito",
+                "{id}",
+                "xml"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET notas-credito/{id}/pdf",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/notas-credito/{id}/pdf",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "notas-credito",
+                "{id}",
+                "pdf"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST notas-credito/{id}/email",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/notas-credito/{id}/email",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "notas-credito",
+                "{id}",
+                "email"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST notas-credito/{id}/aplicar",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/notas-credito/{id}/aplicar",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "notas-credito",
+                "{id}",
+                "aplicar"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST notas-credito/{id}/reembolso",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/notas-credito/{id}/reembolso",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "notas-credito",
+                "{id}",
+                "reembolso"
+              ]
             }
           }
         }

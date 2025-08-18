@@ -351,13 +351,36 @@ Nota: se mantiene `GET /v1/estado-suscripcion` para compatibilidad.
 | GET | `/v1/cxc/{id}/pagos` | Lista los pagos de una cuenta por cobrar. |
 
 ### Notas de crédito
-| Método | Ruta | Descripción |
-| ------ | ---- | ----------- |
-| GET | `/v1/ventas/notas-credito` | Lista notas de crédito. |
-| POST | `/v1/ventas/notas-credito` | Crea una nota de crédito. |
-| GET | `/v1/ventas/notas-credito/{id}` | Muestra una nota de crédito. |
-| POST | `/v1/ventas/notas-credito/{id}/aplicar` | Aplica una nota de crédito. |
-| POST | `/v1/ventas/notas-credito/{id}/anular` | Anula una nota de crédito. |
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/notas-credito` (alias `/v1/ventas/notas-credito`) | Lista notas de crédito. | `notas_credito.ver` |
+| POST | `/v1/notas-credito` | Crea una nota de crédito. | `notas_credito.crear` |
+| GET | `/v1/notas-credito/{id}` | Muestra una nota de crédito. | `notas_credito.ver` |
+| PUT | `/v1/notas-credito/{id}` | Edita una nota de crédito. | `notas_credito.editar` |
+| DELETE | `/v1/notas-credito/{id}` | Elimina una nota de crédito. | `notas_credito.eliminar` |
+| POST | `/v1/notas-credito/{id}/emitir` | Emitir nota de crédito. | `notas_credito.emitir` |
+| POST | `/v1/notas-credito/{id}/reintentar-envio` | Reintentar envío SRI. | `notas_credito.emitir` |
+| GET | `/v1/notas-credito/{id}/estado-sri` | Consultar estado SRI. | `notas_credito.ver` |
+| GET | `/v1/notas-credito/{id}/xml` | Descargar XML. | `notas_credito.descargar` |
+| GET | `/v1/notas-credito/{id}/pdf` | Descargar PDF. | `notas_credito.descargar` |
+| POST | `/v1/notas-credito/{id}/email` | Enviar por email. | `notas_credito.enviar_email` |
+| POST | `/v1/notas-credito/{id}/aplicar` | Aplicar a factura. | `notas_credito.aplicar` |
+| POST | `/v1/notas-credito/{id}/reembolso` | Registrar reembolso. | `notas_credito.reembolso` |
+| POST | `/v1/notas-credito/{id}/anular` | Anular nota de crédito. | `notas_credito.anular` |
+
+### Matriz RBAC
+| Permiso | admin | finanzas | cajero |
+| ------- | :---: | :------: | :----: |
+| notas_credito.ver | ✓ | ✓ | ✓ |
+| notas_credito.crear | ✓ | ✓ | — |
+| notas_credito.editar | ✓ | ✓ | — |
+| notas_credito.eliminar | ✓ | ✓ | — |
+| notas_credito.emitir | ✓ | ✓ | — |
+| notas_credito.descargar | ✓ | ✓ | — |
+| notas_credito.enviar_email | ✓ | ✓ | — |
+| notas_credito.aplicar | ✓ | ✓ | ✓ |
+| notas_credito.reembolso | ✓ | ✓ | ✓ |
+| notas_credito.anular | ✓ | ✓ | ✓ |
 
 ## Otros
 | Método | Ruta | Descripción |

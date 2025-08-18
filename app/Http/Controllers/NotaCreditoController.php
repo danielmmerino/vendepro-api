@@ -51,6 +51,99 @@ class NotaCreditoController extends Controller
         return ['data'=> new NotaCreditoResource($nota)];
     }
 
+
+    public function update(StoreNotaCreditoRequest $request, $id)
+    {
+        $nota = NotaCredito::find($id);
+        if(!$nota || $nota->estado !== 'borrador'){
+            return response()->json(['error'=>'Conflict','message'=>'Estado invalido'],409);
+        }
+        $nota->update($request->validated());
+        return ['data'=> new NotaCreditoResource($nota)];
+    }
+
+    public function destroy($id)
+    {
+        $nota = NotaCredito::find($id);
+        if(!$nota || $nota->estado !== 'borrador'){
+            return response()->json(['error'=>'Conflict','message'=>'Estado invalido'],409);
+        }
+        $nota->delete();
+        return response()->json([],204);
+    }
+
+    public function emitir($id)
+    {
+        $nota = NotaCredito::find($id);
+        if(!$nota){
+            return response()->json(['error'=>'NotFound','message'=>'Recurso no encontrado'],404);
+        }
+        $nota->estado = 'emitida';
+        $nota->save();
+        return ['data'=>[
+            'nota_credito_id'=>$nota->id,
+            'numero'=>$nota->numero,
+            'clave_acceso'=>'DEMO',
+            'estado_sri'=>'AUTORIZADO',
+            'mensajes'=>['AUTORIZADO'],
+            'autorizado_at'=>now()->toIso8601String(),
+        ]];
+    }
+
+    public function reintentarEnvio($id)
+    {
+        $nota = NotaCredito::find($id);
+        if(!$nota){
+            return response()->json(['error'=>'NotFound','message'=>'Recurso no encontrado'],404);
+        }
+        return ['data'=>['status'=>'reintento']];
+    }
+
+    public function estadoSri($id)
+    {
+        $nota = NotaCredito::find($id);
+        if(!$nota){
+            return response()->json(['error'=>'NotFound','message'=>'Recurso no encontrado'],404);
+        }
+        return ['data'=>['estado_sri'=>'AUTORIZADO']];
+    }
+
+    public function xml($id)
+    {
+        $nota = NotaCredito::find($id);
+        if(!$nota){
+            return response()->json(['error'=>'NotFound','message'=>'Recurso no encontrado'],404);
+        }
+        return response('<xml/>',200,['Content-Type'=>'application/xml']);
+    }
+
+    public function pdf($id)
+    {
+        $nota = NotaCredito::find($id);
+        if(!$nota){
+            return response()->json(['error'=>'NotFound','message'=>'Recurso no encontrado'],404);
+        }
+        return response('PDF',200,['Content-Type'=>'application/pdf']);
+    }
+
+    public function email(Request $request,$id)
+    {
+        $nota = NotaCredito::find($id);
+        if(!$nota){
+            return response()->json(['error'=>'NotFound','message'=>'Recurso no encontrado'],404);
+        }
+        return ['data'=>['enviado'=>true]];
+    }
+
+    public function reembolso(Request $request,$id)
+    {
+        $nota = NotaCredito::find($id);
+        if(!$nota){
+            return response()->json(['error'=>'NotFound','message'=>'Recurso no encontrado'],404);
+        }
+        return response()->json(['data'=>['monto'=>$request->input('monto')]],201);
+    }
+
     public function aplicar($id)
     {
         return DB::transaction(function() use ($id){
