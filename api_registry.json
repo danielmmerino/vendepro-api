@@ -986,4 +986,11 @@
     "module": "notas_credito",
     "permission": "notas_credito.anular"
   }
+  ,{
+    "method": "GET",
+    "path": "/v1/clientes/{id}/perfil",
+    "name": "Perfil de compra",
+    "module": "clientes",
+    "permission": "clientes.perfil.ver"
+  }
 ]

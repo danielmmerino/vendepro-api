@@ -825,3 +825,33 @@ POST /v1/pedidos/123/items
 | kds.sla.ver | ✓ | ✓ | ✓ | — | — |
 | kds.sla.editar | ✓ | ✓ | ✓ | — | — |
 | kds.stream.ver | ✓ | ✓ | ✓ | — | ✓ |
+
+## Clientes/CRM
+
+### Perfil & RFM
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/clientes/{id}/perfil` | Obtiene KPIs y score RFM del cliente | `clientes.perfil.ver` |
+
+Ejemplo:
+
+```http
+GET /v1/clientes/123/perfil
+```
+
+Respuesta:
+```json
+{
+  "data": {
+    "kpis": {
+      "total_compras": 520.35,
+      "tickets": 14,
+      "ticket_promedio": 37.17,
+      "ultima_compra": "2025-08-12",
+      "categoria_top": {"id":11},
+      "producto_top": {"id":101}
+    },
+    "rfm": {"recency_dias": 6, "frequency_90d": 5, "monetary_180d": 310.40, "score": "4-5-4"}
+  }
+}
+```
