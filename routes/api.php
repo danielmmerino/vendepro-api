@@ -30,6 +30,7 @@ use App\Http\Controllers\CuentaItemController;
 use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\CxcVentaController;
 use App\Http\Controllers\NotaCreditoController;
+use App\Http\Controllers\Sri\SecuenciaController;
 
 Route::prefix('v1/auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -186,6 +187,7 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
         Route::post('/ventas/notas-credito/{id}/anular', [NotaCreditoController::class,'anular']);
     });
 
+    Route::post('/sri/secuencias/next',[SecuenciaController::class,'next']);
     Route::get('/estado-suscripcion', SubscriptionStatusController::class);
 });
 
