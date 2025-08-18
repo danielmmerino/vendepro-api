@@ -51,6 +51,12 @@ use App\Http\Controllers\Inventario\LoteController;
 use App\Http\Controllers\Inventario\ProduccionController;
 use App\Http\Controllers\Inventario\MermaController;
 use App\Http\Controllers\Inventario\CostoController;
+use App\Http\Controllers\PromocionController;
+use App\Http\Controllers\PromocionReglaController;
+use App\Http\Controllers\PromocionComboController;
+use App\Http\Controllers\PromocionSimulacionController;
+use App\Http\Controllers\CuponController;
+use App\Http\Controllers\PromocionReporteController;
 
 Route::prefix('v1/auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -206,6 +212,26 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
         Route::get('/ventas/notas-credito/{id}', [NotaCreditoController::class,'show']);
         Route::post('/ventas/notas-credito/{id}/aplicar', [NotaCreditoController::class,'aplicar']);
         Route::post('/ventas/notas-credito/{id}/anular', [NotaCreditoController::class,'anular']);
+
+        // Promociones & Descuentos
+        Route::get('/promociones', [PromocionController::class, 'index'])->middleware('can:promociones.ver');
+        Route::post('/promociones', [PromocionController::class, 'store'])->middleware('can:promociones.crear');
+        Route::get('/promociones/{id}', [PromocionController::class, 'show'])->middleware('can:promociones.ver');
+        Route::put('/promociones/{id}', [PromocionController::class, 'update'])->middleware('can:promociones.editar');
+        Route::delete('/promociones/{id}', [PromocionController::class, 'destroy'])->middleware('can:promociones.eliminar');
+        Route::post('/promociones/{id}/activar', [PromocionController::class, 'activar'])->middleware('can:promociones.activar');
+        Route::post('/promociones/{id}/desactivar', [PromocionController::class, 'desactivar'])->middleware('can:promociones.desactivar');
+        Route::post('/promociones/{id}/duplicar', [PromocionController::class, 'duplicar'])->middleware('can:promociones.crear');
+        Route::post('/promociones/{id}/reglas', [PromocionReglaController::class, 'store'])->middleware('can:promociones.reglas.crear');
+        Route::post('/promociones/{id}/combo', [PromocionComboController::class, 'store'])->middleware('can:promociones.reglas.crear');
+        Route::post('/promociones/simular', [PromocionSimulacionController::class, 'simular'])->middleware('can:promociones.simular');
+        Route::post('/promociones/aplicar', [PromocionSimulacionController::class, 'aplicar'])->middleware('can:promociones.aplicar');
+        Route::get('/cupones', [CuponController::class, 'index'])->middleware('can:cupones.ver');
+        Route::post('/cupones', [CuponController::class, 'store'])->middleware('can:cupones.crear');
+        Route::post('/cupones/generar-masivo', [CuponController::class, 'generarMasivo'])->middleware('can:cupones.generar_masivo');
+        Route::post('/cupones/validar', [CuponController::class, 'validar'])->middleware('can:cupones.validar');
+        Route::post('/cupones/{id}/anular', [CuponController::class, 'anular'])->middleware('can:cupones.anular');
+        Route::get('/promociones/efectividad', [PromocionReporteController::class, 'efectividad'])->middleware('can:promociones.reportes.ver');
 
         // Inventario
         Route::get('/stock', [StockController::class, 'index'])->middleware('can:inventario.stock.ver');

@@ -425,5 +425,23 @@
     "name": "Recalcular costos",
     "module": "inventario",
     "permission": "inventario.costos.recalcular"
-  }
+  },
+  {"method":"GET","path":"/v1/promociones","name":"Listar promociones","module":"promociones","permission":"promociones.ver"},
+  {"method":"POST","path":"/v1/promociones","name":"Crear promoción","module":"promociones","permission":"promociones.crear"},
+  {"method":"GET","path":"/v1/promociones/{id}","name":"Ver promoción","module":"promociones","permission":"promociones.ver"},
+  {"method":"PUT","path":"/v1/promociones/{id}","name":"Actualizar promoción","module":"promociones","permission":"promociones.editar"},
+  {"method":"DELETE","path":"/v1/promociones/{id}","name":"Eliminar promoción","module":"promociones","permission":"promociones.eliminar"},
+  {"method":"POST","path":"/v1/promociones/{id}/activar","name":"Activar promoción","module":"promociones","permission":"promociones.activar"},
+  {"method":"POST","path":"/v1/promociones/{id}/desactivar","name":"Desactivar promoción","module":"promociones","permission":"promociones.desactivar"},
+  {"method":"POST","path":"/v1/promociones/{id}/duplicar","name":"Duplicar promoción","module":"promociones","permission":"promociones.crear"},
+  {"method":"POST","path":"/v1/promociones/{id}/reglas","name":"Agregar regla a promoción","module":"promociones","permission":"promociones.reglas.crear"},
+  {"method":"POST","path":"/v1/promociones/{id}/combo","name":"Definir combo","module":"promociones","permission":"promociones.reglas.crear"},
+  {"method":"POST","path":"/v1/promociones/simular","name":"Simular promociones","module":"promociones","permission":"promociones.simular"},
+  {"method":"POST","path":"/v1/promociones/aplicar","name":"Aplicar promociones","module":"promociones","permission":"promociones.aplicar"},
+  {"method":"GET","path":"/v1/cupones","name":"Listar cupones","module":"promociones","permission":"cupones.ver"},
+  {"method":"POST","path":"/v1/cupones","name":"Crear cupón","module":"promociones","permission":"cupones.crear"},
+  {"method":"POST","path":"/v1/cupones/generar-masivo","name":"Generar cupones","module":"promociones","permission":"cupones.generar_masivo"},
+  {"method":"POST","path":"/v1/cupones/validar","name":"Validar cupón","module":"promociones","permission":"cupones.validar"},
+  {"method":"POST","path":"/v1/cupones/{id}/anular","name":"Anular cupón","module":"promociones","permission":"cupones.anular"},
+  {"method":"GET","path":"/v1/promociones/efectividad","name":"Reporte efectividad","module":"promociones","permission":"promociones.reportes.ver"}
 ]
