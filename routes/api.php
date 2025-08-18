@@ -28,9 +28,14 @@ use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\CuentaController;
 use App\Http\Controllers\CuentaItemController;
 use App\Http\Controllers\FacturaController;
+use App\Http\Controllers\FacturaElectronicaController;
 use App\Http\Controllers\CxcVentaController;
 use App\Http\Controllers\NotaCreditoController;
 use App\Http\Controllers\Sri\SecuenciaController;
+use App\Http\Controllers\Sri\FirmaController;
+use App\Http\Controllers\Sri\EstablecimientoController;
+use App\Http\Controllers\Sri\EstadoController;
+use App\Http\Controllers\Sri\CallbackController;
 use App\Http\Controllers\CajaAperturaController;
 use App\Http\Controllers\CajaMovimientoController;
 use App\Http\Controllers\CajaDepositoController;
@@ -193,6 +198,20 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
         Route::post('/ventas/notas-credito/{id}/aplicar', [NotaCreditoController::class,'aplicar']);
         Route::post('/ventas/notas-credito/{id}/anular', [NotaCreditoController::class,'anular']);
 
+        // Facturas electrónicas
+        Route::get('/facturas', [FacturaElectronicaController::class,'index'])->middleware('can:facturas.ver');
+        Route::post('/facturas', [FacturaElectronicaController::class,'store'])->middleware('can:facturas.crear');
+        Route::get('/facturas/{id}', [FacturaElectronicaController::class,'show'])->middleware('can:facturas.ver');
+        Route::put('/facturas/{id}', [FacturaElectronicaController::class,'update'])->middleware('can:facturas.editar');
+        Route::delete('/facturas/{id}', [FacturaElectronicaController::class,'destroy'])->middleware('can:facturas.eliminar');
+        Route::post('/facturas/{id}/emitir', [FacturaElectronicaController::class,'emitir'])->middleware('can:facturas.emitir');
+        Route::post('/facturas/{id}/reintentar-envio', [FacturaElectronicaController::class,'reintentarEnvio'])->middleware('can:facturas.emitir');
+        Route::get('/facturas/{id}/estado-sri', [FacturaElectronicaController::class,'estadoSri'])->middleware('can:facturas.ver');
+        Route::get('/facturas/{id}/xml', [FacturaElectronicaController::class,'xml'])->middleware('can:facturas.descargar');
+        Route::get('/facturas/{id}/pdf', [FacturaElectronicaController::class,'pdf'])->middleware('can:facturas.descargar');
+        Route::post('/facturas/{id}/email', [FacturaElectronicaController::class,'email'])->middleware('can:facturas.enviar_email');
+        Route::post('/facturas/{id}/anular', [FacturaElectronicaController::class,'anular'])->middleware('can:facturas.anular');
+
         // Caja
         Route::post('/caja/aperturas', [CajaAperturaController::class,'store'])->middleware('can:caja.aperturas.crear');
         Route::get('/caja/aperturas', [CajaAperturaController::class,'index'])->middleware('can:caja.aperturas.ver');
@@ -210,7 +229,17 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
         Route::post('/pagos-venta/{id}/anular', [PagoVentaController::class,'anular'])->middleware('can:pagos_venta.anular');
     });
 
-    Route::post('/sri/secuencias/next',[SecuenciaController::class,'next']);
+    Route::get('/sri/secuencias',[SecuenciaController::class,'index'])->middleware('can:sri.secuencias.ver');
+    Route::post('/sri/secuencias/next',[SecuenciaController::class,'next'])->middleware('can:sri.secuencias.next');
+    Route::post('/sri/firma/configurar',[FirmaController::class,'configurar'])->middleware('can:sri.firma.configurar');
+    Route::get('/sri/firma/estado',[FirmaController::class,'estado'])->middleware('can:sri.firma.ver');
+    Route::get('/sri/establecimientos',[EstablecimientoController::class,'index'])->middleware('can:sri.establecimientos.ver');
+    Route::post('/sri/establecimientos',[EstablecimientoController::class,'store'])->middleware('can:sri.establecimientos.crear');
+    Route::get('/sri/establecimientos/{id}',[EstablecimientoController::class,'show'])->middleware('can:sri.establecimientos.ver');
+    Route::put('/sri/establecimientos/{id}',[EstablecimientoController::class,'update'])->middleware('can:sri.establecimientos.editar');
+    Route::delete('/sri/establecimientos/{id}',[EstablecimientoController::class,'destroy'])->middleware('can:sri.establecimientos.eliminar');
+    Route::get('/sri/estados/{clave}',[EstadoController::class,'show'])->middleware('can:sri.estados.ver');
+    Route::post('/sri/callback',[CallbackController::class,'receive'])->middleware('can:sri.callback.recibir');
     Route::get('/estado-suscripcion', SubscriptionStatusController::class);
 });
 

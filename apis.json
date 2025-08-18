@@ -2573,56 +2573,592 @@
               ]
             }
           }
+        },
+        {
+          "name": "GET sri/secuencias",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/sri/secuencias",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sri",
+                "secuencias"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST sri/firma/configurar",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/sri/firma/configurar",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sri",
+                "firma",
+                "configurar"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET sri/firma/estado",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/sri/firma/estado",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sri",
+                "firma",
+                "estado"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET sri/establecimientos",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/sri/establecimientos",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sri",
+                "establecimientos"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST sri/establecimientos",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/sri/establecimientos",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sri",
+                "establecimientos"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET sri/establecimientos/{id}",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/sri/establecimientos/{id}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sri",
+                "establecimientos",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT sri/establecimientos/{id}",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{base_url}}/api/v1/sri/establecimientos/{id}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sri",
+                "establecimientos",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "DELETE sri/establecimientos/{id}",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/v1/sri/establecimientos/{id}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sri",
+                "establecimientos",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET sri/estados/{clave}",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/sri/estados/{clave}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sri",
+                "estados",
+                "{clave}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST sri/callback",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/sri/callback",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sri",
+                "callback"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "caja",
+      "item": [
+        {
+          "name": "POST caja/aperturas",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/caja/aperturas",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "caja",
+                "aperturas"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST caja/movimientos",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/caja/movimientos",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "caja",
+                "movimientos"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST caja/deposito",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/caja/deposito",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "caja",
+                "deposito"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST caja/cierre",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/caja/cierre",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "caja",
+                "cierre"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET caja/estado",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/caja/estado",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "caja",
+                "estado"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "pagos-venta",
+      "item": [
+        {
+          "name": "POST pagos-venta",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/pagos-venta",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "pagos-venta"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET pagos-venta",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/pagos-venta",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "pagos-venta"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET pagos-venta/{id}",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/pagos-venta/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "pagos-venta",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST pagos-venta/{id}/anular",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/pagos-venta/1/anular",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "pagos-venta",
+                "1",
+                "anular"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "facturas",
+      "item": [
+        {
+          "name": "GET facturas",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/facturas",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "facturas"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST facturas",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/facturas",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "facturas"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET facturas/{id}",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/facturas/{id}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "facturas",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT facturas/{id}",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{base_url}}/api/v1/facturas/{id}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "facturas",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "DELETE facturas/{id}",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/v1/facturas/{id}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "facturas",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST facturas/{id}/emitir",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/facturas/{id}/emitir",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "facturas",
+                "{id}",
+                "emitir"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST facturas/{id}/reintentar-envio",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/facturas/{id}/reintentar-envio",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "facturas",
+                "{id}",
+                "reintentar-envio"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET facturas/{id}/estado-sri",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/facturas/{id}/estado-sri",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "facturas",
+                "{id}",
+                "estado-sri"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET facturas/{id}/xml",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/facturas/{id}/xml",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "facturas",
+                "{id}",
+                "xml"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET facturas/{id}/pdf",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/facturas/{id}/pdf",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "facturas",
+                "{id}",
+                "pdf"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST facturas/{id}/email",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/facturas/{id}/email",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "facturas",
+                "{id}",
+                "email"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST facturas/{id}/anular",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/facturas/{id}/anular",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "facturas",
+                "{id}",
+                "anular"
+              ]
+            }
+          }
         }
       ]
     }
-  ],
-  {
-    "name": "caja",
-    "item": [
-      {
-        "name": "POST caja/aperturas",
-        "request": {"method":"POST","url":{"raw":"{{base_url}}/api/v1/caja/aperturas","host":["{{base_url}}"],"path":["api","v1","caja","aperturas"]}}
-      },
-      {
-        "name": "POST caja/movimientos",
-        "request": {"method":"POST","url":{"raw":"{{base_url}}/api/v1/caja/movimientos","host":["{{base_url}}"],"path":["api","v1","caja","movimientos"]}}
-      },
-      {
-        "name": "POST caja/deposito",
-        "request": {"method":"POST","url":{"raw":"{{base_url}}/api/v1/caja/deposito","host":["{{base_url}}"],"path":["api","v1","caja","deposito"]}}
-      },
-      {
-        "name": "POST caja/cierre",
-        "request": {"method":"POST","url":{"raw":"{{base_url}}/api/v1/caja/cierre","host":["{{base_url}}"],"path":["api","v1","caja","cierre"]}}
-      },
-      {
-        "name": "GET caja/estado",
-        "request": {"method":"GET","url":{"raw":"{{base_url}}/api/v1/caja/estado","host":["{{base_url}}"],"path":["api","v1","caja","estado"]}}
-      }
-    ]
-  },
-  {
-    "name": "pagos-venta",
-    "item": [
-      {
-        "name": "POST pagos-venta",
-        "request": {"method":"POST","url":{"raw":"{{base_url}}/api/v1/pagos-venta","host":["{{base_url}}"],"path":["api","v1","pagos-venta"]}}
-      },
-      {
-        "name": "GET pagos-venta",
-        "request": {"method":"GET","url":{"raw":"{{base_url}}/api/v1/pagos-venta","host":["{{base_url}}"],"path":["api","v1","pagos-venta"]}}
-      },
-      {
-        "name": "GET pagos-venta/{id}",
-        "request": {"method":"GET","url":{"raw":"{{base_url}}/api/v1/pagos-venta/1","host":["{{base_url}}"],"path":["api","v1","pagos-venta","1"]}}
-      },
-      {
-        "name": "POST pagos-venta/{id}/anular",
-        "request": {"method":"POST","url":{"raw":"{{base_url}}/api/v1/pagos-venta/1/anular","host":["{{base_url}}"],"path":["api","v1","pagos-venta","1","anular"]}}
-      }
-    ]
-  }
   ],
   "variable": [
     {

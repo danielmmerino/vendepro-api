@@ -39,4 +39,18 @@ class SecuenciaService
             return $nuevo;
         });
     }
+
+    public function current(?string $emisorId, string $establecimiento, string $punto, string $tipo): ?int
+    {
+        $row = DB::table('sri_secuencias as s')
+            ->join('sri_puntos_emision as pe', 'pe.id', '=', 's.punto_emision_id')
+            ->join('sri_establecimientos as e', 'e.id', '=', 'pe.establecimiento_id')
+            ->when($emisorId, fn($q) => $q->where('e.emisor_id', $emisorId))
+            ->where('e.codigo', $establecimiento)
+            ->where('pe.codigo', $punto)
+            ->where('s.tipo', $tipo)
+            ->select('s.actual')
+            ->first();
+        return $row? $row->actual : null;
+    }
 }

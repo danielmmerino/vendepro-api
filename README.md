@@ -133,6 +133,24 @@ Puedes importar el archivo `apis.json` en Postman para probar todos los endpoint
 | permisos.crear | ✓ | — | — |
 | permisos.editar | ✓ | — | — |
 | permisos.eliminar | ✓ | — | — |
+| facturas.ver | ✓ | ✓ | ✓ |
+| facturas.crear | ✓ | ✓ | ✓ |
+| facturas.editar | ✓ | ✓ | ✓ |
+| facturas.eliminar | ✓ | ✓ | — |
+| facturas.emitir | ✓ | ✓ | ✓ |
+| facturas.descargar | ✓ | ✓ | ✓ |
+| facturas.enviar_email | ✓ | ✓ | ✓ |
+| facturas.anular | ✓ | ✓ | ✓ |
+| sri.firma.configurar | ✓ | — | — |
+| sri.firma.ver | ✓ | ✓ | — |
+| sri.secuencias.ver | ✓ | ✓ | ✓ |
+| sri.secuencias.next | ✓ | ✓ | ✓ |
+| sri.establecimientos.ver | ✓ | ✓ | — |
+| sri.establecimientos.crear | ✓ | — | — |
+| sri.establecimientos.editar | ✓ | — | — |
+| sri.establecimientos.eliminar | ✓ | — | — |
+| sri.estados.ver | ✓ | ✓ | ✓ |
+| sri.callback.recibir | ✓ | — | — |
 
 ### Unidades de medida
 | Método | Ruta | Descripción |
@@ -315,6 +333,37 @@ POST /v1/pagos-venta
   "caja": {"apertura_id": 10}
 }
 ```
+
+## Facturas
+| Método | Ruta | Descripción | Estado esperado | Permiso |
+| ------ | ---- | ----------- | --------------- | ------- |
+| GET | `/v1/facturas` | Lista facturas | 200 | `facturas.ver` |
+| POST | `/v1/facturas` | Crea BORRADOR | 201 | `facturas.crear` |
+| GET | `/v1/facturas/{id}` | Detalle de factura | 200 | `facturas.ver` |
+| PUT | `/v1/facturas/{id}` | Actualiza borrador | 200 | `facturas.editar` |
+| DELETE | `/v1/facturas/{id}` | Elimina borrador | 204 | `facturas.eliminar` |
+| POST | `/v1/facturas/{id}/emitir` | Emite y envía a SRI | 200 | `facturas.emitir` |
+| POST | `/v1/facturas/{id}/reintentar-envio` | Reintenta envío SRI | 200 | `facturas.emitir` |
+| GET | `/v1/facturas/{id}/estado-sri` | Consulta estado en SRI | 200 | `facturas.ver` |
+| GET | `/v1/facturas/{id}/xml` | Descarga XML | 200 | `facturas.descargar` |
+| GET | `/v1/facturas/{id}/pdf` | Descarga PDF | 200 | `facturas.descargar` |
+| POST | `/v1/facturas/{id}/email` | Envía por email | 200 | `facturas.enviar_email` |
+| POST | `/v1/facturas/{id}/anular` | Anula factura | 200 | `facturas.anular` |
+
+## SRI
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| POST | `/v1/sri/firma/configurar` | Configurar certificado de firma | `sri.firma.configurar` |
+| GET | `/v1/sri/firma/estado` | Estado del certificado | `sri.firma.ver` |
+| GET | `/v1/sri/secuencias` | Consultar secuencias | `sri.secuencias.ver` |
+| POST | `/v1/sri/secuencias/next` | Siguiente secuencia | `sri.secuencias.next` |
+| GET | `/v1/sri/establecimientos` | Listar establecimientos | `sri.establecimientos.ver` |
+| POST | `/v1/sri/establecimientos` | Crear establecimiento | `sri.establecimientos.crear` |
+| GET | `/v1/sri/establecimientos/{id}` | Ver establecimiento | `sri.establecimientos.ver` |
+| PUT | `/v1/sri/establecimientos/{id}` | Actualizar establecimiento | `sri.establecimientos.editar` |
+| DELETE | `/v1/sri/establecimientos/{id}` | Eliminar establecimiento | `sri.establecimientos.eliminar` |
+| GET | `/v1/sri/estados/{clave_acceso}` | Estado por clave de acceso | `sri.estados.ver` |
+| POST | `/v1/sri/callback` | Webhook de notificación | `sri.callback.recibir` |
 
 ### Códigos de error
 - 401 No autorizado
