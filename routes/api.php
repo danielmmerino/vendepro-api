@@ -62,6 +62,9 @@ use App\Http\Controllers\PromocionComboController;
 use App\Http\Controllers\PromocionSimulacionController;
 use App\Http\Controllers\CuponController;
 use App\Http\Controllers\PromocionReporteController;
+use App\Http\Controllers\Reports\DashboardController;
+use App\Http\Controllers\Reports\AnalyticsController;
+use App\Http\Controllers\Reports\ReporteController;
 
 Route::prefix('v1/auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -315,6 +318,24 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
         Route::post('/tesoreria/conciliaciones/{id}/match', [ConciliacionController::class,'match'])->middleware('can:tesoreria.conciliaciones.match');
         Route::post('/tesoreria/conciliaciones/{id}/cerrar', [ConciliacionController::class,'cerrar'])->middleware('can:tesoreria.conciliaciones.cerrar');
         Route::post('/tesoreria/tarjetas/settlements', [TarjetaSettlementController::class,'store'])->middleware('can:tesoreria.tarjetas.ver');
+
+        // Reportes & Analytics
+        Route::get('/dashboard/resumen', [DashboardController::class, 'resumen'])->middleware('can:analytics.dashboard.ver');
+        Route::get('/analytics/kpis', [AnalyticsController::class, 'kpis'])->middleware('can:analytics.dashboard.ver');
+        Route::get('/reportes/ventas-dia', [ReporteController::class, 'ventasDia'])->middleware('can:reportes.ventas.ver');
+        Route::get('/reportes/ventas', [ReporteController::class, 'ventas'])->middleware('can:reportes.ventas.ver');
+        Route::get('/reportes/productos-mas-vendidos', [ReporteController::class, 'topProductos'])->middleware('can:reportes.productos.ver');
+        Route::get('/reportes/categorias', [ReporteController::class, 'categorias'])->middleware('can:reportes.productos.ver');
+        Route::get('/reportes/inventario-bajo', [ReporteController::class, 'inventarioBajo'])->middleware('can:reportes.inventario.ver');
+        Route::get('/reportes/rotacion', [ReporteController::class, 'rotacion'])->middleware('can:reportes.inventario.ver');
+        Route::get('/reportes/caja', [ReporteController::class, 'caja'])->middleware('can:reportes.caja.ver');
+        Route::get('/reportes/metodos-pago', [ReporteController::class, 'metodosPago'])->middleware('can:reportes.caja.ver');
+        Route::get('/reportes/cxc', [ReporteController::class, 'cxc'])->middleware('can:reportes.cxc.ver');
+        Route::get('/reportes/cxp', [ReporteController::class, 'cxp'])->middleware('can:reportes.cxp.ver');
+        Route::get('/reportes/kds/tiempos', [ReporteController::class, 'kdsTiempos'])->middleware('can:reportes.kds.ver');
+        Route::post('/reportes/export', [ReporteController::class, 'export'])->middleware('can:reportes.exportar');
+        Route::get('/reportes/export/{jobId}', [ReporteController::class, 'exportStatus'])->middleware('can:reportes.exportar');
+        Route::post('/analytics/query', [AnalyticsController::class, 'query'])->middleware('can:analytics.query.ejecutar');
     });
 
     Route::get('/sri/secuencias',[SecuenciaController::class,'index'])->middleware('can:sri.secuencias.ver');

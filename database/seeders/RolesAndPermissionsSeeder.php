@@ -86,6 +86,16 @@ class RolesAndPermissionsSeeder extends Seeder
             ['codigo' => 'ventas.facturacion',           'nombre' => 'Emitir facturas'],
             // Reportes
             ['codigo' => 'reportes.ver',                 'nombre' => 'Ver reportes'],
+            ['codigo' => 'analytics.dashboard.ver',      'nombre' => 'Ver dashboard'],
+            ['codigo' => 'reportes.ventas.ver',          'nombre' => 'Ver reportes de ventas'],
+            ['codigo' => 'reportes.productos.ver',       'nombre' => 'Ver reportes de productos'],
+            ['codigo' => 'reportes.inventario.ver',      'nombre' => 'Ver reportes de inventario'],
+            ['codigo' => 'reportes.caja.ver',            'nombre' => 'Ver reportes de caja'],
+            ['codigo' => 'reportes.cxc.ver',             'nombre' => 'Ver reportes de CxC'],
+            ['codigo' => 'reportes.cxp.ver',             'nombre' => 'Ver reportes de CxP'],
+            ['codigo' => 'reportes.kds.ver',             'nombre' => 'Ver reportes KDS'],
+            ['codigo' => 'reportes.exportar',            'nombre' => 'Exportar reportes'],
+            ['codigo' => 'analytics.query.ejecutar',     'nombre' => 'Ejecutar consultas analíticas'],
             // Reservas / Cotizaciones
             ['codigo' => 'reservas.gestionar',           'nombre' => 'Gestionar reservas'],
             ['codigo' => 'cotizaciones.gestionar',       'nombre' => 'Gestionar cotizaciones'],
@@ -192,12 +202,15 @@ class RolesAndPermissionsSeeder extends Seeder
                 'sri.establecimientos.ver','sri.establecimientos.crear','sri.establecimientos.editar','sri.establecimientos.eliminar',
                 'sri.estados.ver','sri.callback.recibir',
                 'promociones.ver','promociones.crear','promociones.editar','promociones.eliminar','promociones.activar','promociones.desactivar','promociones.simular','promociones.aplicar','promociones.reglas.crear',
-                'cupones.ver','cupones.crear','cupones.validar','cupones.anular','cupones.generar_masivo','promociones.reportes.ver'
+                'cupones.ver','cupones.crear','cupones.validar','cupones.anular','cupones.generar_masivo','promociones.reportes.ver',
+                'analytics.dashboard.ver','reportes.ventas.ver','reportes.productos.ver','reportes.inventario.ver',
+                'reportes.caja.ver','reportes.cxc.ver','reportes.cxp.ver','reportes.kds.ver','reportes.exportar','analytics.query.ejecutar'
             ],
             'FINANZAS' => [
                 'cxc.ver','cxc.pagar','cxc.anular_pago','cxc.ajustar','cxc.castigar','cxc.planes','cxc.aging','cxc.estado_cuenta','cxc.dunning.ver','cxc.dunning.crear','cxc.dunning.enviar',
                 'cxp.ver','cxp.pagar','cxp.anular_pago','cxp.lotes_pago','cxp.aging','cxp.estado_cuenta',
-                'tesoreria.bancos.ver','tesoreria.bancos.editar','tesoreria.conciliaciones.ver','tesoreria.conciliaciones.match','tesoreria.conciliaciones.cerrar','tesoreria.tarjetas.ver','tesoreria.tarjetas.conciliar'
+                'tesoreria.bancos.ver','tesoreria.bancos.editar','tesoreria.conciliaciones.ver','tesoreria.conciliaciones.match','tesoreria.conciliaciones.cerrar','tesoreria.tarjetas.ver','tesoreria.tarjetas.conciliar',
+                'analytics.dashboard.ver','reportes.ventas.ver','reportes.productos.ver','reportes.inventario.ver','reportes.caja.ver','reportes.cxc.ver','reportes.cxp.ver','reportes.exportar','analytics.query.ejecutar'
             ],
             'BODEGA'      => [
                 'inventario.stock.ver','inventario.movimientos.ver','inventario.ajustes.crear',
@@ -214,13 +227,16 @@ class RolesAndPermissionsSeeder extends Seeder
                 'facturas.enviar_email','facturas.anular',
                 'sri.secuencias.ver','sri.secuencias.next','sri.estados.ver',
                 'promociones.ver','promociones.simular','promociones.aplicar','cupones.validar',
-                'cxc.ver','cxc.pagar','cxc.anular_pago'
+                'cxc.ver','cxc.pagar','cxc.anular_pago',
+                'analytics.dashboard.ver','reportes.ventas.ver','reportes.productos.ver','reportes.inventario.ver',
+                'reportes.caja.ver','reportes.kds.ver','reportes.exportar','analytics.query.ejecutar'
             ],
             'MARKETING'   => [
                 'promociones.ver','promociones.crear','promociones.editar','promociones.eliminar',
                 'promociones.activar','promociones.desactivar','promociones.reglas.crear',
                 'cupones.ver','cupones.crear','cupones.anular','cupones.generar_masivo',
-                'promociones.reportes.ver'
+                'promociones.reportes.ver',
+                'analytics.dashboard.ver','reportes.ventas.ver','reportes.productos.ver','reportes.exportar','analytics.query.ejecutar'
             ],
             'COCINA'      => ['cocina.ver'],
         ];

@@ -607,3 +607,82 @@ Nota: se mantiene alias `POST /v1/pagos-proveedor` (deprecado).
 | pagos_venta.crear | ✓ | ✓ | ✓ |
 | pagos_venta.ver | ✓ | ✓ | ✓ |
 | pagos_venta.anular | ✓ | ✓ | ✓ |
+
+## Reportes & Analytics
+
+### Dashboard / KPIs
+| Método | Ruta | Descripción | Filtros | Permiso |
+| ------ | ---- | ----------- | ------- | ------- |
+| GET | `/v1/dashboard/resumen` | Resumen diario de KPIs con comparación | `fecha`, `local_id`, `comparar_con` | `analytics.dashboard.ver` |
+| GET | `/v1/analytics/kpis` | Serie temporal de KPIs | `desde`, `hasta`, `local_id`, `granularidad` | `analytics.dashboard.ver` |
+
+### Ventas
+| Método | Ruta | Descripción | Filtros | Permiso |
+| ------ | ---- | ----------- | ------- | ------- |
+| GET | `/v1/reportes/ventas-dia` | Ventas del día por hora/local/canal | `fecha`, `local_id`, `canal` | `reportes.ventas.ver` |
+| GET | `/v1/reportes/ventas` | Agregados de ventas | `desde`, `hasta`, `group_by` | `reportes.ventas.ver` |
+
+### Productos / Categorías
+| Método | Ruta | Descripción | Filtros | Permiso |
+| ------ | ---- | ----------- | ------- | ------- |
+| GET | `/v1/reportes/productos-mas-vendidos` | Top productos | `desde`, `hasta`, `local_id`, `canal`, `categoria_id`, `top`, `ordenar_por` | `reportes.productos.ver` |
+| GET | `/v1/reportes/categorias` | Ventas por categoría | `desde`, `hasta`, `local_id`, `canal` | `reportes.productos.ver` |
+
+### Inventario
+| Método | Ruta | Descripción | Filtros | Permiso |
+| ------ | ---- | ----------- | ------- | ------- |
+| GET | `/v1/reportes/inventario-bajo` | Productos con stock bajo | `bodega_id`, `umbral`, `ordenar_por` | `reportes.inventario.ver` |
+| GET | `/v1/reportes/rotacion` | Rotación de inventario | `desde`, `hasta`, `bodega_id`, `producto_id` | `reportes.inventario.ver` |
+
+### Caja / Medios de pago
+| Método | Ruta | Descripción | Filtros | Permiso |
+| ------ | ---- | ----------- | ------- | ------- |
+| GET | `/v1/reportes/caja` | Totales de caja por medio de pago | `desde`, `hasta`, `local_id`, `caja_id`, `usuario_id` | `reportes.caja.ver` |
+| GET | `/v1/reportes/metodos-pago` | Breakdown por método de pago | `desde`, `hasta`, `local_id` | `reportes.caja.ver` |
+
+### CxC / CxP
+| Método | Ruta | Descripción | Filtros | Permiso |
+| ------ | ---- | ----------- | ------- | ------- |
+| GET | `/v1/reportes/cxc` | Resumen cuentas por cobrar | `hasta`, `local_id`, `cliente_id` | `reportes.cxc.ver` |
+| GET | `/v1/reportes/cxp` | Resumen cuentas por pagar | `hasta`, `local_id`, `proveedor_id` | `reportes.cxp.ver` |
+
+### KDS
+| Método | Ruta | Descripción | Filtros | Permiso |
+| ------ | ---- | ----------- | ------- | ------- |
+| GET | `/v1/reportes/kds/tiempos` | Tiempos operativos | `desde`, `hasta`, `local_id`, `estacion` | `reportes.kds.ver` |
+
+### Exportaciones
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| POST | `/v1/reportes/export` | Solicitar exportación de reportes | `reportes.exportar` |
+| GET | `/v1/reportes/export/{job_id}` | Estado de exportación | `reportes.exportar` |
+
+### Analytics Query
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| POST | `/v1/analytics/query` | Consulta analítica flexible | `analytics.query.ejecutar` |
+
+### Glosario de KPIs
+- **ventas_brutas**: Σ (precio_unitario * cantidad) antes de descuentos.
+- **descuentos**: Σ de promociones/cupones aplicados.
+- **ventas_netas**: ventas_brutas - descuentos.
+- **impuestos**: IVA sobre base neta.
+- **propina**: importe de propinas.
+- **ventas_totales**: ventas_netas + impuestos + propina.
+- **tickets**: número de comprobantes.
+- **ticket_promedio**: ventas_totales / número_tickets.
+- **margen**: ventas_netas - costo.
+
+### Matriz RBAC Reportes & Analytics
+| Permiso | admin | finanzas | operaciones | marketing |
+| ------- | :---: | :------: | :---------: | :-------: |
+| analytics.dashboard.ver | ✓ | ✓ | ✓ | ✓ |
+| reportes.ventas.ver | ✓ | ✓ | ✓ | ✓ |
+| reportes.productos.ver | ✓ | ✓ | ✓ | ✓ |
+| reportes.inventario.ver | ✓ | ✓ | ✓ | — |
+| reportes.caja.ver | ✓ | ✓ | ✓ | — |
+| reportes.cxc.ver | ✓ | ✓ | — | — |
+| reportes.cxp.ver | ✓ | ✓ | — | — |
+| reportes.kds.ver | ✓ | — | ✓ | — |
+| reportes.exportar | ✓ | ✓ | ✓ | ✓ |
+| analytics.query.ejecutar | ✓ | ✓ | ✓ | ✓ |

@@ -3333,7 +3333,7 @@
       "name": "promociones",
       "item": [
         {
-          "name": "Crear promoción % por categoría",
+          "name": "Crear promoci\u00f3n % por categor\u00eda",
           "request": {
             "method": "POST",
             "header": [
@@ -3415,7 +3415,7 @@
           }
         },
         {
-          "name": "Simular carrito con cupón",
+          "name": "Simular carrito con cup\u00f3n",
           "request": {
             "method": "POST",
             "header": [
@@ -3442,7 +3442,7 @@
           }
         },
         {
-          "name": "Aplicar simulación a pedido",
+          "name": "Aplicar simulaci\u00f3n a pedido",
           "request": {
             "method": "POST",
             "header": [
@@ -3496,7 +3496,7 @@
           }
         },
         {
-          "name": "Validar cupón",
+          "name": "Validar cup\u00f3n",
           "request": {
             "method": "POST",
             "header": [
@@ -3744,20 +3744,34 @@
           "request": {
             "method": "PUT",
             "header": [
-              {"key": "Authorization", "value": "Bearer {{token}}"},
-              {"key": "Content-Type", "value": "application/json"}
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"nombre_comercial\": \"Mi Restaurante\"\n}",
               "options": {
-                "raw": {"language": "json"}
+                "raw": {
+                  "language": "json"
+                }
               }
             },
             "url": {
               "raw": "{{base_url}}/v1/config/empresa",
-              "host": ["{{base_url}}"],
-              "path": ["v1","config","empresa"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "config",
+                "empresa"
+              ]
             }
           }
         },
@@ -3766,12 +3780,22 @@
           "request": {
             "method": "GET",
             "header": [
-              {"key": "Authorization", "value": "Bearer {{token}}"}
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/v1/locales/1/config",
-              "host": ["{{base_url}}"],
-              "path": ["v1","locales","1","config"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "locales",
+                "1",
+                "config"
+              ]
             }
           }
         },
@@ -3780,20 +3804,309 @@
           "request": {
             "method": "PUT",
             "header": [
-              {"key": "Authorization", "value": "Bearer {{token}}"},
-              {"key": "Content-Type", "value": "application/json"}
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"propina_por_defecto\": 10\n}",
               "options": {
-                "raw": {"language": "json"}
+                "raw": {
+                  "language": "json"
+                }
               }
             },
             "url": {
               "raw": "{{base_url}}/v1/locales/1/config",
-              "host": ["{{base_url}}"],
-              "path": ["v1","locales","1","config"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "locales",
+                "1",
+                "config"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "reportes",
+      "item": [
+        {
+          "name": "GET dashboard/resumen",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/dashboard/resumen",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "dashboard",
+                "resumen"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET analytics/kpis",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/analytics/kpis?desde=2025-08-01&hasta=2025-08-07&granularidad=dia",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "analytics",
+                "kpis"
+              ],
+              "query": [
+                {
+                  "key": "desde",
+                  "value": "2025-08-01"
+                },
+                {
+                  "key": "hasta",
+                  "value": "2025-08-07"
+                },
+                {
+                  "key": "granularidad",
+                  "value": "dia"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET reportes/ventas-dia",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/reportes/ventas-dia?fecha=2025-08-18",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "reportes",
+                "ventas-dia"
+              ],
+              "query": [
+                {
+                  "key": "fecha",
+                  "value": "2025-08-18"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET reportes/productos-mas-vendidos",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/reportes/productos-mas-vendidos?desde=2025-08-01&hasta=2025-08-18&top=10",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "reportes",
+                "productos-mas-vendidos"
+              ],
+              "query": [
+                {
+                  "key": "desde",
+                  "value": "2025-08-01"
+                },
+                {
+                  "key": "hasta",
+                  "value": "2025-08-18"
+                },
+                {
+                  "key": "top",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET reportes/inventario-bajo",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/reportes/inventario-bajo?umbral=5",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "reportes",
+                "inventario-bajo"
+              ],
+              "query": [
+                {
+                  "key": "umbral",
+                  "value": "5"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET reportes/caja",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/reportes/caja?desde=2025-08-01&hasta=2025-08-18",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "reportes",
+                "caja"
+              ],
+              "query": [
+                {
+                  "key": "desde",
+                  "value": "2025-08-01"
+                },
+                {
+                  "key": "hasta",
+                  "value": "2025-08-18"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET reportes/cxc",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/reportes/cxc?hasta=2025-08-18",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "reportes",
+                "cxc"
+              ],
+              "query": [
+                {
+                  "key": "hasta",
+                  "value": "2025-08-18"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET reportes/cxp",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/reportes/cxp?hasta=2025-08-18",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "reportes",
+                "cxp"
+              ],
+              "query": [
+                {
+                  "key": "hasta",
+                  "value": "2025-08-18"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST analytics/query",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/analytics/query",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "analytics",
+                "query"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dimensiones\": [\"fecha\",\"local\",\"categoria\"],\n  \"metricas\": [\"ventas_totales\",\"tickets\",\"margen\"],\n  \"filtros\": {\"desde\":\"2025-08-01\",\"hasta\":\"2025-08-18\"}\n}"
+            }
+          }
+        },
+        {
+          "name": "POST reportes/export",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/reportes/export",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "reportes",
+                "export"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reporte\": \"ventas\",\n  \"formato\": \"csv\",\n  \"filtros\": {\"desde\":\"2025-08-01\",\"hasta\":\"2025-08-18\"}\n}"
+            }
+          }
+        },
+        {
+          "name": "GET reportes/export/{job_id}",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/reportes/export/EXP-20250818-001",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "reportes",
+                "export",
+                "EXP-20250818-001"
+              ]
             }
           }
         }
