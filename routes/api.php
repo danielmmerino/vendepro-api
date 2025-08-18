@@ -65,6 +65,14 @@ use App\Http\Controllers\PromocionReporteController;
 use App\Http\Controllers\Reports\DashboardController;
 use App\Http\Controllers\Reports\AnalyticsController;
 use App\Http\Controllers\Reports\ReporteController;
+use App\Http\Controllers\PedidoItemController;
+use App\Http\Controllers\PedidoKdsController;
+use App\Http\Controllers\ComandaController;
+use App\Http\Controllers\KdsEstacionController;
+use App\Http\Controllers\KdsRuteoController;
+use App\Http\Controllers\KdsSlaController;
+use App\Http\Controllers\KdsCargaController;
+use App\Http\Controllers\KdsStreamController;
 
 Route::prefix('v1/auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -280,6 +288,36 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
 
         Route::get('/inventario/costos', [CostoController::class, 'show'])->middleware('can:inventario.costos.ver');
         Route::post('/inventario/recalcular-costos', [CostoController::class, 'recalcular'])->middleware('can:inventario.costos.recalcular');
+
+        // Pedidos/KDS Avanzado
+        Route::post('/pedidos/{pedido}/items', [PedidoItemController::class, 'store'])->middleware('can:pedidos.items.crear');
+        Route::put('/pedidos/{pedido}/items/{item}', [PedidoItemController::class, 'update'])->middleware('can:pedidos.items.editar');
+        Route::delete('/pedidos/{pedido}/items/{item}', [PedidoItemController::class, 'destroy'])->middleware('can:pedidos.items.eliminar');
+        Route::post('/pedidos/{pedido}/items/{item}/modificadores', [PedidoItemController::class, 'addModifiers'])->middleware('can:pedidos.items.editar');
+        Route::delete('/pedidos/{pedido}/items/{item}/modificadores/{mod}', [PedidoItemController::class, 'removeModifier'])->middleware('can:pedidos.items.eliminar');
+        Route::post('/pedidos/{pedido}/mover-items', [PedidoItemController::class, 'move'])->middleware('can:pedidos.items.editar');
+        Route::post('/pedidos/{pedido}/prioridad', [PedidoItemController::class, 'priority'])->middleware('can:pedidos.prioridad');
+        Route::post('/pedidos/{pedido}/hold', [PedidoItemController::class, 'hold'])->middleware('can:pedidos.hold');
+        Route::post('/pedidos/{pedido}/fire', [PedidoItemController::class, 'fire'])->middleware('can:pedidos.fire');
+        Route::post('/pedidos/{pedido}/enviar-cocina', [PedidoKdsController::class, 'send'])->middleware(['can:pedidos.enviar_cocina','idempotency']);
+        Route::get('/comandas', [ComandaController::class, 'index'])->middleware('can:kds.comandas.ver');
+        Route::get('/comandas/{comanda}', [ComandaController::class, 'show'])->middleware('can:kds.comandas.ver');
+        Route::post('/comandas/{comanda}/start', [ComandaController::class, 'start'])->middleware('can:kds.start');
+        Route::post('/comandas/{comanda}/ready', [ComandaController::class, 'ready'])->middleware('can:kds.ready');
+        Route::post('/comandas/{comanda}/bump', [ComandaController::class, 'bump'])->middleware('can:kds.bump');
+        Route::post('/comandas/{comanda}/recall', [ComandaController::class, 'recall'])->middleware('can:kds.recall');
+        Route::post('/comandas/{comanda}/reassign', [ComandaController::class, 'reassign'])->middleware('can:kds.reassign');
+        Route::post('/comandas/{comanda}/nota', [ComandaController::class, 'note'])->middleware('can:kds.nota');
+        Route::get('/kds/stream', [KdsStreamController::class, 'stream'])->middleware('can:kds.stream.ver');
+        Route::get('/kds/estaciones', [KdsEstacionController::class, 'index'])->middleware('can:kds.estaciones.ver');
+        Route::post('/kds/estaciones', [KdsEstacionController::class, 'store'])->middleware('can:kds.estaciones.crear');
+        Route::get('/kds/estaciones/{kdsEstacion}', [KdsEstacionController::class, 'show'])->middleware('can:kds.estaciones.ver');
+        Route::put('/kds/estaciones/{kdsEstacion}', [KdsEstacionController::class, 'update'])->middleware('can:kds.estaciones.editar');
+        Route::delete('/kds/estaciones/{kdsEstacion}', [KdsEstacionController::class, 'destroy'])->middleware('can:kds.estaciones.eliminar');
+        Route::get('/kds/ruteo/test', [KdsRuteoController::class, 'test'])->middleware('can:kds.estaciones.ver');
+        Route::get('/kds/sla', [KdsSlaController::class, 'show'])->middleware('can:kds.sla.ver');
+        Route::put('/kds/sla', [KdsSlaController::class, 'update'])->middleware('can:kds.sla.editar');
+        Route::get('/kds/carga', [KdsCargaController::class, 'show'])->middleware('can:kds.comandas.ver');
 
         // Facturas electrónicas
         Route::get('/facturas', [FacturaElectronicaController::class,'index'])->middleware('can:facturas.ver');

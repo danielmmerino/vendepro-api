@@ -156,7 +156,7 @@
   {
     "method": "POST",
     "path": "/v1/caja/deposito",
-    "name": "Registrar depósito",
+    "name": "Registrar dep\u00f3sito",
     "module": "caja",
     "permission": "caja.depositos.crear"
   },
@@ -247,7 +247,7 @@
   {
     "method": "POST",
     "path": "/v1/facturas/{id}/reintentar-envio",
-    "name": "Reintentar envío factura",
+    "name": "Reintentar env\u00edo factura",
     "module": "facturas",
     "permission": "facturas.emitir"
   },
@@ -415,7 +415,7 @@
   {
     "method": "POST",
     "path": "/v1/inventario/produccion",
-    "name": "Orden de producción",
+    "name": "Orden de producci\u00f3n",
     "module": "inventario",
     "permission": "inventario.produccion.crear"
   },
@@ -436,56 +436,56 @@
   {
     "method": "POST",
     "path": "/v1/promociones",
-    "name": "Crear promoción",
+    "name": "Crear promoci\u00f3n",
     "module": "promociones",
     "permission": "promociones.crear"
   },
   {
     "method": "GET",
     "path": "/v1/promociones/{id}",
-    "name": "Ver promoción",
+    "name": "Ver promoci\u00f3n",
     "module": "promociones",
     "permission": "promociones.ver"
   },
   {
     "method": "PUT",
     "path": "/v1/promociones/{id}",
-    "name": "Actualizar promoción",
+    "name": "Actualizar promoci\u00f3n",
     "module": "promociones",
     "permission": "promociones.editar"
   },
   {
     "method": "DELETE",
     "path": "/v1/promociones/{id}",
-    "name": "Eliminar promoción",
+    "name": "Eliminar promoci\u00f3n",
     "module": "promociones",
     "permission": "promociones.eliminar"
   },
   {
     "method": "POST",
     "path": "/v1/promociones/{id}/activar",
-    "name": "Activar promoción",
+    "name": "Activar promoci\u00f3n",
     "module": "promociones",
     "permission": "promociones.activar"
   },
   {
     "method": "POST",
     "path": "/v1/promociones/{id}/desactivar",
-    "name": "Desactivar promoción",
+    "name": "Desactivar promoci\u00f3n",
     "module": "promociones",
     "permission": "promociones.desactivar"
   },
   {
     "method": "POST",
     "path": "/v1/promociones/{id}/duplicar",
-    "name": "Duplicar promoción",
+    "name": "Duplicar promoci\u00f3n",
     "module": "promociones",
     "permission": "promociones.crear"
   },
   {
     "method": "POST",
     "path": "/v1/promociones/{id}/reglas",
-    "name": "Agregar regla a promoción",
+    "name": "Agregar regla a promoci\u00f3n",
     "module": "promociones",
     "permission": "promociones.reglas.crear"
   },
@@ -520,7 +520,7 @@
   {
     "method": "POST",
     "path": "/v1/cupones",
-    "name": "Crear cupón",
+    "name": "Crear cup\u00f3n",
     "module": "promociones",
     "permission": "cupones.crear"
   },
@@ -534,14 +534,14 @@
   {
     "method": "POST",
     "path": "/v1/cupones/validar",
-    "name": "Validar cupón",
+    "name": "Validar cup\u00f3n",
     "module": "promociones",
     "permission": "cupones.validar"
   },
   {
     "method": "POST",
     "path": "/v1/cupones/{id}/anular",
-    "name": "Anular cupón",
+    "name": "Anular cup\u00f3n",
     "module": "promociones",
     "permission": "cupones.anular"
   },
@@ -646,7 +646,7 @@
   {
     "method": "POST",
     "path": "/v1/tesoreria/conciliaciones/{id}/cerrar",
-    "name": "Cerrar conciliación",
+    "name": "Cerrar conciliaci\u00f3n",
     "module": "tesoreria",
     "permission": "tesoreria.conciliaciones.cerrar"
   },
@@ -744,8 +744,78 @@
   {
     "method": "POST",
     "path": "/v1/analytics/query",
-    "name": "Consulta analítica",
+    "name": "Consulta anal\u00edtica",
     "module": "analytics",
     "permission": "analytics.query.ejecutar"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/pedidos/{id}/items",
+    "name": "Agregar \u00edtems a pedido",
+    "module": "pedidos",
+    "permission": "pedidos.items.crear"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/pedidos/{id}/enviar-cocina",
+    "name": "Enviar a cocina",
+    "module": "kds",
+    "permission": "pedidos.enviar_cocina"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/comandas",
+    "name": "Listar comandas",
+    "module": "kds",
+    "permission": "kds.comandas.ver"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/comandas/{id}/start",
+    "name": "Start comanda",
+    "module": "kds",
+    "permission": "kds.start"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/comandas/{id}/ready",
+    "name": "Ready comanda",
+    "module": "kds",
+    "permission": "kds.ready"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/comandas/{id}/bump",
+    "name": "Bump/Servir comanda",
+    "module": "kds",
+    "permission": "kds.bump"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/comandas/{id}/recall",
+    "name": "Recall comanda",
+    "module": "kds",
+    "permission": "kds.recall"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/comandas/{id}/reassign",
+    "name": "Reasignar comanda",
+    "module": "kds",
+    "permission": "kds.reassign"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/kds/estaciones",
+    "name": "Listar estaciones",
+    "module": "kds",
+    "permission": "kds.estaciones.ver"
+  },
+  {
+    "method": "PUT",
+    "path": "/v1/kds/sla",
+    "name": "Configurar SLA",
+    "module": "kds",
+    "permission": "kds.sla.editar"
   }
 ]
