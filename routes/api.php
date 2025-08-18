@@ -22,6 +22,9 @@ use App\Http\Controllers\ProductoImportController;
 use App\Http\Controllers\CompraController;
 use App\Http\Controllers\CxpController;
 use App\Http\Controllers\PagoProveedorController;
+use App\Http\Controllers\Tesoreria\CuentaBancariaController;
+use App\Http\Controllers\Tesoreria\ConciliacionController;
+use App\Http\Controllers\Tesoreria\TarjetaSettlementController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ReservaController;
@@ -180,9 +183,12 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
         Route::put('/compras/{id}', [CompraController::class, 'update'])->middleware('can:compras.gestionar');
         Route::delete('/compras/{id}', [CompraController::class, 'destroy'])->middleware('can:compras.gestionar');
         Route::post('/compras/{id}/aprobar', [CompraController::class, 'approve'])->middleware('can:compras.gestionar');
-        Route::get('/cxp', [CxpController::class, 'index'])->middleware('can:compras.gestionar');
-        Route::get('/cxp/{id}', [CxpController::class, 'show'])->middleware('can:compras.gestionar');
-        Route::post('/pagos-proveedor', [PagoProveedorController::class, 'store'])->middleware('can:compras.gestionar');
+        Route::get('/cxp', [CxpController::class, 'index'])->middleware('can:cxp.ver');
+        Route::get('/cxp/{id}', [CxpController::class, 'show'])->middleware('can:cxp.ver');
+        Route::get('/cxp/{id}/pagos', [PagoProveedorController::class, 'pagos'])->middleware('can:cxp.ver');
+        Route::post('/pagos-cxp', [PagoProveedorController::class, 'store'])->middleware(['can:cxp.pagar','idempotency']);
+        Route::post('/pagos-proveedor', [PagoProveedorController::class, 'store'])->middleware(['can:cxp.pagar','idempotency']);
+        Route::post('/pagos-cxp/{id}/anular', [PagoProveedorController::class, 'anular'])->middleware('can:cxp.anular_pago');
         Route::get('/bodegas', [\App\Http\Controllers\BodegaController::class, 'index']);
           Route::post('/bodegas', [\App\Http\Controllers\BodegaController::class, 'store']);
           Route::get('/bodegas/{id}', [\App\Http\Controllers\BodegaController::class, 'show']);
@@ -202,10 +208,13 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
         Route::post('/ventas/facturas/{id}/aprobar', [FacturaController::class,'aprobar']);
         Route::post('/ventas/facturas/{id}/anular', [FacturaController::class,'anular']);
 
-        Route::get('/cxc', [CxcVentaController::class,'index']);
-        Route::get('/cxc/{id}', [CxcVentaController::class,'show']);
-        Route::post('/cxc/pagos', [CxcVentaController::class,'storePago'])->middleware('idempotency');
-        Route::get('/cxc/{id}/pagos', [CxcVentaController::class,'pagos']);
+        Route::get('/cxc', [CxcVentaController::class,'index'])->middleware('can:cxc.ver');
+        Route::get('/cxc/saldos', [CxcVentaController::class,'saldos'])->middleware('can:cxc.ver');
+        Route::get('/cxc/{id}', [CxcVentaController::class,'show'])->middleware('can:cxc.ver');
+        Route::get('/cxc/{id}/pagos', [CxcVentaController::class,'pagos'])->middleware('can:cxc.ver');
+        Route::post('/cxc/pagos', [CxcVentaController::class,'storePago'])->middleware(['can:cxc.pagar','idempotency']);
+        Route::post('/pagos-cxc', [CxcVentaController::class,'storePago'])->middleware(['can:cxc.pagar','idempotency']);
+        Route::post('/pagos-cxc/{id}/anular', [CxcVentaController::class,'anularPago'])->middleware('can:cxc.anular_pago');
 
         Route::get('/ventas/notas-credito', [NotaCreditoController::class,'index']);
         Route::post('/ventas/notas-credito', [NotaCreditoController::class,'store'])->middleware('idempotency');
@@ -292,6 +301,14 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
         Route::get('/pagos-venta', [PagoVentaController::class,'index'])->middleware('can:pagos_venta.ver');
         Route::get('/pagos-venta/{id}', [PagoVentaController::class,'show'])->middleware('can:pagos_venta.ver');
         Route::post('/pagos-venta/{id}/anular', [PagoVentaController::class,'anular'])->middleware('can:pagos_venta.anular');
+
+        // Tesorería
+        Route::get('/tesoreria/cuentas-bancarias', [CuentaBancariaController::class,'index'])->middleware('can:tesoreria.bancos.ver');
+        Route::post('/tesoreria/cuentas-bancarias', [CuentaBancariaController::class,'store'])->middleware('can:tesoreria.bancos.editar');
+        Route::post('/tesoreria/conciliaciones/estados', [ConciliacionController::class,'importEstado'])->middleware('can:tesoreria.conciliaciones.ver');
+        Route::post('/tesoreria/conciliaciones/{id}/match', [ConciliacionController::class,'match'])->middleware('can:tesoreria.conciliaciones.match');
+        Route::post('/tesoreria/conciliaciones/{id}/cerrar', [ConciliacionController::class,'cerrar'])->middleware('can:tesoreria.conciliaciones.cerrar');
+        Route::post('/tesoreria/tarjetas/settlements', [TarjetaSettlementController::class,'store'])->middleware('can:tesoreria.tarjetas.ver');
     });
 
     Route::get('/sri/secuencias',[SecuenciaController::class,'index'])->middleware('can:sri.secuencias.ver');

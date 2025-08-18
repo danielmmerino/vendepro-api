@@ -80,4 +80,38 @@ class CxcVentaController extends Controller
         $rows = CxcPago::where('cxc_id',$id)->orderBy('fecha_pago','desc')->get();
         return ['data'=> PagoResource::collection($rows)];
     }
+
+    public function saldos(Request $request)
+    {
+        $query = CxcDocumento::query();
+        if ($request->filled('cliente_id')) {
+            $query->where('cliente_id', $request->query('cliente_id'));
+        }
+        $total = (float) $query->sum('saldo_pendiente');
+        $vencido = (float) (clone $query)->where('fecha_vencimiento', '<', now()->toDateString())->sum('saldo_pendiente');
+        return [
+            'cliente_id' => $request->query('cliente_id'),
+            'saldo_total' => round($total, 2),
+            'vencido' => round($vencido, 2),
+            'no_vencido' => round($total - $vencido, 2),
+        ];
+    }
+
+    public function anularPago($id)
+    {
+        $pago = CxcPago::find($id);
+        if (!$pago) {
+            return response()->json(['error' => 'NotFound', 'message' => 'Pago no encontrado'], 404);
+        }
+        return DB::transaction(function () use ($pago) {
+            $doc = CxcDocumento::lockForUpdate()->find($pago->cxc_id);
+            if ($doc) {
+                $doc->saldo_pendiente = round($doc->saldo_pendiente + $pago->monto, 2);
+                $doc->estado = 'pendiente';
+                $doc->save();
+            }
+            $pago->delete();
+            return ['message' => 'Pago anulado'];
+        });
+    }
 }

@@ -3550,6 +3550,168 @@
           }
         }
       ]
+    },
+    {
+      "name": "cxc",
+      "item": [
+        {
+          "name": "Listar documentos CxC",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/v1/cxc",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "cxc"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Registrar pago CxC",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "demo"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/pagos-cxc",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "pagos-cxc"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "cxp",
+      "item": [
+        {
+          "name": "Listar documentos CxP",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/v1/cxp",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "cxp"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Registrar pago CxP",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "demo"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/pagos-cxp",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "pagos-cxp"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "conciliaciones",
+      "item": [
+        {
+          "name": "Importar estado de cuenta",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/tesoreria/conciliaciones/estados",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "tesoreria",
+                "conciliaciones",
+                "estados"
+              ]
+            }
+          }
+        }
+      ]
     }
   ],
   "variable": [

@@ -13,6 +13,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $roles = [
             ['codigo' => 'SUPER_ADMIN',   'nombre' => 'Super Administrador'],
             ['codigo' => 'ADMIN_LOCAL',   'nombre' => 'Administrador local'],
+            ['codigo' => 'FINANZAS',      'nombre' => 'Finanzas'],
             ['codigo' => 'MESERO',        'nombre' => 'Mesero'],
             ['codigo' => 'CAJERO',        'nombre' => 'Cajero'],
             ['codigo' => 'BODEGA',        'nombre' => 'Bodega'],
@@ -129,6 +130,33 @@ class RolesAndPermissionsSeeder extends Seeder
             ['codigo' => 'cupones.anular',              'nombre' => 'Anular cupones'],
             ['codigo' => 'cupones.generar_masivo',      'nombre' => 'Generar cupones masivos'],
             ['codigo' => 'promociones.reportes.ver',    'nombre' => 'Ver reportes de promociones'],
+            // CxC
+            ['codigo' => 'cxc.ver',                    'nombre' => 'Ver CxC'],
+            ['codigo' => 'cxc.pagar',                  'nombre' => 'Registrar pagos CxC'],
+            ['codigo' => 'cxc.anular_pago',            'nombre' => 'Anular pagos CxC'],
+            ['codigo' => 'cxc.ajustar',                'nombre' => 'Ajustar CxC'],
+            ['codigo' => 'cxc.castigar',               'nombre' => 'Castigar CxC'],
+            ['codigo' => 'cxc.planes',                 'nombre' => 'Gestionar planes CxC'],
+            ['codigo' => 'cxc.aging',                  'nombre' => 'Reporte aging CxC'],
+            ['codigo' => 'cxc.estado_cuenta',          'nombre' => 'Estado de cuenta CxC'],
+            ['codigo' => 'cxc.dunning.ver',            'nombre' => 'Ver reglas dunning'],
+            ['codigo' => 'cxc.dunning.crear',          'nombre' => 'Configurar dunning'],
+            ['codigo' => 'cxc.dunning.enviar',         'nombre' => 'Enviar dunning'],
+            // CxP
+            ['codigo' => 'cxp.ver',                    'nombre' => 'Ver CxP'],
+            ['codigo' => 'cxp.pagar',                  'nombre' => 'Registrar pagos CxP'],
+            ['codigo' => 'cxp.anular_pago',            'nombre' => 'Anular pagos CxP'],
+            ['codigo' => 'cxp.lotes_pago',             'nombre' => 'Gestionar lotes de pago'],
+            ['codigo' => 'cxp.aging',                  'nombre' => 'Reporte aging CxP'],
+            ['codigo' => 'cxp.estado_cuenta',          'nombre' => 'Estado de cuenta CxP'],
+            // Tesorería
+            ['codigo' => 'tesoreria.bancos.ver',       'nombre' => 'Ver cuentas bancarias'],
+            ['codigo' => 'tesoreria.bancos.editar',    'nombre' => 'Editar cuentas bancarias'],
+            ['codigo' => 'tesoreria.conciliaciones.ver',   'nombre' => 'Ver conciliaciones'],
+            ['codigo' => 'tesoreria.conciliaciones.match', 'nombre' => 'Confirmar conciliaciones'],
+            ['codigo' => 'tesoreria.conciliaciones.cerrar','nombre' => 'Cerrar conciliaciones'],
+            ['codigo' => 'tesoreria.tarjetas.ver',     'nombre' => 'Ver settlements tarjetas'],
+            ['codigo' => 'tesoreria.tarjetas.conciliar','nombre' => 'Conciliar tarjetas'],
         ];
 
         foreach ($permisos as $p) {
@@ -161,6 +189,11 @@ class RolesAndPermissionsSeeder extends Seeder
                 'promociones.ver','promociones.crear','promociones.editar','promociones.eliminar','promociones.activar','promociones.desactivar','promociones.simular','promociones.aplicar','promociones.reglas.crear',
                 'cupones.ver','cupones.crear','cupones.validar','cupones.anular','cupones.generar_masivo','promociones.reportes.ver'
             ],
+            'FINANZAS' => [
+                'cxc.ver','cxc.pagar','cxc.anular_pago','cxc.ajustar','cxc.castigar','cxc.planes','cxc.aging','cxc.estado_cuenta','cxc.dunning.ver','cxc.dunning.crear','cxc.dunning.enviar',
+                'cxp.ver','cxp.pagar','cxp.anular_pago','cxp.lotes_pago','cxp.aging','cxp.estado_cuenta',
+                'tesoreria.bancos.ver','tesoreria.bancos.editar','tesoreria.conciliaciones.ver','tesoreria.conciliaciones.match','tesoreria.conciliaciones.cerrar','tesoreria.tarjetas.ver','tesoreria.tarjetas.conciliar'
+            ],
             'BODEGA'      => [
                 'inventario.stock.ver','inventario.movimientos.ver','inventario.ajustes.crear',
                 'inventario.transferencias.crear','inventario.transferencias.ver','inventario.transferencias.recibir',
@@ -175,7 +208,8 @@ class RolesAndPermissionsSeeder extends Seeder
                 'facturas.ver','facturas.crear','facturas.editar','facturas.emitir','facturas.descargar',
                 'facturas.enviar_email','facturas.anular',
                 'sri.secuencias.ver','sri.secuencias.next','sri.estados.ver',
-                'promociones.ver','promociones.simular','promociones.aplicar','cupones.validar'
+                'promociones.ver','promociones.simular','promociones.aplicar','cupones.validar',
+                'cxc.ver','cxc.pagar','cxc.anular_pago'
             ],
             'MARKETING'   => [
                 'promociones.ver','promociones.crear','promociones.editar','promociones.eliminar',
