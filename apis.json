@@ -3712,6 +3712,92 @@
           }
         }
       ]
+    },
+    {
+      "name": "config",
+      "item": [
+        {
+          "name": "GET config empresa",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/v1/config/empresa",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "config",
+                "empresa"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT config empresa",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre_comercial\": \"Mi Restaurante\"\n}",
+              "options": {
+                "raw": {"language": "json"}
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/config/empresa",
+              "host": ["{{base_url}}"],
+              "path": ["v1","config","empresa"]
+            }
+          }
+        },
+        {
+          "name": "GET config local",
+          "request": {
+            "method": "GET",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"}
+            ],
+            "url": {
+              "raw": "{{base_url}}/v1/locales/1/config",
+              "host": ["{{base_url}}"],
+              "path": ["v1","locales","1","config"]
+            }
+          }
+        },
+        {
+          "name": "PUT config local",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"propina_por_defecto\": 10\n}",
+              "options": {
+                "raw": {"language": "json"}
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/locales/1/config",
+              "host": ["{{base_url}}"],
+              "path": ["v1","locales","1","config"]
+            }
+          }
+        }
+      ]
     }
   ],
   "variable": [

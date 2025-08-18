@@ -25,6 +25,8 @@ use App\Http\Controllers\PagoProveedorController;
 use App\Http\Controllers\Tesoreria\CuentaBancariaController;
 use App\Http\Controllers\Tesoreria\ConciliacionController;
 use App\Http\Controllers\Tesoreria\TarjetaSettlementController;
+use App\Http\Controllers\ConfigEmpresaController;
+use App\Http\Controllers\ConfigLocalController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ReservaController;
@@ -87,6 +89,10 @@ Route::prefix('v1')->group(function () {
 
 Route::prefix('v1')->middleware('auth.jwt')->group(function () {
     Route::middleware('check.subscription')->group(function () {
+        Route::get('/config/empresa', [ConfigEmpresaController::class, 'show'])->middleware('can:config.ver');
+        Route::put('/config/empresa', [ConfigEmpresaController::class, 'update'])->middleware('can:config.editar');
+        Route::get('/locales/{id}/config', [ConfigLocalController::class, 'show'])->middleware('can:locales.config.ver');
+        Route::put('/locales/{id}/config', [ConfigLocalController::class, 'update'])->middleware('can:locales.config.editar');
         Route::get('/empresas', [EmpresaController::class, 'index']);
         Route::post('/empresas', [EmpresaController::class, 'store']);
         Route::get('/empresas/{id}', [EmpresaController::class, 'show']);

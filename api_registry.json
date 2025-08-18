@@ -656,5 +656,33 @@
     "name": "Importar settlements tarjetas",
     "module": "tesoreria",
     "permission": "tesoreria.tarjetas.ver"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/config/empresa",
+    "name": "Ver config empresa",
+    "module": "config",
+    "permission": "config.ver"
+  },
+  {
+    "method": "PUT",
+    "path": "/v1/config/empresa",
+    "name": "Actualizar config empresa",
+    "module": "config",
+    "permission": "config.editar"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/locales/{id}/config",
+    "name": "Ver config local",
+    "module": "locales",
+    "permission": "locales.config.ver"
+  },
+  {
+    "method": "PUT",
+    "path": "/v1/locales/{id}/config",
+    "name": "Actualizar config local",
+    "module": "locales",
+    "permission": "locales.config.editar"
   }
 ]
