@@ -359,6 +359,25 @@
           }
         },
         {
+          "name": "GET clientes/{id}/perfil",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/clientes/{id}/perfil",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "clientes",
+                "{id}",
+                "perfil"
+              ]
+            }
+          }
+        },
+        {
           "name": "PUT clientes/{id}",
           "request": {
             "method": "PUT",

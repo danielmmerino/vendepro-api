@@ -18,6 +18,7 @@ use App\Http\Controllers\ImpuestoController;
 use App\Http\Controllers\MetodoPagoController;
 use App\Http\Controllers\CategoriaProductoController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ClientePerfilController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RecetaController;
@@ -201,6 +202,7 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
         Route::get('/clientes', [ClienteController::class, 'index'])->middleware('can:reportes.ver');
         Route::post('/clientes', [ClienteController::class, 'store'])->middleware('can.any:ventas.facturacion,config.usuarios.gestionar');
         Route::get('/clientes/{id}', [ClienteController::class, 'show'])->middleware('can:reportes.ver');
+        Route::get('/clientes/{id}/perfil', [ClientePerfilController::class, 'show'])->middleware('can:clientes.perfil.ver');
         Route::put('/clientes/{id}', [ClienteController::class, 'update'])->middleware('can.any:ventas.facturacion,config.usuarios.gestionar');
         Route::delete('/clientes/{id}', [ClienteController::class, 'destroy'])->middleware('can.any:ventas.facturacion,config.usuarios.gestionar');
 
