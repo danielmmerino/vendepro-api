@@ -362,5 +362,68 @@
     "name": "Webhook SRI",
     "module": "sri",
     "permission": "sri.callback.recibir"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/stock",
+    "name": "Consultar stock",
+    "module": "inventario",
+    "permission": "inventario.stock.ver"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/inventario/ajustes",
+    "name": "Crear ajuste",
+    "module": "inventario",
+    "permission": "inventario.ajustes.crear"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/inventario/transferencias",
+    "name": "Crear transferencia",
+    "module": "inventario",
+    "permission": "inventario.transferencias.crear"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/inventario/transferencias/{id}/recibir",
+    "name": "Recibir transferencia",
+    "module": "inventario",
+    "permission": "inventario.transferencias.recibir"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/inventario/conteos",
+    "name": "Crear conteo",
+    "module": "inventario",
+    "permission": "inventario.conteos.crear"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/inventario/conteos/{id}/cerrar",
+    "name": "Cerrar conteo",
+    "module": "inventario",
+    "permission": "inventario.conteos.cerrar"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/inventario/lotes",
+    "name": "Listar lotes",
+    "module": "inventario",
+    "permission": "inventario.lotes.ver"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/inventario/produccion",
+    "name": "Orden de producción",
+    "module": "inventario",
+    "permission": "inventario.produccion.crear"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/inventario/recalcular-costos",
+    "name": "Recalcular costos",
+    "module": "inventario",
+    "permission": "inventario.costos.recalcular"
   }
 ]

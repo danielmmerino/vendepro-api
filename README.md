@@ -117,7 +117,7 @@ Puedes importar el archivo `apis.json` en Postman para probar todos los endpoint
 | DELETE | `/v1/permisos/{id}` | Elimina un permiso. | `permisos.eliminar` |
 
 ## Matriz RBAC
-| Permiso | admin | supervisor | cajero |
+| Permiso | admin | supervisor | bodega |
 | ------- | :---: | :--------: | :----: |
 | usuarios.ver | ✓ | ✓ | — |
 | usuarios.crear | ✓ | — | — |
@@ -151,6 +151,23 @@ Puedes importar el archivo `apis.json` en Postman para probar todos los endpoint
 | sri.establecimientos.eliminar | ✓ | — | — |
 | sri.estados.ver | ✓ | ✓ | ✓ |
 | sri.callback.recibir | ✓ | — | — |
+| inventario.stock.ver | ✓ | ✓ | ✓ |
+| inventario.movimientos.ver | ✓ | ✓ | ✓ |
+| inventario.ajustes.crear | ✓ | ✓ | ✓ |
+| inventario.transferencias.crear | ✓ | ✓ | ✓ |
+| inventario.transferencias.ver | ✓ | ✓ | ✓ |
+| inventario.transferencias.recibir | ✓ | ✓ | ✓ |
+| inventario.transferencias.cancelar | ✓ | ✓ | ✓ |
+| inventario.conteos.crear | ✓ | ✓ | ✓ |
+| inventario.conteos.capturas | ✓ | ✓ | ✓ |
+| inventario.conteos.cerrar | ✓ | ✓ | ✓ |
+| inventario.conteos.ver | ✓ | ✓ | ✓ |
+| inventario.lotes.ver | ✓ | ✓ | ✓ |
+| inventario.alertas.ver | ✓ | ✓ | ✓ |
+| inventario.produccion.crear | ✓ | ✓ | ✓ |
+| inventario.mermas.crear | ✓ | ✓ | ✓ |
+| inventario.costos.ver | ✓ | ✓ | ✓ |
+| inventario.costos.recalcular | ✓ | ✓ | ✓ |
 
 ### Unidades de medida
 | Método | Ruta | Descripción |
@@ -350,6 +367,61 @@ POST /v1/pagos-venta
 | POST | `/v1/facturas/{id}/email` | Envía por email | 200 | `facturas.enviar_email` |
 | POST | `/v1/facturas/{id}/anular` | Anula factura | 200 | `facturas.anular` |
 
+## Inventario
+
+### Stock
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/stock` | Consultar stock por bodega y producto. | `inventario.stock.ver` |
+| GET | `/v1/stock/kardex` | Ver kardex del producto. | `inventario.stock.ver` |
+
+### Movimientos
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/inventario/movimientos` | Listar movimientos de inventario. | `inventario.movimientos.ver` |
+| GET | `/v1/inventario/movimientos/{id}` | Detalle de un movimiento. | `inventario.movimientos.ver` |
+
+### Ajustes
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| POST | `/v1/inventario/ajustes` | Crear ajuste de inventario. | `inventario.ajustes.crear` |
+
+### Transferencias
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| POST | `/v1/inventario/transferencias` | Crear transferencia entre bodegas. | `inventario.transferencias.crear` |
+| GET | `/v1/inventario/transferencias` | Listar transferencias. | `inventario.transferencias.ver` |
+| GET | `/v1/inventario/transferencias/{id}` | Detalle de transferencia. | `inventario.transferencias.ver` |
+| POST | `/v1/inventario/transferencias/{id}/recibir` | Recibir transferencia. | `inventario.transferencias.recibir` |
+| POST | `/v1/inventario/transferencias/{id}/cancelar` | Cancelar transferencia. | `inventario.transferencias.cancelar` |
+
+### Conteos
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| POST | `/v1/inventario/conteos` | Crear conteo de inventario. | `inventario.conteos.crear` |
+| POST | `/v1/inventario/conteos/{id}/capturas` | Registrar capturas de conteo. | `inventario.conteos.capturas` |
+| POST | `/v1/inventario/conteos/{id}/cerrar` | Cerrar conteo. | `inventario.conteos.cerrar` |
+| GET | `/v1/inventario/conteos` | Listar conteos. | `inventario.conteos.ver` |
+| GET | `/v1/inventario/conteos/{id}` | Ver conteo. | `inventario.conteos.ver` |
+
+### Lotes
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/inventario/lotes` | Listar lotes y caducidades. | `inventario.lotes.ver` |
+| GET | `/v1/inventario/alertas` | Alertas de inventario. | `inventario.alertas.ver` |
+
+### Producción y Mermas
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| POST | `/v1/inventario/produccion` | Registrar producción. | `inventario.produccion.crear` |
+| POST | `/v1/inventario/mermas` | Registrar merma. | `inventario.mermas.crear` |
+
+### Costos
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/inventario/costos` | Consultar costos de inventario. | `inventario.costos.ver` |
+| POST | `/v1/inventario/recalcular-costos` | Recalcular costos. | `inventario.costos.recalcular` |
+
 ## SRI
 | Método | Ruta | Descripción | Permiso |
 | ------ | ---- | ----------- | ------- |
@@ -372,7 +444,7 @@ POST /v1/pagos-venta
 - 422 Datos inválidos
 
 ### Matriz RBAC
-| Permiso | admin | supervisor | cajero |
+| Permiso | admin | supervisor | bodega |
 | ------- | ----- | ---------- | ------ |
 | caja.aperturas.crear | ✓ | ✓ | ✓ |
 | caja.aperturas.ver | ✓ | ✓ | ✓ |
