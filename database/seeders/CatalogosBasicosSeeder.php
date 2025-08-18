@@ -52,6 +52,23 @@ class CatalogosBasicosSeeder extends Seeder
             );
         }
 
+        // Catálogo de métodos de pago
+        $catalogo = [
+            ['codigo' => 'efectivo', 'nombre' => 'Efectivo'],
+            ['codigo' => 'tarjeta', 'nombre' => 'Tarjeta'],
+            ['codigo' => 'transferencia', 'nombre' => 'Transferencia'],
+            ['codigo' => 'cheque', 'nombre' => 'Cheque'],
+            ['codigo' => 'vale', 'nombre' => 'Vale'],
+            ['codigo' => 'giftcard', 'nombre' => 'Giftcard'],
+            ['codigo' => 'otros', 'nombre' => 'Otros'],
+        ];
+        foreach ($catalogo as $c) {
+            DB::table('catalogo_metodos_pago')->updateOrInsert(
+                ['codigo' => $c['codigo']],
+                ['nombre' => $c['nombre'], 'activo' => 1]
+            );
+        }
+
         // Categorías
         $categorias = [
             ['empresa_id' => $empresaId, 'nombre' => 'General', 'padre_id' => null, 'orden' => 1],

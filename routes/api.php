@@ -31,6 +31,12 @@ use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\CxcVentaController;
 use App\Http\Controllers\NotaCreditoController;
 use App\Http\Controllers\Sri\SecuenciaController;
+use App\Http\Controllers\CajaAperturaController;
+use App\Http\Controllers\CajaMovimientoController;
+use App\Http\Controllers\CajaDepositoController;
+use App\Http\Controllers\CajaCierreController;
+use App\Http\Controllers\CajaEstadoController;
+use App\Http\Controllers\PagoVentaController;
 
 Route::prefix('v1/auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -186,6 +192,22 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
         Route::get('/ventas/notas-credito/{id}', [NotaCreditoController::class,'show']);
         Route::post('/ventas/notas-credito/{id}/aplicar', [NotaCreditoController::class,'aplicar']);
         Route::post('/ventas/notas-credito/{id}/anular', [NotaCreditoController::class,'anular']);
+
+        // Caja
+        Route::post('/caja/aperturas', [CajaAperturaController::class,'store'])->middleware('can:caja.aperturas.crear');
+        Route::get('/caja/aperturas', [CajaAperturaController::class,'index'])->middleware('can:caja.aperturas.ver');
+        Route::get('/caja/aperturas/{id}', [CajaAperturaController::class,'show'])->middleware('can:caja.aperturas.ver');
+        Route::post('/caja/movimientos', [CajaMovimientoController::class,'store'])->middleware('can:caja.movimientos.crear');
+        Route::get('/caja/movimientos', [CajaMovimientoController::class,'index'])->middleware('can:caja.aperturas.ver');
+        Route::post('/caja/deposito', [CajaDepositoController::class,'store'])->middleware('can:caja.depositos.crear');
+        Route::post('/caja/cierre', [CajaCierreController::class,'store'])->middleware('can:caja.cierre.crear');
+        Route::get('/caja/estado', [CajaEstadoController::class,'index'])->middleware('can:caja.aperturas.ver');
+
+        // Pagos de venta
+        Route::post('/pagos-venta', [PagoVentaController::class,'store'])->middleware(['can:pagos_venta.crear','idempotency']);
+        Route::get('/pagos-venta', [PagoVentaController::class,'index'])->middleware('can:pagos_venta.ver');
+        Route::get('/pagos-venta/{id}', [PagoVentaController::class,'show'])->middleware('can:pagos_venta.ver');
+        Route::post('/pagos-venta/{id}/anular', [PagoVentaController::class,'anular'])->middleware('can:pagos_venta.anular');
     });
 
     Route::post('/sri/secuencias/next',[SecuenciaController::class,'next']);
