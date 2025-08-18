@@ -645,16 +645,17 @@
       "name": "estado-suscripcion",
       "item": [
         {
-          "name": "GET ",
+          "name": "GET estado-suscripcion",
           "request": {
             "method": "GET",
             "url": {
-              "raw": "{{base_url}}/api/estado-suscripcion",
+              "raw": "{{base_url}}/api/v1/estado-suscripcion",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
+                "v1",
                 "estado-suscripcion"
               ]
             }
@@ -2118,6 +2119,457 @@
                 "usuarios",
                 "{id}",
                 "roles"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "cuentas",
+      "item": [
+        {
+          "name": "GET cuentas",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/cuentas",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "cuentas"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST cuentas",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/cuentas",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "cuentas"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET cuentas/{id}",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/cuentas/{id}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "cuentas",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT cuentas/{id}",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{base_url}}/api/v1/cuentas/{id}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "cuentas",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "DELETE cuentas/{id}",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/v1/cuentas/{id}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "cuentas",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST cuentas/{id}/items",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/cuentas/{id}/items",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "cuentas",
+                "{id}",
+                "items"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "ventas-facturas",
+      "item": [
+        {
+          "name": "GET ventas/facturas",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/ventas/facturas",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "ventas",
+                "facturas"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST ventas/facturas",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/ventas/facturas",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "ventas",
+                "facturas"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET ventas/facturas/{id}",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/ventas/facturas/{id}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "ventas",
+                "facturas",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT ventas/facturas/{id}",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{base_url}}/api/v1/ventas/facturas/{id}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "ventas",
+                "facturas",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "DELETE ventas/facturas/{id}",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/v1/ventas/facturas/{id}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "ventas",
+                "facturas",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST ventas/facturas/{id}/aprobar",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/ventas/facturas/{id}/aprobar",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "ventas",
+                "facturas",
+                "{id}",
+                "aprobar"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST ventas/facturas/{id}/anular",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/ventas/facturas/{id}/anular",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "ventas",
+                "facturas",
+                "{id}",
+                "anular"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "cxc",
+      "item": [
+        {
+          "name": "GET cxc",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/cxc",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "cxc"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET cxc/{id}",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/cxc/{id}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "cxc",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST cxc/pagos",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/cxc/pagos",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "cxc",
+                "pagos"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET cxc/{id}/pagos",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/cxc/{id}/pagos",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "cxc",
+                "{id}",
+                "pagos"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "ventas-notas-credito",
+      "item": [
+        {
+          "name": "GET ventas/notas-credito",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/ventas/notas-credito",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "ventas",
+                "notas-credito"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST ventas/notas-credito",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/ventas/notas-credito",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "ventas",
+                "notas-credito"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET ventas/notas-credito/{id}",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/ventas/notas-credito/{id}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "ventas",
+                "notas-credito",
+                "{id}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST ventas/notas-credito/{id}/aplicar",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/ventas/notas-credito/{id}/aplicar",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "ventas",
+                "notas-credito",
+                "{id}",
+                "aplicar"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST ventas/notas-credito/{id}/anular",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/ventas/notas-credito/{id}/anular",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "ventas",
+                "notas-credito",
+                "{id}",
+                "anular"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "sri",
+      "item": [
+        {
+          "name": "POST sri/secuencias/next",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/sri/secuencias/next",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sri",
+                "secuencias",
+                "next"
               ]
             }
           }
