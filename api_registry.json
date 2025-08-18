@@ -1,0 +1,19 @@
+[
+  {"method":"GET","path":"/v1/usuarios","name":"Listar usuarios","module":"usuarios","permission":"usuarios.ver"},
+  {"method":"POST","path":"/v1/usuarios","name":"Crear usuario","module":"usuarios","permission":"usuarios.crear"},
+  {"method":"GET","path":"/v1/usuarios/{id}","name":"Ver usuario","module":"usuarios","permission":"usuarios.ver"},
+  {"method":"PUT","path":"/v1/usuarios/{id}","name":"Actualizar usuario","module":"usuarios","permission":"usuarios.editar"},
+  {"method":"DELETE","path":"/v1/usuarios/{id}","name":"Eliminar usuario","module":"usuarios","permission":"usuarios.eliminar"},
+  {"method":"POST","path":"/v1/usuarios/{id}/roles","name":"Asignar roles a usuario","module":"usuarios","permission":"usuarios.asignar_roles"},
+  {"method":"GET","path":"/v1/roles","name":"Listar roles","module":"roles","permission":"roles.ver"},
+  {"method":"POST","path":"/v1/roles","name":"Crear rol","module":"roles","permission":"roles.crear"},
+  {"method":"GET","path":"/v1/roles/{id}","name":"Ver rol","module":"roles","permission":"roles.ver"},
+  {"method":"PUT","path":"/v1/roles/{id}","name":"Actualizar rol","module":"roles","permission":"roles.editar"},
+  {"method":"DELETE","path":"/v1/roles/{id}","name":"Eliminar rol","module":"roles","permission":"roles.eliminar"},
+  {"method":"POST","path":"/v1/roles/{id}/permisos","name":"Asignar permisos a rol","module":"roles","permission":"roles.asignar_permisos"},
+  {"method":"GET","path":"/v1/permisos","name":"Listar permisos","module":"permisos","permission":"permisos.ver"},
+  {"method":"POST","path":"/v1/permisos","name":"Crear permiso","module":"permisos","permission":"permisos.crear"},
+  {"method":"GET","path":"/v1/permisos/{id}","name":"Ver permiso","module":"permisos","permission":"permisos.ver"},
+  {"method":"PUT","path":"/v1/permisos/{id}","name":"Actualizar permiso","module":"permisos","permission":"permisos.editar"},
+  {"method":"DELETE","path":"/v1/permisos/{id}","name":"Eliminar permiso","module":"permisos","permission":"permisos.eliminar"}
+]

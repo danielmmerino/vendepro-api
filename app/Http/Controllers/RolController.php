@@ -141,4 +141,60 @@ WHERE id = :id",
         }
         return response()->json(null, 204);
     }
+
+    public function assignPermissions(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'permisos' => ['required', 'array'],
+            'permisos.*' => ['string'],
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => 'Validation',
+                'fields' => $validator->errors()->toArray(),
+            ], 422);
+        }
+        $data = $validator->validated();
+
+        $role = DB::selectOne("SELECT id FROM roles WHERE id = :id AND deleted_at IS NULL", ['id' => $id]);
+        if (!$role) {
+            return response()->json([
+                'error' => 'NotFound',
+                'message' => 'Recurso no encontrado',
+            ], 404);
+        }
+
+        return DB::transaction(function () use ($id, $data) {
+            if (empty($data['permisos'])) {
+                DB::delete("DELETE FROM rol_permisos WHERE rol_id = :rol_id", ['rol_id' => $id]);
+            } else {
+                $placeholders = implode(',', array_fill(0, count($data['permisos']), '?'));
+                $permisos = DB::select("SELECT id, codigo FROM permisos WHERE codigo IN ($placeholders)", $data['permisos']);
+                if (count($permisos) !== count($data['permisos'])) {
+                    return response()->json([
+                        'error' => 'Validation',
+                        'fields' => ['permisos' => ['algunos permisos no existen']],
+                    ], 422);
+                }
+                DB::delete("DELETE FROM rol_permisos WHERE rol_id = :rol_id", ['rol_id' => $id]);
+                foreach ($permisos as $permiso) {
+                    DB::insert(
+                        "INSERT INTO rol_permisos (rol_id, permiso_id) VALUES (:rol_id, :permiso_id)",
+                        ['rol_id' => $id, 'permiso_id' => $permiso->id]
+                    );
+                }
+            }
+
+            $row = DB::selectOne(
+                "SELECT r.id, r.codigo, r.nombre,
+  (SELECT JSON_ARRAYAGG(p.codigo)
+   FROM rol_permisos rp JOIN permisos p ON p.id = rp.permiso_id
+   WHERE rp.rol_id = r.id) AS permisos
+FROM roles r
+WHERE r.id = :rol_id",
+                ['rol_id' => $id]
+            );
+            return ['data' => (array) $row];
+        });
+    }
 }
