@@ -29,6 +29,16 @@ Puedes importar el archivo `apis.json` en Postman para probar todos los endpoint
 | PUT | `/v1/pedidos/{id}` | Actualiza un pedido existente. |
 | DELETE | `/v1/pedidos/{id}` | Elimina un pedido. |
 
+## Cuentas
+| Método | Ruta | Descripción |
+| ------ | ---- | ----------- |
+| GET | `/v1/cuentas` | Lista todas las cuentas. |
+| POST | `/v1/cuentas` | Crea una nueva cuenta. |
+| GET | `/v1/cuentas/{id}` | Muestra la información de una cuenta. |
+| PUT | `/v1/cuentas/{id}` | Actualiza una cuenta existente. |
+| DELETE | `/v1/cuentas/{id}` | Elimina una cuenta. |
+| POST | `/v1/cuentas/{id}/items` | Agrega un item a la cuenta. |
+
 ## Reservas
 | Método | Ruta | Descripción |
 | ------ | ---- | ----------- |
@@ -207,8 +217,37 @@ Puedes importar el archivo `apis.json` en Postman para probar todos los endpoint
 | PUT | `/v1/mesas/{id}` | Actualiza una mesa. |
 | DELETE | `/v1/mesas/{id}` | Elimina una mesa. |
 
+### Ventas - Facturas
+| Método | Ruta | Descripción |
+| ------ | ---- | ----------- |
+| GET | `/v1/ventas/facturas` | Lista facturas de venta. |
+| POST | `/v1/ventas/facturas` | Crea una factura de venta. |
+| GET | `/v1/ventas/facturas/{id}` | Muestra una factura de venta. |
+| PUT | `/v1/ventas/facturas/{id}` | Actualiza una factura de venta. |
+| DELETE | `/v1/ventas/facturas/{id}` | Elimina una factura de venta. |
+| POST | `/v1/ventas/facturas/{id}/aprobar` | Aprueba una factura. |
+| POST | `/v1/ventas/facturas/{id}/anular` | Anula una factura. |
+
+### Cuentas por cobrar
+| Método | Ruta | Descripción |
+| ------ | ---- | ----------- |
+| GET | `/v1/cxc` | Lista cuentas por cobrar. |
+| GET | `/v1/cxc/{id}` | Muestra una cuenta por cobrar. |
+| POST | `/v1/cxc/pagos` | Registra un pago. |
+| GET | `/v1/cxc/{id}/pagos` | Lista los pagos de una cuenta por cobrar. |
+
+### Notas de crédito
+| Método | Ruta | Descripción |
+| ------ | ---- | ----------- |
+| GET | `/v1/ventas/notas-credito` | Lista notas de crédito. |
+| POST | `/v1/ventas/notas-credito` | Crea una nota de crédito. |
+| GET | `/v1/ventas/notas-credito/{id}` | Muestra una nota de crédito. |
+| POST | `/v1/ventas/notas-credito/{id}/aplicar` | Aplica una nota de crédito. |
+| POST | `/v1/ventas/notas-credito/{id}/anular` | Anula una nota de crédito. |
+
 ## Otros
 | Método | Ruta | Descripción |
 | ------ | ---- | ----------- |
 | GET | `/v1/estado-suscripcion` | Devuelve el estado de la suscripción actual. |
+| POST | `/v1/sri/secuencias/next` | Genera la siguiente secuencia para documentos SRI. |
 
