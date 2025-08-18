@@ -74,6 +74,26 @@ class RolesAndPermissionsSeeder extends Seeder
             ['codigo' => 'pagos_venta.crear',            'nombre' => 'Registrar pagos de venta'],
             ['codigo' => 'pagos_venta.ver',              'nombre' => 'Ver pagos de venta'],
             ['codigo' => 'pagos_venta.anular',           'nombre' => 'Anular pagos de venta'],
+            // Facturas electrónicas
+            ['codigo' => 'facturas.ver',                'nombre' => 'Ver facturas'],
+            ['codigo' => 'facturas.crear',              'nombre' => 'Crear facturas'],
+            ['codigo' => 'facturas.editar',             'nombre' => 'Editar facturas'],
+            ['codigo' => 'facturas.eliminar',           'nombre' => 'Eliminar facturas'],
+            ['codigo' => 'facturas.emitir',             'nombre' => 'Emitir facturas'],
+            ['codigo' => 'facturas.descargar',          'nombre' => 'Descargar facturas'],
+            ['codigo' => 'facturas.enviar_email',       'nombre' => 'Enviar facturas por email'],
+            ['codigo' => 'facturas.anular',             'nombre' => 'Anular facturas'],
+            // SRI
+            ['codigo' => 'sri.firma.configurar',        'nombre' => 'Configurar firma'],
+            ['codigo' => 'sri.firma.ver',               'nombre' => 'Ver estado firma'],
+            ['codigo' => 'sri.secuencias.ver',          'nombre' => 'Ver secuencias'],
+            ['codigo' => 'sri.secuencias.next',         'nombre' => 'Generar secuencia'],
+            ['codigo' => 'sri.establecimientos.ver',    'nombre' => 'Ver establecimientos'],
+            ['codigo' => 'sri.establecimientos.crear',  'nombre' => 'Crear establecimientos'],
+            ['codigo' => 'sri.establecimientos.editar', 'nombre' => 'Editar establecimientos'],
+            ['codigo' => 'sri.establecimientos.eliminar','nombre' => 'Eliminar establecimientos'],
+            ['codigo' => 'sri.estados.ver',             'nombre' => 'Consultar estado SRI'],
+            ['codigo' => 'sri.callback.recibir',        'nombre' => 'Recibir callback SRI'],
         ];
 
         foreach ($permisos as $p) {
@@ -92,12 +112,20 @@ class RolesAndPermissionsSeeder extends Seeder
                 'proveedores.gestionar','pedidos.crear','cocina.ver','caja.cobrar','caja.cierres',
                 'ventas.facturacion','reportes.ver','reservas.gestionar','cotizaciones.gestionar',
                 'caja.aperturas.crear','caja.aperturas.ver','caja.movimientos.crear','caja.depositos.crear',
-                'caja.cierre.crear','pagos_venta.crear','pagos_venta.ver','pagos_venta.anular'
+                'caja.cierre.crear','pagos_venta.crear','pagos_venta.ver','pagos_venta.anular',
+                'facturas.ver','facturas.crear','facturas.editar','facturas.eliminar','facturas.emitir',
+                'facturas.descargar','facturas.enviar_email','facturas.anular',
+                'sri.firma.configurar','sri.firma.ver','sri.secuencias.ver','sri.secuencias.next',
+                'sri.establecimientos.ver','sri.establecimientos.crear','sri.establecimientos.editar','sri.establecimientos.eliminar',
+                'sri.estados.ver','sri.callback.recibir'
             ],
             'MESERO'      => ['pedidos.crear','productos.ver','reservas.gestionar'],
             'CAJERO'      => ['caja.cobrar','caja.cierres','ventas.facturacion','reportes.ver',
                 'caja.aperturas.crear','caja.aperturas.ver','caja.movimientos.crear','caja.depositos.crear',
-                'caja.cierre.crear','pagos_venta.crear','pagos_venta.ver','pagos_venta.anular'
+                'caja.cierre.crear','pagos_venta.crear','pagos_venta.ver','pagos_venta.anular',
+                'facturas.ver','facturas.crear','facturas.editar','facturas.emitir','facturas.descargar',
+                'facturas.enviar_email','facturas.anular',
+                'sri.secuencias.ver','sri.secuencias.next','sri.estados.ver'
             ],
             'COCINA'      => ['cocina.ver'],
         ];
