@@ -684,5 +684,68 @@
     "name": "Actualizar config local",
     "module": "locales",
     "permission": "locales.config.editar"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/dashboard/resumen",
+    "name": "Dashboard resumen",
+    "module": "reportes",
+    "permission": "analytics.dashboard.ver"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/reportes/ventas-dia",
+    "name": "Ventas por hora",
+    "module": "reportes",
+    "permission": "reportes.ventas.ver"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/reportes/productos-mas-vendidos",
+    "name": "Top productos",
+    "module": "reportes",
+    "permission": "reportes.productos.ver"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/reportes/inventario-bajo",
+    "name": "Inventario bajo",
+    "module": "reportes",
+    "permission": "reportes.inventario.ver"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/reportes/caja",
+    "name": "Reporte caja",
+    "module": "reportes",
+    "permission": "reportes.caja.ver"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/reportes/cxc",
+    "name": "Resumen CxC",
+    "module": "reportes",
+    "permission": "reportes.cxc.ver"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/reportes/cxp",
+    "name": "Resumen CxP",
+    "module": "reportes",
+    "permission": "reportes.cxp.ver"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/reportes/export",
+    "name": "Exportar reporte",
+    "module": "reportes",
+    "permission": "reportes.exportar"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/analytics/query",
+    "name": "Consulta analítica",
+    "module": "analytics",
+    "permission": "analytics.query.ejecutar"
   }
 ]
