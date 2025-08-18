@@ -89,4 +89,34 @@ WHERE id = :cxp_id",
             throw $e;
         }
     }
+
+    public function pagos($id)
+    {
+        $rows = DB::select(
+            'SELECT * FROM pagos_proveedor WHERE cxp_id = :id ORDER BY fecha_pago DESC',
+            ['id' => $id]
+        );
+        return ['data' => array_map(fn ($r) => (array) $r, $rows)];
+    }
+
+    public function anular($id)
+    {
+        $pago = DB::selectOne('SELECT * FROM pagos_proveedor WHERE id = :id', ['id' => $id]);
+        if (!$pago) {
+            return response()->json([
+                'error' => 'NotFound',
+                'message' => 'Recurso no encontrado',
+            ], 404);
+        }
+
+        DB::transaction(function () use ($pago) {
+            DB::delete('DELETE FROM pagos_proveedor WHERE id = :id', ['id' => $pago->id]);
+            DB::update(
+                "UPDATE cuentas_por_pagar SET saldo_pendiente = saldo_pendiente + :monto, estado = 'pendiente', updated_at = NOW() WHERE id = :id",
+                ['monto' => $pago->monto, 'id' => $pago->cxp_id]
+            );
+        });
+
+        return ['message' => 'Pago anulado'];
+    }
 }

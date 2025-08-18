@@ -489,6 +489,56 @@ POST /v1/pagos-venta
 | cupones.generar_masivo | ✓ | ✓ | — |
 | promociones.reportes.ver | ✓ | ✓ | — |
 
+## CxC
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/cxc` | Listar documentos por cobrar. | `cxc.ver` |
+| GET | `/v1/cxc/{id}` | Ver detalle de un documento. | `cxc.ver` |
+| GET | `/v1/cxc/saldos` | Consultar saldos de un cliente. | `cxc.ver` |
+| POST | `/v1/pagos-cxc` | Registrar pago de CxC. | `cxc.pagar` |
+| POST | `/v1/pagos-cxc/{id}/anular` | Anular pago de CxC. | `cxc.anular_pago` |
+| GET | `/v1/cxc/{id}/pagos` | Historial de pagos. | `cxc.ver` |
+
+Nota: se mantiene alias `POST /v1/cxc/pagos` (deprecado).
+
+## CxP
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/cxp` | Listar cuentas por pagar. | `cxp.ver` |
+| GET | `/v1/cxp/{id}` | Ver detalle de CxP. | `cxp.ver` |
+| GET | `/v1/cxp/{id}/pagos` | Historial de pagos. | `cxp.ver` |
+| POST | `/v1/pagos-cxp` | Registrar pago de CxP. | `cxp.pagar` |
+| POST | `/v1/pagos-cxp/{id}/anular` | Anular pago de CxP. | `cxp.anular_pago` |
+
+Nota: se mantiene alias `POST /v1/pagos-proveedor` (deprecado).
+
+## Conciliaciones
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/tesoreria/cuentas-bancarias` | Listar cuentas bancarias. | `tesoreria.bancos.ver` |
+| POST | `/v1/tesoreria/cuentas-bancarias` | Crear cuenta bancaria. | `tesoreria.bancos.editar` |
+| POST | `/v1/tesoreria/conciliaciones/estados` | Importar estado de cuenta. | `tesoreria.conciliaciones.ver` |
+| POST | `/v1/tesoreria/conciliaciones/{id}/match` | Confirmar match. | `tesoreria.conciliaciones.match` |
+| POST | `/v1/tesoreria/conciliaciones/{id}/cerrar` | Cerrar conciliación. | `tesoreria.conciliaciones.cerrar` |
+| POST | `/v1/tesoreria/tarjetas/settlements` | Importar settlements de tarjetas. | `tesoreria.tarjetas.ver` |
+
+### Matriz RBAC
+| Permiso | admin | finanzas | cajero |
+| ------- | :---: | :------: | :----: |
+| cxc.ver | ✓ | ✓ | ✓ |
+| cxc.pagar | ✓ | ✓ | ✓ |
+| cxc.anular_pago | ✓ | ✓ | ✓ |
+| cxp.ver | ✓ | ✓ | — |
+| cxp.pagar | ✓ | ✓ | — |
+| cxp.anular_pago | ✓ | ✓ | — |
+| tesoreria.bancos.ver | ✓ | ✓ | — |
+| tesoreria.bancos.editar | ✓ | ✓ | — |
+| tesoreria.conciliaciones.ver | ✓ | ✓ | — |
+| tesoreria.conciliaciones.match | ✓ | ✓ | — |
+| tesoreria.conciliaciones.cerrar | ✓ | ✓ | — |
+| tesoreria.tarjetas.ver | ✓ | ✓ | — |
+| tesoreria.tarjetas.conciliar | ✓ | ✓ | — |
+
 ## SRI
 | Método | Ruta | Descripción | Permiso |
 | ------ | ---- | ----------- | ------- |
