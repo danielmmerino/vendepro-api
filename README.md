@@ -20,6 +20,38 @@ Puedes importar el archivo `apis.json` en Postman para probar todos los endpoint
 | ------ | ---- | ----------- |
 | GET | `/v1/menu` | Devuelve la estructura del menú principal. |
 
+## Configuración
+### Empresa
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/config/empresa` | Obtener parámetros generales de la empresa | `config.ver` |
+| PUT | `/v1/config/empresa` | Actualizar parámetros generales de la empresa | `config.editar` |
+
+Ejemplo:
+
+`PUT /v1/config/empresa`
+```json
+{
+  "nombre_comercial": "Mi Restaurante"
+}
+```
+Respuesta:
+```json
+{
+  "data": {
+    "nombre_comercial": "Mi Restaurante"
+  }
+}
+```
+
+### Locales
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/locales/{id}/config` | Obtener configuración de un local | `locales.config.ver` |
+| PUT | `/v1/locales/{id}/config` | Actualizar configuración de un local | `locales.config.editar` |
+
+Nota: la configuración definida en un local prevalece sobre la configuración de la empresa cuando exista.
+
 ## Pedidos
 | Método | Ruta | Descripción |
 | ------ | ---- | ----------- |
@@ -563,6 +595,10 @@ Nota: se mantiene alias `POST /v1/pagos-proveedor` (deprecado).
 ### Matriz RBAC
 | Permiso | admin | supervisor | bodega |
 | ------- | ----- | ---------- | ------ |
+| config.ver | ✓ | ✓ | — |
+| config.editar | ✓ | ✓ | — |
+| locales.config.ver | ✓ | ✓ | — |
+| locales.config.editar | ✓ | ✓ | — |
 | caja.aperturas.crear | ✓ | ✓ | ✓ |
 | caja.aperturas.ver | ✓ | ✓ | ✓ |
 | caja.movimientos.crear | ✓ | ✓ | ✓ |

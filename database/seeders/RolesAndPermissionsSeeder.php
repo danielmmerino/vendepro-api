@@ -51,6 +51,10 @@ class RolesAndPermissionsSeeder extends Seeder
             ['codigo' => 'config.locales.gestionar',     'nombre' => 'Gestionar locales'],
             ['codigo' => 'config.usuarios.gestionar',    'nombre' => 'Gestionar usuarios'],
             ['codigo' => 'config.roles.permisos',        'nombre' => 'Gestionar roles y permisos'],
+            ['codigo' => 'config.ver',                   'nombre' => 'Ver configuración empresa'],
+            ['codigo' => 'config.editar',                'nombre' => 'Editar configuración empresa'],
+            ['codigo' => 'locales.config.ver',           'nombre' => 'Ver configuración local'],
+            ['codigo' => 'locales.config.editar',        'nombre' => 'Editar configuración local'],
             // Productos / Inventario
             ['codigo' => 'productos.ver',                'nombre' => 'Ver productos'],
             ['codigo' => 'productos.crear_editar',       'nombre' => 'Crear/editar productos'],
@@ -171,7 +175,8 @@ class RolesAndPermissionsSeeder extends Seeder
             'SUPER_ADMIN' => array_column($permisos, 'codigo'),
             'ADMIN_LOCAL' => [
                 'usuarios.ver','usuarios.editar','roles.ver','permisos.ver',
-                'config.usuarios.gestionar','productos.ver','productos.crear_editar','inventario.movimientos',
+                'config.usuarios.gestionar','config.ver','config.editar','locales.config.ver','locales.config.editar',
+                'productos.ver','productos.crear_editar','inventario.movimientos',
                 'inventario.stock.ver','inventario.movimientos.ver','inventario.ajustes.crear',
                 'inventario.transferencias.crear','inventario.transferencias.ver','inventario.transferencias.recibir',
                 'inventario.transferencias.cancelar','inventario.conteos.crear','inventario.conteos.capturas',
