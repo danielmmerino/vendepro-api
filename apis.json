@@ -3158,6 +3158,176 @@
           }
         }
       ]
+    },
+    {
+      "name": "inventario",
+      "item": [
+        {
+          "name": "GET stock",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/stock",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "stock"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST inventario/ajustes",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/inventario/ajustes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "inventario",
+                "ajustes"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST inventario/transferencias",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/inventario/transferencias",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "inventario",
+                "transferencias"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST inventario/transferencias/{id}/recibir",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/inventario/transferencias/:id/recibir",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "inventario",
+                "transferencias",
+                ":id",
+                "recibir"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST inventario/conteos",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/inventario/conteos",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "inventario",
+                "conteos"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST inventario/conteos/{id}/cerrar",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/inventario/conteos/:id/cerrar",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "inventario",
+                "conteos",
+                ":id",
+                "cerrar"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET inventario/lotes",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/inventario/lotes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "inventario",
+                "lotes"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST inventario/produccion",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/inventario/produccion",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "inventario",
+                "produccion"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST inventario/recalcular-costos",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/inventario/recalcular-costos",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "inventario",
+                "recalcular-costos"
+              ]
+            }
+          }
+        }
+      ]
     }
   ],
   "variable": [

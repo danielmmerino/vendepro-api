@@ -42,6 +42,15 @@ use App\Http\Controllers\CajaDepositoController;
 use App\Http\Controllers\CajaCierreController;
 use App\Http\Controllers\CajaEstadoController;
 use App\Http\Controllers\PagoVentaController;
+use App\Http\Controllers\Inventario\StockController;
+use App\Http\Controllers\Inventario\MovimientoController;
+use App\Http\Controllers\Inventario\AjusteController;
+use App\Http\Controllers\Inventario\TransferenciaController;
+use App\Http\Controllers\Inventario\ConteoController;
+use App\Http\Controllers\Inventario\LoteController;
+use App\Http\Controllers\Inventario\ProduccionController;
+use App\Http\Controllers\Inventario\MermaController;
+use App\Http\Controllers\Inventario\CostoController;
 
 Route::prefix('v1/auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -197,6 +206,36 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
         Route::get('/ventas/notas-credito/{id}', [NotaCreditoController::class,'show']);
         Route::post('/ventas/notas-credito/{id}/aplicar', [NotaCreditoController::class,'aplicar']);
         Route::post('/ventas/notas-credito/{id}/anular', [NotaCreditoController::class,'anular']);
+
+        // Inventario
+        Route::get('/stock', [StockController::class, 'index'])->middleware('can:inventario.stock.ver');
+        Route::get('/stock/kardex', [StockController::class, 'kardex'])->middleware('can:inventario.stock.ver');
+
+        Route::get('/inventario/movimientos', [MovimientoController::class, 'index'])->middleware('can:inventario.movimientos.ver');
+        Route::get('/inventario/movimientos/{id}', [MovimientoController::class, 'show'])->middleware('can:inventario.movimientos.ver');
+
+        Route::post('/inventario/ajustes', [AjusteController::class, 'store'])->middleware('can:inventario.ajustes.crear');
+
+        Route::post('/inventario/transferencias', [TransferenciaController::class, 'store'])->middleware('can:inventario.transferencias.crear');
+        Route::get('/inventario/transferencias', [TransferenciaController::class, 'index'])->middleware('can:inventario.transferencias.ver');
+        Route::get('/inventario/transferencias/{id}', [TransferenciaController::class, 'show'])->middleware('can:inventario.transferencias.ver');
+        Route::post('/inventario/transferencias/{id}/recibir', [TransferenciaController::class, 'recibir'])->middleware('can:inventario.transferencias.recibir');
+        Route::post('/inventario/transferencias/{id}/cancelar', [TransferenciaController::class, 'cancelar'])->middleware('can:inventario.transferencias.cancelar');
+
+        Route::post('/inventario/conteos', [ConteoController::class, 'store'])->middleware('can:inventario.conteos.crear');
+        Route::post('/inventario/conteos/{id}/capturas', [ConteoController::class, 'capturas'])->middleware('can:inventario.conteos.capturas');
+        Route::post('/inventario/conteos/{id}/cerrar', [ConteoController::class, 'cerrar'])->middleware('can:inventario.conteos.cerrar');
+        Route::get('/inventario/conteos', [ConteoController::class, 'index'])->middleware('can:inventario.conteos.ver');
+        Route::get('/inventario/conteos/{id}', [ConteoController::class, 'show'])->middleware('can:inventario.conteos.ver');
+
+        Route::get('/inventario/lotes', [LoteController::class, 'index'])->middleware('can:inventario.lotes.ver');
+        Route::get('/inventario/alertas', [LoteController::class, 'alertas'])->middleware('can:inventario.alertas.ver');
+
+        Route::post('/inventario/produccion', [ProduccionController::class, 'store'])->middleware('can:inventario.produccion.crear');
+        Route::post('/inventario/mermas', [MermaController::class, 'store'])->middleware('can:inventario.mermas.crear');
+
+        Route::get('/inventario/costos', [CostoController::class, 'show'])->middleware('can:inventario.costos.ver');
+        Route::post('/inventario/recalcular-costos', [CostoController::class, 'recalcular'])->middleware('can:inventario.costos.recalcular');
 
         // Facturas electrónicas
         Route::get('/facturas', [FacturaElectronicaController::class,'index'])->middleware('can:facturas.ver');

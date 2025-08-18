@@ -15,6 +15,7 @@ class RolesAndPermissionsSeeder extends Seeder
             ['codigo' => 'ADMIN_LOCAL',   'nombre' => 'Administrador local'],
             ['codigo' => 'MESERO',        'nombre' => 'Mesero'],
             ['codigo' => 'CAJERO',        'nombre' => 'Cajero'],
+            ['codigo' => 'BODEGA',        'nombre' => 'Bodega'],
             ['codigo' => 'COCINA',        'nombre' => 'Cocina'],
         ];
 
@@ -52,6 +53,23 @@ class RolesAndPermissionsSeeder extends Seeder
             ['codigo' => 'productos.ver',                'nombre' => 'Ver productos'],
             ['codigo' => 'productos.crear_editar',       'nombre' => 'Crear/editar productos'],
             ['codigo' => 'inventario.movimientos',       'nombre' => 'Movimientos de inventario'],
+            ['codigo' => 'inventario.stock.ver',         'nombre' => 'Ver stock'],
+            ['codigo' => 'inventario.movimientos.ver',   'nombre' => 'Ver movimientos de inventario'],
+            ['codigo' => 'inventario.ajustes.crear',     'nombre' => 'Crear ajustes de inventario'],
+            ['codigo' => 'inventario.transferencias.crear', 'nombre' => 'Crear transferencias'],
+            ['codigo' => 'inventario.transferencias.ver', 'nombre' => 'Ver transferencias'],
+            ['codigo' => 'inventario.transferencias.recibir', 'nombre' => 'Recibir transferencias'],
+            ['codigo' => 'inventario.transferencias.cancelar', 'nombre' => 'Cancelar transferencias'],
+            ['codigo' => 'inventario.conteos.crear',     'nombre' => 'Crear conteos'],
+            ['codigo' => 'inventario.conteos.capturas',  'nombre' => 'Registrar capturas de conteo'],
+            ['codigo' => 'inventario.conteos.cerrar',    'nombre' => 'Cerrar conteos'],
+            ['codigo' => 'inventario.conteos.ver',       'nombre' => 'Ver conteos'],
+            ['codigo' => 'inventario.lotes.ver',         'nombre' => 'Ver lotes'],
+            ['codigo' => 'inventario.alertas.ver',       'nombre' => 'Ver alertas de inventario'],
+            ['codigo' => 'inventario.produccion.crear',  'nombre' => 'Registrar producción'],
+            ['codigo' => 'inventario.mermas.crear',      'nombre' => 'Registrar mermas'],
+            ['codigo' => 'inventario.costos.ver',        'nombre' => 'Ver costos de inventario'],
+            ['codigo' => 'inventario.costos.recalcular', 'nombre' => 'Recalcular costos de inventario'],
             ['codigo' => 'proveedores.gestionar',        'nombre' => 'Gestionar proveedores'],
             // Pedidos / Cocina
             ['codigo' => 'pedidos.crear',                'nombre' => 'Crear pedidos'],
@@ -109,6 +127,11 @@ class RolesAndPermissionsSeeder extends Seeder
             'ADMIN_LOCAL' => [
                 'usuarios.ver','usuarios.editar','roles.ver','permisos.ver',
                 'config.usuarios.gestionar','productos.ver','productos.crear_editar','inventario.movimientos',
+                'inventario.stock.ver','inventario.movimientos.ver','inventario.ajustes.crear',
+                'inventario.transferencias.crear','inventario.transferencias.ver','inventario.transferencias.recibir',
+                'inventario.transferencias.cancelar','inventario.conteos.crear','inventario.conteos.capturas',
+                'inventario.conteos.cerrar','inventario.conteos.ver','inventario.lotes.ver','inventario.alertas.ver',
+                'inventario.produccion.crear','inventario.mermas.crear','inventario.costos.ver','inventario.costos.recalcular',
                 'proveedores.gestionar','pedidos.crear','cocina.ver','caja.cobrar','caja.cierres',
                 'ventas.facturacion','reportes.ver','reservas.gestionar','cotizaciones.gestionar',
                 'caja.aperturas.crear','caja.aperturas.ver','caja.movimientos.crear','caja.depositos.crear',
@@ -118,6 +141,13 @@ class RolesAndPermissionsSeeder extends Seeder
                 'sri.firma.configurar','sri.firma.ver','sri.secuencias.ver','sri.secuencias.next',
                 'sri.establecimientos.ver','sri.establecimientos.crear','sri.establecimientos.editar','sri.establecimientos.eliminar',
                 'sri.estados.ver','sri.callback.recibir'
+            ],
+            'BODEGA'      => [
+                'inventario.stock.ver','inventario.movimientos.ver','inventario.ajustes.crear',
+                'inventario.transferencias.crear','inventario.transferencias.ver','inventario.transferencias.recibir',
+                'inventario.transferencias.cancelar','inventario.conteos.crear','inventario.conteos.capturas',
+                'inventario.conteos.cerrar','inventario.conteos.ver','inventario.lotes.ver','inventario.alertas.ver',
+                'inventario.produccion.crear','inventario.mermas.crear','inventario.costos.ver','inventario.costos.recalcular'
             ],
             'MESERO'      => ['pedidos.crear','productos.ver','reservas.gestionar'],
             'CAJERO'      => ['caja.cobrar','caja.cierres','ventas.facturacion','reportes.ver',
