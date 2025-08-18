@@ -686,3 +686,91 @@ Nota: se mantiene alias `POST /v1/pagos-proveedor` (deprecado).
 | reportes.kds.ver | ✓ | — | ✓ | — |
 | reportes.exportar | ✓ | ✓ | ✓ | ✓ |
 | analytics.query.ejecutar | ✓ | ✓ | ✓ | ✓ |
+
+## Pedidos/KDS Avanzado
+
+### Ítems y Modificadores
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| POST | `/v1/pedidos/{id}/items` | Agregar ítems al pedido | `pedidos.items.crear` |
+| PUT | `/v1/pedidos/{id}/items/{item_id}` | Actualizar ítem | `pedidos.items.editar` |
+| DELETE | `/v1/pedidos/{id}/items/{item_id}` | Eliminar ítem | `pedidos.items.eliminar` |
+| POST | `/v1/pedidos/{id}/items/{item_id}/modificadores` | Agregar modificadores | `pedidos.items.editar` |
+| DELETE | `/v1/pedidos/{id}/items/{item_id}/modificadores/{mod_id}` | Quitar modificador | `pedidos.items.eliminar` |
+
+Ejemplo:
+```json
+POST /v1/pedidos/123/items
+{
+  "items": [
+    {"producto_id": "uuid", "descripcion": "Hamburguesa Clásica", "cantidad": 1, "precio_unitario": 5.5}
+  ]
+}
+```
+
+### Envío a Cocina
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| POST | `/v1/pedidos/{id}/enviar-cocina` | Genera comandas por estación | `pedidos.enviar_cocina` |
+
+### Flujo KDS
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/comandas` | Listar comandas | `kds.comandas.ver` |
+| GET | `/v1/comandas/{id}` | Ver comanda | `kds.comandas.ver` |
+| POST | `/v1/comandas/{id}/start` | Iniciar preparación | `kds.start` |
+| POST | `/v1/comandas/{id}/ready` | Marcar lista | `kds.ready` |
+| POST | `/v1/comandas/{id}/bump` | Servir comanda | `kds.bump` |
+| POST | `/v1/comandas/{id}/recall` | Volver a lista | `kds.recall` |
+| POST | `/v1/comandas/{id}/reassign` | Reasignar a otra estación | `kds.reassign` |
+| POST | `/v1/comandas/{id}/nota` | Añadir nota | `kds.nota` |
+
+### Estaciones y Ruteo
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/kds/estaciones` | Listar estaciones | `kds.estaciones.ver` |
+| POST | `/v1/kds/estaciones` | Crear estación | `kds.estaciones.crear` |
+| GET | `/v1/kds/estaciones/{id}` | Ver estación | `kds.estaciones.ver` |
+| PUT | `/v1/kds/estaciones/{id}` | Editar estación | `kds.estaciones.editar` |
+| DELETE | `/v1/kds/estaciones/{id}` | Eliminar estación | `kds.estaciones.eliminar` |
+| GET | `/v1/kds/ruteo/test` | Simular ruteo de pedido | `kds.estaciones.ver` |
+
+### SLA/Tiempos
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/kds/sla` | Ver configuración SLA | `kds.sla.ver` |
+| PUT | `/v1/kds/sla` | Actualizar SLA | `kds.sla.editar` |
+| GET | `/v1/kds/carga` | Métricas de carga de estación | `kds.comandas.ver` |
+
+### Integraciones
+- Pedidos y comandas incluyen `mesa_id` y `reserva_id` cuando corresponda.
+- Inventario: opción de consumo al enviar a cocina con reversos en recall/anulación.
+
+### Estados
+- Pedido: `abierto → enviada_cocina → preparando → lista → servida → cerrada|anulada`.
+- Comanda: `pendiente → en_preparacion → lista → servida → (recall opcional)`.
+
+### Matriz RBAC Pedidos/KDS
+| Permiso | admin | cocina | bar | mesero | expo |
+| ------- | :---: | :----: | :-: | :----: | :--: |
+| pedidos.items.crear | ✓ | ✓ | ✓ | ✓ | ✓ |
+| pedidos.items.editar | ✓ | ✓ | ✓ | ✓ | ✓ |
+| pedidos.items.eliminar | ✓ | ✓ | ✓ | ✓ | ✓ |
+| pedidos.hold | ✓ | ✓ | ✓ | ✓ | ✓ |
+| pedidos.fire | ✓ | ✓ | ✓ | ✓ | ✓ |
+| pedidos.prioridad | ✓ | ✓ | ✓ | ✓ | ✓ |
+| pedidos.enviar_cocina | ✓ | ✓ | ✓ | ✓ | ✓ |
+| kds.comandas.ver | ✓ | ✓ | ✓ | — | ✓ |
+| kds.start | ✓ | ✓ | ✓ | — | ✓ |
+| kds.ready | ✓ | ✓ | ✓ | — | ✓ |
+| kds.bump | ✓ | ✓ | ✓ | — | ✓ |
+| kds.recall | ✓ | ✓ | ✓ | — | ✓ |
+| kds.reassign | ✓ | ✓ | ✓ | — | ✓ |
+| kds.nota | ✓ | ✓ | ✓ | — | ✓ |
+| kds.estaciones.ver | ✓ | ✓ | ✓ | — | — |
+| kds.estaciones.crear | ✓ | ✓ | ✓ | — | — |
+| kds.estaciones.editar | ✓ | ✓ | ✓ | — | — |
+| kds.estaciones.eliminar | ✓ | ✓ | ✓ | — | — |
+| kds.sla.ver | ✓ | ✓ | ✓ | — | — |
+| kds.sla.editar | ✓ | ✓ | ✓ | — | — |
+| kds.stream.ver | ✓ | ✓ | ✓ | — | ✓ |

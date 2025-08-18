@@ -4111,6 +4111,104 @@
           }
         }
       ]
+    },
+    {
+      "name": "pedidos-kds",
+      "item": [
+        {
+          "name": "POST pedidos/{id}/items",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/pedidos/123/items",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "pedidos",
+                "123",
+                "items"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST pedidos/{id}/enviar-cocina",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/pedidos/123/enviar-cocina",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "pedidos",
+                "123",
+                "enviar-cocina"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST comandas/{id}/start",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/comandas/abc/start",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "comandas",
+                "abc",
+                "start"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET kds/estaciones",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/kds/estaciones",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "kds",
+                "estaciones"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT kds/sla",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{base_url}}/api/v1/kds/sla",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "kds",
+                "sla"
+              ]
+            }
+          }
+        }
+      ]
     }
   ],
   "variable": [
