@@ -249,11 +249,37 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
         Route::post('/pagos-cxc', [CxcVentaController::class,'storePago'])->middleware(['can:cxc.pagar','idempotency']);
         Route::post('/pagos-cxc/{id}/anular', [CxcVentaController::class,'anularPago'])->middleware('can:cxc.anular_pago');
 
-        Route::get('/ventas/notas-credito', [NotaCreditoController::class,'index']);
-        Route::post('/ventas/notas-credito', [NotaCreditoController::class,'store'])->middleware('idempotency');
-        Route::get('/ventas/notas-credito/{id}', [NotaCreditoController::class,'show']);
-        Route::post('/ventas/notas-credito/{id}/aplicar', [NotaCreditoController::class,'aplicar']);
-        Route::post('/ventas/notas-credito/{id}/anular', [NotaCreditoController::class,'anular']);
+        // Notas de crédito estándar
+        Route::get('/notas-credito', [NotaCreditoController::class,'index'])->middleware('can:notas_credito.ver');
+        Route::post('/notas-credito', [NotaCreditoController::class,'store'])->middleware(['can:notas_credito.crear','idempotency']);
+        Route::get('/notas-credito/{id}', [NotaCreditoController::class,'show'])->middleware('can:notas_credito.ver');
+        Route::put('/notas-credito/{id}', [NotaCreditoController::class,'update'])->middleware('can:notas_credito.editar');
+        Route::delete('/notas-credito/{id}', [NotaCreditoController::class,'destroy'])->middleware('can:notas_credito.eliminar');
+        Route::post('/notas-credito/{id}/emitir', [NotaCreditoController::class,'emitir'])->middleware(['can:notas_credito.emitir','idempotency']);
+        Route::post('/notas-credito/{id}/reintentar-envio', [NotaCreditoController::class,'reintentarEnvio'])->middleware('can:notas_credito.emitir');
+        Route::get('/notas-credito/{id}/estado-sri', [NotaCreditoController::class,'estadoSri'])->middleware('can:notas_credito.ver');
+        Route::get('/notas-credito/{id}/xml', [NotaCreditoController::class,'xml'])->middleware('can:notas_credito.descargar');
+        Route::get('/notas-credito/{id}/pdf', [NotaCreditoController::class,'pdf'])->middleware('can:notas_credito.descargar');
+        Route::post('/notas-credito/{id}/email', [NotaCreditoController::class,'email'])->middleware('can:notas_credito.enviar_email');
+        Route::post('/notas-credito/{id}/aplicar', [NotaCreditoController::class,'aplicar'])->middleware('can:notas_credito.aplicar');
+        Route::post('/notas-credito/{id}/reembolso', [NotaCreditoController::class,'reembolso'])->middleware('can:notas_credito.reembolso');
+        Route::post('/notas-credito/{id}/anular', [NotaCreditoController::class,'anular'])->middleware('can:notas_credito.anular');
+
+        // Compatibilidad con prefijo /ventas
+        Route::get('/ventas/notas-credito', [NotaCreditoController::class,'index'])->middleware('can:notas_credito.ver');
+        Route::post('/ventas/notas-credito', [NotaCreditoController::class,'store'])->middleware(['can:notas_credito.crear','idempotency']);
+        Route::get('/ventas/notas-credito/{id}', [NotaCreditoController::class,'show'])->middleware('can:notas_credito.ver');
+        Route::put('/ventas/notas-credito/{id}', [NotaCreditoController::class,'update'])->middleware('can:notas_credito.editar');
+        Route::delete('/ventas/notas-credito/{id}', [NotaCreditoController::class,'destroy'])->middleware('can:notas_credito.eliminar');
+        Route::post('/ventas/notas-credito/{id}/emitir', [NotaCreditoController::class,'emitir'])->middleware(['can:notas_credito.emitir','idempotency']);
+        Route::post('/ventas/notas-credito/{id}/reintentar-envio', [NotaCreditoController::class,'reintentarEnvio'])->middleware('can:notas_credito.emitir');
+        Route::get('/ventas/notas-credito/{id}/estado-sri', [NotaCreditoController::class,'estadoSri'])->middleware('can:notas_credito.ver');
+        Route::get('/ventas/notas-credito/{id}/xml', [NotaCreditoController::class,'xml'])->middleware('can:notas_credito.descargar');
+        Route::get('/ventas/notas-credito/{id}/pdf', [NotaCreditoController::class,'pdf'])->middleware('can:notas_credito.descargar');
+        Route::post('/ventas/notas-credito/{id}/email', [NotaCreditoController::class,'email'])->middleware('can:notas_credito.enviar_email');
+        Route::post('/ventas/notas-credito/{id}/aplicar', [NotaCreditoController::class,'aplicar'])->middleware('can:notas_credito.aplicar');
+        Route::post('/ventas/notas-credito/{id}/reembolso', [NotaCreditoController::class,'reembolso'])->middleware('can:notas_credito.reembolso');
+        Route::post('/ventas/notas-credito/{id}/anular', [NotaCreditoController::class,'anular'])->middleware('can:notas_credito.anular');
 
         // Promociones & Descuentos
         Route::get('/promociones', [PromocionController::class, 'index'])->middleware('can:promociones.ver');

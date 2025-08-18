@@ -156,7 +156,7 @@
   {
     "method": "POST",
     "path": "/v1/caja/deposito",
-    "name": "Registrar dep\u00f3sito",
+    "name": "Registrar depósito",
     "module": "caja",
     "permission": "caja.depositos.crear"
   },
@@ -247,7 +247,7 @@
   {
     "method": "POST",
     "path": "/v1/facturas/{id}/reintentar-envio",
-    "name": "Reintentar env\u00edo factura",
+    "name": "Reintentar envío factura",
     "module": "facturas",
     "permission": "facturas.emitir"
   },
@@ -415,7 +415,7 @@
   {
     "method": "POST",
     "path": "/v1/inventario/produccion",
-    "name": "Orden de producci\u00f3n",
+    "name": "Orden de producción",
     "module": "inventario",
     "permission": "inventario.produccion.crear"
   },
@@ -436,56 +436,56 @@
   {
     "method": "POST",
     "path": "/v1/promociones",
-    "name": "Crear promoci\u00f3n",
+    "name": "Crear promoción",
     "module": "promociones",
     "permission": "promociones.crear"
   },
   {
     "method": "GET",
     "path": "/v1/promociones/{id}",
-    "name": "Ver promoci\u00f3n",
+    "name": "Ver promoción",
     "module": "promociones",
     "permission": "promociones.ver"
   },
   {
     "method": "PUT",
     "path": "/v1/promociones/{id}",
-    "name": "Actualizar promoci\u00f3n",
+    "name": "Actualizar promoción",
     "module": "promociones",
     "permission": "promociones.editar"
   },
   {
     "method": "DELETE",
     "path": "/v1/promociones/{id}",
-    "name": "Eliminar promoci\u00f3n",
+    "name": "Eliminar promoción",
     "module": "promociones",
     "permission": "promociones.eliminar"
   },
   {
     "method": "POST",
     "path": "/v1/promociones/{id}/activar",
-    "name": "Activar promoci\u00f3n",
+    "name": "Activar promoción",
     "module": "promociones",
     "permission": "promociones.activar"
   },
   {
     "method": "POST",
     "path": "/v1/promociones/{id}/desactivar",
-    "name": "Desactivar promoci\u00f3n",
+    "name": "Desactivar promoción",
     "module": "promociones",
     "permission": "promociones.desactivar"
   },
   {
     "method": "POST",
     "path": "/v1/promociones/{id}/duplicar",
-    "name": "Duplicar promoci\u00f3n",
+    "name": "Duplicar promoción",
     "module": "promociones",
     "permission": "promociones.crear"
   },
   {
     "method": "POST",
     "path": "/v1/promociones/{id}/reglas",
-    "name": "Agregar regla a promoci\u00f3n",
+    "name": "Agregar regla a promoción",
     "module": "promociones",
     "permission": "promociones.reglas.crear"
   },
@@ -520,7 +520,7 @@
   {
     "method": "POST",
     "path": "/v1/cupones",
-    "name": "Crear cup\u00f3n",
+    "name": "Crear cupón",
     "module": "promociones",
     "permission": "cupones.crear"
   },
@@ -534,14 +534,14 @@
   {
     "method": "POST",
     "path": "/v1/cupones/validar",
-    "name": "Validar cup\u00f3n",
+    "name": "Validar cupón",
     "module": "promociones",
     "permission": "cupones.validar"
   },
   {
     "method": "POST",
     "path": "/v1/cupones/{id}/anular",
-    "name": "Anular cup\u00f3n",
+    "name": "Anular cupón",
     "module": "promociones",
     "permission": "cupones.anular"
   },
@@ -646,7 +646,7 @@
   {
     "method": "POST",
     "path": "/v1/tesoreria/conciliaciones/{id}/cerrar",
-    "name": "Cerrar conciliaci\u00f3n",
+    "name": "Cerrar conciliación",
     "module": "tesoreria",
     "permission": "tesoreria.conciliaciones.cerrar"
   },
@@ -744,14 +744,14 @@
   {
     "method": "POST",
     "path": "/v1/analytics/query",
-    "name": "Consulta anal\u00edtica",
+    "name": "Consulta analítica",
     "module": "analytics",
     "permission": "analytics.query.ejecutar"
   },
   {
     "method": "POST",
     "path": "/v1/pedidos/{id}/items",
-    "name": "Agregar \u00edtems a pedido",
+    "name": "Agregar ítems a pedido",
     "module": "pedidos",
     "permission": "pedidos.items.crear"
   },
@@ -887,5 +887,103 @@
     "name": "Contexto tenancy",
     "module": "tenancy",
     "permission": "tenancy.context.ver"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/notas-credito",
+    "name": "Listar notas de crédito",
+    "module": "notas_credito",
+    "permission": "notas_credito.ver"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/notas-credito",
+    "name": "Crear nota de crédito (borrador)",
+    "module": "notas_credito",
+    "permission": "notas_credito.crear"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/notas-credito/{id}",
+    "name": "Ver nota de crédito",
+    "module": "notas_credito",
+    "permission": "notas_credito.ver"
+  },
+  {
+    "method": "PUT",
+    "path": "/v1/notas-credito/{id}",
+    "name": "Actualizar nota de crédito",
+    "module": "notas_credito",
+    "permission": "notas_credito.editar"
+  },
+  {
+    "method": "DELETE",
+    "path": "/v1/notas-credito/{id}",
+    "name": "Eliminar nota de crédito",
+    "module": "notas_credito",
+    "permission": "notas_credito.eliminar"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/notas-credito/{id}/emitir",
+    "name": "Emitir nota de crédito",
+    "module": "notas_credito",
+    "permission": "notas_credito.emitir"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/notas-credito/{id}/reintentar-envio",
+    "name": "Reintentar envío nota de crédito",
+    "module": "notas_credito",
+    "permission": "notas_credito.emitir"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/notas-credito/{id}/estado-sri",
+    "name": "Estado SRI nota de crédito",
+    "module": "notas_credito",
+    "permission": "notas_credito.ver"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/notas-credito/{id}/xml",
+    "name": "Descargar XML NC",
+    "module": "notas_credito",
+    "permission": "notas_credito.descargar"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/notas-credito/{id}/pdf",
+    "name": "Descargar PDF NC",
+    "module": "notas_credito",
+    "permission": "notas_credito.descargar"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/notas-credito/{id}/email",
+    "name": "Enviar NC por email",
+    "module": "notas_credito",
+    "permission": "notas_credito.enviar_email"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/notas-credito/{id}/aplicar",
+    "name": "Aplicar NC a factura",
+    "module": "notas_credito",
+    "permission": "notas_credito.aplicar"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/notas-credito/{id}/reembolso",
+    "name": "Reembolso por NC",
+    "module": "notas_credito",
+    "permission": "notas_credito.reembolso"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/notas-credito/{id}/anular",
+    "name": "Anular nota de crédito",
+    "module": "notas_credito",
+    "permission": "notas_credito.anular"
   }
 ]
