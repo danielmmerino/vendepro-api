@@ -1842,6 +1842,44 @@
               ]
             }
           }
+        },
+        {
+          "name": "GET suscripciones/{id}/uso",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/suscripciones/{id}/uso",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "suscripciones",
+                "{id}",
+                "uso"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST suscripciones/{id}/consumir",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/suscripciones/{id}/consumir",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "suscripciones",
+                "{id}",
+                "consumir"
+              ]
+            }
+          }
         }
       ]
     },
@@ -4205,6 +4243,49 @@
                 "kds",
                 "sla"
               ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "planes",
+      "item": [
+        {
+          "name": "GET planes",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/planes",
+              "host": ["{{base_url}}"],
+              "path": ["api","v1","planes"]
+            }
+          }
+        },
+        {
+          "name": "POST planes",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/v1/planes",
+              "host": ["{{base_url}}"],
+              "path": ["api","v1","planes"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "tenancy",
+      "item": [
+        {
+          "name": "GET tenancy/context",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/tenancy/context",
+              "host": ["{{base_url}}"],
+              "path": ["api","v1","tenancy","context"]
             }
           }
         }

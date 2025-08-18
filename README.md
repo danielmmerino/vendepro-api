@@ -103,21 +103,49 @@ Nota: la configuración definida en un local prevalece sobre la configuración d
 | PUT | `/v1/locales/{id}` | Actualiza un local. |
 | DELETE | `/v1/locales/{id}` | Elimina un local. |
 
-### Suscripciones
-| Método | Ruta | Descripción |
-| ------ | ---- | ----------- |
-| GET | `/v1/suscripciones` | Lista suscripciones. |
-| POST | `/v1/suscripciones` | Crea una suscripción. |
-| GET | `/v1/suscripciones/{id}` | Muestra los datos de una suscripción. |
-| PUT | `/v1/suscripciones/{id}` | Actualiza una suscripción. |
+## Suscripciones/Tenancy
 
-### Suscripciones por local
-| Método | Ruta | Descripción |
-| ------ | ---- | ----------- |
-| GET | `/v1/suscripciones-locales` | Lista la relación suscripción-local. |
-| POST | `/v1/suscripciones-locales` | Crea una relación suscripción-local. |
-| GET | `/v1/suscripciones-locales/{id}` | Muestra una relación suscripción-local. |
-| PUT | `/v1/suscripciones-locales/{id}` | Actualiza una relación suscripción-local. |
+### Planes
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/planes` | Listar planes disponibles | `planes.ver` |
+| POST | `/v1/planes` | Crear plan | `planes.crear` |
+| GET | `/v1/planes/{id}` | Ver plan | `planes.ver` |
+| PUT | `/v1/planes/{id}` | Actualizar plan | `planes.editar` |
+| DELETE | `/v1/planes/{id}` | Eliminar plan | `planes.eliminar` |
+| GET | `/v1/planes/{id}/features` | Features y límites del plan | `planes.ver` |
+| PUT | `/v1/planes/{id}/features` | Actualizar features/limites | `planes.editar` |
+
+### Suscripciones
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/suscripciones` | Lista suscripciones | `suscripciones.ver` |
+| POST | `/v1/suscripciones` | Crear suscripción | `suscripciones.crear` |
+| GET | `/v1/suscripciones/{id}` | Ver suscripción | `suscripciones.ver` |
+| PUT | `/v1/suscripciones/{id}` | Actualizar suscripción | `suscripciones.editar` |
+| GET | `/v1/suscripciones/{id}/uso` | Uso de la suscripción | `suscripciones.uso.ver` |
+| POST | `/v1/suscripciones/{id}/consumir` | Consumir cuota | `suscripciones.uso.consumir` |
+
+### Locales vinculados
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/suscripciones-locales` | Lista vinculación suscripción-local | `suscripciones.locales.ver` |
+| POST | `/v1/suscripciones-locales` | Vincular locales | `suscripciones.locales.editar` |
+| GET | `/v1/suscripciones-locales/{id}` | Ver vinculación | `suscripciones.locales.ver` |
+| PUT | `/v1/suscripciones-locales/{id}` | Actualizar vinculación | `suscripciones.locales.editar` |
+
+### Límites & Uso
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/suscripciones/{id}/uso` | Uso actual de la suscripción | `suscripciones.uso.ver` |
+| POST | `/v1/suscripciones/{id}/consumir` | Incrementar métricas de uso | `suscripciones.uso.consumir` |
+
+### Contexto Tenancy
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/tenancy/context` | Contexto actual de empresa y locales | `tenancy.context.ver` |
+
+Nota: se mantiene `GET /v1/estado-suscripcion` para compatibilidad.
 
 ### Usuarios
 | Método | Ruta | Descripción | Permiso |

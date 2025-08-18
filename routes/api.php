@@ -7,6 +7,9 @@ use App\Http\Controllers\Tenancy\LocalController;
 use App\Http\Controllers\Tenancy\SuscripcionController;
 use App\Http\Controllers\Tenancy\SuscripcionLocalController;
 use App\Http\Controllers\Tenancy\SubscriptionStatusController;
+use App\Http\Controllers\PlanController;
+use App\Http\Controllers\Tenancy\ContextController;
+use App\Http\Controllers\Tenancy\SubscriptionUsageController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\PermisoController;
@@ -120,6 +123,19 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
         Route::post('/suscripciones', [SuscripcionController::class, 'store']);
         Route::get('/suscripciones/{id}', [SuscripcionController::class, 'show']);
         Route::put('/suscripciones/{id}', [SuscripcionController::class, 'update']);
+
+        Route::get('/suscripciones/{id}/uso', [SubscriptionUsageController::class, 'show'])->middleware('can:suscripciones.uso.ver');
+        Route::post('/suscripciones/{id}/consumir', [SubscriptionUsageController::class, 'consume'])->middleware('can:suscripciones.uso.consumir');
+
+        Route::get('/planes', [PlanController::class, 'index'])->middleware('can:planes.ver');
+        Route::post('/planes', [PlanController::class, 'store'])->middleware('can:planes.crear');
+        Route::get('/planes/{id}', [PlanController::class, 'show'])->middleware('can:planes.ver');
+        Route::put('/planes/{id}', [PlanController::class, 'update'])->middleware('can:planes.editar');
+        Route::delete('/planes/{id}', [PlanController::class, 'destroy'])->middleware('can:planes.eliminar');
+        Route::get('/planes/{id}/features', [PlanController::class, 'getFeatures'])->middleware('can:planes.ver');
+        Route::put('/planes/{id}/features', [PlanController::class, 'updateFeatures'])->middleware('can:planes.editar');
+
+        Route::get('/tenancy/context', ContextController::class)->middleware('can:tenancy.context.ver');
 
         Route::get('/suscripciones-locales', [SuscripcionLocalController::class, 'index']);
         Route::post('/suscripciones-locales', [SuscripcionLocalController::class, 'store']);
