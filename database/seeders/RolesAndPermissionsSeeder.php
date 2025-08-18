@@ -17,6 +17,7 @@ class RolesAndPermissionsSeeder extends Seeder
             ['codigo' => 'CAJERO',        'nombre' => 'Cajero'],
             ['codigo' => 'BODEGA',        'nombre' => 'Bodega'],
             ['codigo' => 'COCINA',        'nombre' => 'Cocina'],
+            ['codigo' => 'MARKETING',    'nombre' => 'Marketing'],
         ];
 
         foreach ($roles as $r) {
@@ -112,6 +113,22 @@ class RolesAndPermissionsSeeder extends Seeder
             ['codigo' => 'sri.establecimientos.eliminar','nombre' => 'Eliminar establecimientos'],
             ['codigo' => 'sri.estados.ver',             'nombre' => 'Consultar estado SRI'],
             ['codigo' => 'sri.callback.recibir',        'nombre' => 'Recibir callback SRI'],
+            // Promociones & Descuentos
+            ['codigo' => 'promociones.ver',             'nombre' => 'Ver promociones'],
+            ['codigo' => 'promociones.crear',           'nombre' => 'Crear promociones'],
+            ['codigo' => 'promociones.editar',          'nombre' => 'Editar promociones'],
+            ['codigo' => 'promociones.eliminar',        'nombre' => 'Eliminar promociones'],
+            ['codigo' => 'promociones.activar',         'nombre' => 'Activar promociones'],
+            ['codigo' => 'promociones.desactivar',      'nombre' => 'Desactivar promociones'],
+            ['codigo' => 'promociones.simular',         'nombre' => 'Simular promociones'],
+            ['codigo' => 'promociones.aplicar',         'nombre' => 'Aplicar promociones'],
+            ['codigo' => 'promociones.reglas.crear',    'nombre' => 'Gestionar reglas de promociones'],
+            ['codigo' => 'cupones.ver',                 'nombre' => 'Ver cupones'],
+            ['codigo' => 'cupones.crear',               'nombre' => 'Crear cupones'],
+            ['codigo' => 'cupones.validar',             'nombre' => 'Validar cupones'],
+            ['codigo' => 'cupones.anular',              'nombre' => 'Anular cupones'],
+            ['codigo' => 'cupones.generar_masivo',      'nombre' => 'Generar cupones masivos'],
+            ['codigo' => 'promociones.reportes.ver',    'nombre' => 'Ver reportes de promociones'],
         ];
 
         foreach ($permisos as $p) {
@@ -140,7 +157,9 @@ class RolesAndPermissionsSeeder extends Seeder
                 'facturas.descargar','facturas.enviar_email','facturas.anular',
                 'sri.firma.configurar','sri.firma.ver','sri.secuencias.ver','sri.secuencias.next',
                 'sri.establecimientos.ver','sri.establecimientos.crear','sri.establecimientos.editar','sri.establecimientos.eliminar',
-                'sri.estados.ver','sri.callback.recibir'
+                'sri.estados.ver','sri.callback.recibir',
+                'promociones.ver','promociones.crear','promociones.editar','promociones.eliminar','promociones.activar','promociones.desactivar','promociones.simular','promociones.aplicar','promociones.reglas.crear',
+                'cupones.ver','cupones.crear','cupones.validar','cupones.anular','cupones.generar_masivo','promociones.reportes.ver'
             ],
             'BODEGA'      => [
                 'inventario.stock.ver','inventario.movimientos.ver','inventario.ajustes.crear',
@@ -155,7 +174,14 @@ class RolesAndPermissionsSeeder extends Seeder
                 'caja.cierre.crear','pagos_venta.crear','pagos_venta.ver','pagos_venta.anular',
                 'facturas.ver','facturas.crear','facturas.editar','facturas.emitir','facturas.descargar',
                 'facturas.enviar_email','facturas.anular',
-                'sri.secuencias.ver','sri.secuencias.next','sri.estados.ver'
+                'sri.secuencias.ver','sri.secuencias.next','sri.estados.ver',
+                'promociones.ver','promociones.simular','promociones.aplicar','cupones.validar'
+            ],
+            'MARKETING'   => [
+                'promociones.ver','promociones.crear','promociones.editar','promociones.eliminar',
+                'promociones.activar','promociones.desactivar','promociones.reglas.crear',
+                'cupones.ver','cupones.crear','cupones.anular','cupones.generar_masivo',
+                'promociones.reportes.ver'
             ],
             'COCINA'      => ['cocina.ver'],
         ];

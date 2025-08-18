@@ -3328,6 +3328,228 @@
           }
         }
       ]
+    },
+    {
+      "name": "promociones",
+      "item": [
+        {
+          "name": "Crear promoción % por categoría",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"10% Entradas - Happy Hour\",\n  \"tipo\": \"porcentaje\",\n  \"prioridad\": 80,\n  \"estado\": \"activa\",\n  \"canal\": \"salon\",\n  \"vigencia_desde\": \"2025-08-18T16:00:00\",\n  \"vigencia_hasta\": \"2025-12-31T20:00:00\",\n  \"dias_semana\": [\"L\",\"M\",\"X\",\"J\",\"V\"],\n  \"hora_desde\": \"16:00\",\n  \"hora_hasta\": \"18:00\",\n  \"condiciones\": {\"categoria_ids\": [11],\"cantidad_min\":1,\"excluir_productos_ids\": []},\n  \"recompensa\": {\"modo\":\"porcentaje\",\"valor\":10,\"aplica\":\"item\"},\n  \"limites\": {\"uso_max_global\": null, \"uso_max_por_cliente\": 5, \"max_descuento_por_orden\": 20},\n  \"stackable\": false,\n  \"exclusividad_grupo\": \"HAPPY_HOUR\",\n  \"requiere_cupon\": false\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/promociones",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "promociones"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Crear BXGY (2x1 mix & match)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"tipo\":\"bxgy\",\"condiciones\":{\"mix_match\":{\"categoria_ids\":[21,22]},\"x_compra\":2,\"y_bonifica\":1,\"y_aplica\":\"menor_precio\"},\"recompensa\":{\"modo\":\"porcentaje\",\"valor\":100,\"aplica\":\"item_bonificado\"}}"
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/promociones/1/reglas",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "promociones",
+                "1",
+                "reglas"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Crear combo Burger + Gaseosa",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"items\":[{\"producto_id\":101,\"cantidad\":1},{\"producto_id\":205,\"cantidad\":1}],\"precio_combo\":7.99}"
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/promociones/1/combo",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "promociones",
+                "1",
+                "combo"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Simular carrito con cupón",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"fecha\":\"2025-08-18T17:10:00\",\"local_id\":1,\"canal\":\"salon\",\"cliente_id\":123,\"lineas\":[{\"producto_id\":101,\"cantidad\":2,\"precio_unitario\":5.50,\"categoria_id\":11},{\"producto_id\":205,\"cantidad\":1,\"precio_unitario\":3.00,\"categoria_id\":22}],\"cupones\":[\"HORA-FELIZ-10\"]}"
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/promociones/simular",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "promociones",
+                "simular"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Aplicar simulación a pedido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"pedido_id\":5555,\"simulacion_id\":\"SIM-abc-123\",\"forzar_ids\":[900]}"
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/promociones/aplicar",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "promociones",
+                "aplicar"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Generar 100 cupones",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"promo_id\":900,\"cantidad\":200,\"prefijo\":\"HF10-\",\"longitud\":8}"
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/cupones/generar-masivo",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "cupones",
+                "generar-masivo"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Validar cupón",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"codigo\":\"HF10-ABCD1234\",\"cliente_id\":123,\"pedido_id\":5555}"
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/cupones/validar",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "cupones",
+                "validar"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Reporte efectividad",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/v1/promociones/efectividad?desde=2025-08-01&hasta=2025-08-31",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "v1",
+                "promociones",
+                "efectividad"
+              ],
+              "query": [
+                {
+                  "key": "desde",
+                  "value": "2025-08-01"
+                },
+                {
+                  "key": "hasta",
+                  "value": "2025-08-31"
+                }
+              ]
+            }
+          }
+        }
+      ]
     }
   ],
   "variable": [

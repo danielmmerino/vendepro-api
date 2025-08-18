@@ -422,6 +422,73 @@ POST /v1/pagos-venta
 | GET | `/v1/inventario/costos` | Consultar costos de inventario. | `inventario.costos.ver` |
 | POST | `/v1/inventario/recalcular-costos` | Recalcular costos. | `inventario.costos.recalcular` |
 
+## Promociones & Descuentos
+
+### Promos
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/promociones` | Lista promociones. | `promociones.ver` |
+| POST | `/v1/promociones` | Crear promoción. | `promociones.crear` |
+| GET | `/v1/promociones/{id}` | Ver detalle de promoción. | `promociones.ver` |
+| PUT | `/v1/promociones/{id}` | Actualizar promoción. | `promociones.editar` |
+| DELETE | `/v1/promociones/{id}` | Eliminar promoción. | `promociones.eliminar` |
+| POST | `/v1/promociones/{id}/activar` | Activar promoción. | `promociones.activar` |
+| POST | `/v1/promociones/{id}/desactivar` | Desactivar promoción. | `promociones.desactivar` |
+| POST | `/v1/promociones/{id}/duplicar` | Duplicar promoción. | `promociones.crear` |
+
+### Reglas y Combos
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| POST | `/v1/promociones/{id}/reglas` | Agregar regla avanzada. | `promociones.reglas.crear` |
+| POST | `/v1/promociones/{id}/combo` | Definir combo. | `promociones.reglas.crear` |
+
+### Simulación y Aplicación
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| POST | `/v1/promociones/simular` | Simular promociones sobre un carrito. | `promociones.simular` |
+| POST | `/v1/promociones/aplicar` | Aplicar promociones a un pedido. | `promociones.aplicar` |
+
+### Cupones
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/cupones` | Listar cupones. | `cupones.ver` |
+| POST | `/v1/cupones` | Crear cupón. | `cupones.crear` |
+| POST | `/v1/cupones/generar-masivo` | Generar cupones masivos. | `cupones.generar_masivo` |
+| POST | `/v1/cupones/validar` | Validar cupón. | `cupones.validar` |
+| POST | `/v1/cupones/{id}/anular` | Anular cupón. | `cupones.anular` |
+
+### Reportes
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/promociones/efectividad` | Reporte de efectividad. | `promociones.reportes.ver` |
+
+#### Orden de evaluación
+1. Calcular precio base por ítem.
+2. Evaluar reglas por prioridad descendente.
+3. Resolver conflictos priorizando exclusivas y respetando `stackable=false`.
+4. Aplicar recompensas primero a nivel de ítem y luego de orden.
+5. Recalcular impuestos sobre precios descontados.
+6. Redondear a 2 decimales (half-up) y registrar el log.
+
+### Matriz RBAC
+| Permiso | admin | marketing | cajero |
+| ------- | :---: | :-------: | :----: |
+| promociones.ver | ✓ | ✓ | ✓ |
+| promociones.crear | ✓ | ✓ | — |
+| promociones.editar | ✓ | ✓ | — |
+| promociones.eliminar | ✓ | ✓ | — |
+| promociones.activar | ✓ | ✓ | — |
+| promociones.desactivar | ✓ | ✓ | — |
+| promociones.simular | ✓ | — | ✓ |
+| promociones.aplicar | ✓ | — | ✓ |
+| promociones.reglas.crear | ✓ | ✓ | — |
+| cupones.ver | ✓ | ✓ | — |
+| cupones.crear | ✓ | ✓ | — |
+| cupones.validar | ✓ | — | ✓ |
+| cupones.anular | ✓ | ✓ | — |
+| cupones.generar_masivo | ✓ | ✓ | — |
+| promociones.reportes.ver | ✓ | ✓ | — |
+
 ## SRI
 | Método | Ruta | Descripción | Permiso |
 | ------ | ---- | ----------- | ------- |
