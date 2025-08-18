@@ -817,5 +817,75 @@
     "name": "Configurar SLA",
     "module": "kds",
     "permission": "kds.sla.editar"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/planes",
+    "name": "Listar planes",
+    "module": "suscripciones",
+    "permission": "planes.ver"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/planes",
+    "name": "Crear plan",
+    "module": "suscripciones",
+    "permission": "planes.crear"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/planes/{id}",
+    "name": "Ver plan",
+    "module": "suscripciones",
+    "permission": "planes.ver"
+  },
+  {
+    "method": "PUT",
+    "path": "/v1/planes/{id}",
+    "name": "Actualizar plan",
+    "module": "suscripciones",
+    "permission": "planes.editar"
+  },
+  {
+    "method": "DELETE",
+    "path": "/v1/planes/{id}",
+    "name": "Eliminar plan",
+    "module": "suscripciones",
+    "permission": "planes.eliminar"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/planes/{id}/features",
+    "name": "Features del plan",
+    "module": "suscripciones",
+    "permission": "planes.ver"
+  },
+  {
+    "method": "PUT",
+    "path": "/v1/planes/{id}/features",
+    "name": "Actualizar features del plan",
+    "module": "suscripciones",
+    "permission": "planes.editar"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/suscripciones/{id}/uso",
+    "name": "Uso de suscripción",
+    "module": "suscripciones",
+    "permission": "suscripciones.uso.ver"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/suscripciones/{id}/consumir",
+    "name": "Consumir cuota",
+    "module": "suscripciones",
+    "permission": "suscripciones.uso.consumir"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/tenancy/context",
+    "name": "Contexto tenancy",
+    "module": "tenancy",
+    "permission": "tenancy.context.ver"
   }
 ]
