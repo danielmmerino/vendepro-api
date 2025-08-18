@@ -2577,6 +2577,53 @@
       ]
     }
   ],
+  {
+    "name": "caja",
+    "item": [
+      {
+        "name": "POST caja/aperturas",
+        "request": {"method":"POST","url":{"raw":"{{base_url}}/api/v1/caja/aperturas","host":["{{base_url}}"],"path":["api","v1","caja","aperturas"]}}
+      },
+      {
+        "name": "POST caja/movimientos",
+        "request": {"method":"POST","url":{"raw":"{{base_url}}/api/v1/caja/movimientos","host":["{{base_url}}"],"path":["api","v1","caja","movimientos"]}}
+      },
+      {
+        "name": "POST caja/deposito",
+        "request": {"method":"POST","url":{"raw":"{{base_url}}/api/v1/caja/deposito","host":["{{base_url}}"],"path":["api","v1","caja","deposito"]}}
+      },
+      {
+        "name": "POST caja/cierre",
+        "request": {"method":"POST","url":{"raw":"{{base_url}}/api/v1/caja/cierre","host":["{{base_url}}"],"path":["api","v1","caja","cierre"]}}
+      },
+      {
+        "name": "GET caja/estado",
+        "request": {"method":"GET","url":{"raw":"{{base_url}}/api/v1/caja/estado","host":["{{base_url}}"],"path":["api","v1","caja","estado"]}}
+      }
+    ]
+  },
+  {
+    "name": "pagos-venta",
+    "item": [
+      {
+        "name": "POST pagos-venta",
+        "request": {"method":"POST","url":{"raw":"{{base_url}}/api/v1/pagos-venta","host":["{{base_url}}"],"path":["api","v1","pagos-venta"]}}
+      },
+      {
+        "name": "GET pagos-venta",
+        "request": {"method":"GET","url":{"raw":"{{base_url}}/api/v1/pagos-venta","host":["{{base_url}}"],"path":["api","v1","pagos-venta"]}}
+      },
+      {
+        "name": "GET pagos-venta/{id}",
+        "request": {"method":"GET","url":{"raw":"{{base_url}}/api/v1/pagos-venta/1","host":["{{base_url}}"],"path":["api","v1","pagos-venta","1"]}}
+      },
+      {
+        "name": "POST pagos-venta/{id}/anular",
+        "request": {"method":"POST","url":{"raw":"{{base_url}}/api/v1/pagos-venta/1/anular","host":["{{base_url}}"],"path":["api","v1","pagos-venta","1","anular"]}}
+      }
+    ]
+  }
+  ],
   "variable": [
     {
       "key": "base_url",

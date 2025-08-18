@@ -15,5 +15,17 @@
   {"method":"POST","path":"/v1/permisos","name":"Crear permiso","module":"permisos","permission":"permisos.crear"},
   {"method":"GET","path":"/v1/permisos/{id}","name":"Ver permiso","module":"permisos","permission":"permisos.ver"},
   {"method":"PUT","path":"/v1/permisos/{id}","name":"Actualizar permiso","module":"permisos","permission":"permisos.editar"},
-  {"method":"DELETE","path":"/v1/permisos/{id}","name":"Eliminar permiso","module":"permisos","permission":"permisos.eliminar"}
+  {"method":"DELETE","path":"/v1/permisos/{id}","name":"Eliminar permiso","module":"permisos","permission":"permisos.eliminar"},
+  {"method":"POST","path":"/v1/caja/aperturas","name":"Abrir caja","module":"caja","permission":"caja.aperturas.crear"},
+  {"method":"GET","path":"/v1/caja/aperturas","name":"Listar aperturas","module":"caja","permission":"caja.aperturas.ver"},
+  {"method":"GET","path":"/v1/caja/aperturas/{id}","name":"Ver apertura","module":"caja","permission":"caja.aperturas.ver"},
+  {"method":"POST","path":"/v1/caja/movimientos","name":"Registrar movimiento de caja","module":"caja","permission":"caja.movimientos.crear"},
+  {"method":"GET","path":"/v1/caja/movimientos","name":"Listar movimientos de caja","module":"caja","permission":"caja.aperturas.ver"},
+  {"method":"POST","path":"/v1/caja/deposito","name":"Registrar depósito","module":"caja","permission":"caja.depositos.crear"},
+  {"method":"POST","path":"/v1/caja/cierre","name":"Cerrar caja","module":"caja","permission":"caja.cierre.crear"},
+  {"method":"GET","path":"/v1/caja/estado","name":"Estado de caja","module":"caja","permission":"caja.aperturas.ver"},
+  {"method":"POST","path":"/v1/pagos-venta","name":"Registrar pago de venta","module":"pagos_venta","permission":"pagos_venta.crear"},
+  {"method":"GET","path":"/v1/pagos-venta","name":"Listar pagos de venta","module":"pagos_venta","permission":"pagos_venta.ver"},
+  {"method":"GET","path":"/v1/pagos-venta/{id}","name":"Ver pago de venta","module":"pagos_venta","permission":"pagos_venta.ver"},
+  {"method":"POST","path":"/v1/pagos-venta/{id}/anular","name":"Anular pago de venta","module":"pagos_venta","permission":"pagos_venta.anular"}
 ]

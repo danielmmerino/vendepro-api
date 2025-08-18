@@ -65,6 +65,15 @@ class RolesAndPermissionsSeeder extends Seeder
             // Reservas / Cotizaciones
             ['codigo' => 'reservas.gestionar',           'nombre' => 'Gestionar reservas'],
             ['codigo' => 'cotizaciones.gestionar',       'nombre' => 'Gestionar cotizaciones'],
+            // Caja avanzadas
+            ['codigo' => 'caja.aperturas.crear',         'nombre' => 'Abrir caja'],
+            ['codigo' => 'caja.aperturas.ver',           'nombre' => 'Ver aperturas'],
+            ['codigo' => 'caja.movimientos.crear',       'nombre' => 'Crear movimientos de caja'],
+            ['codigo' => 'caja.depositos.crear',         'nombre' => 'Crear depósitos de caja'],
+            ['codigo' => 'caja.cierre.crear',            'nombre' => 'Cerrar caja'],
+            ['codigo' => 'pagos_venta.crear',            'nombre' => 'Registrar pagos de venta'],
+            ['codigo' => 'pagos_venta.ver',              'nombre' => 'Ver pagos de venta'],
+            ['codigo' => 'pagos_venta.anular',           'nombre' => 'Anular pagos de venta'],
         ];
 
         foreach ($permisos as $p) {
@@ -81,10 +90,15 @@ class RolesAndPermissionsSeeder extends Seeder
                 'usuarios.ver','usuarios.editar','roles.ver','permisos.ver',
                 'config.usuarios.gestionar','productos.ver','productos.crear_editar','inventario.movimientos',
                 'proveedores.gestionar','pedidos.crear','cocina.ver','caja.cobrar','caja.cierres',
-                'ventas.facturacion','reportes.ver','reservas.gestionar','cotizaciones.gestionar'
+                'ventas.facturacion','reportes.ver','reservas.gestionar','cotizaciones.gestionar',
+                'caja.aperturas.crear','caja.aperturas.ver','caja.movimientos.crear','caja.depositos.crear',
+                'caja.cierre.crear','pagos_venta.crear','pagos_venta.ver','pagos_venta.anular'
             ],
             'MESERO'      => ['pedidos.crear','productos.ver','reservas.gestionar'],
-            'CAJERO'      => ['caja.cobrar','caja.cierres','ventas.facturacion','reportes.ver'],
+            'CAJERO'      => ['caja.cobrar','caja.cierres','ventas.facturacion','reportes.ver',
+                'caja.aperturas.crear','caja.aperturas.ver','caja.movimientos.crear','caja.depositos.crear',
+                'caja.cierre.crear','pagos_venta.crear','pagos_venta.ver','pagos_venta.anular'
+            ],
             'COCINA'      => ['cocina.ver'],
         ];
 

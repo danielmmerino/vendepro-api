@@ -270,3 +270,66 @@ Puedes importar el archivo `apis.json` en Postman para probar todos los endpoint
 | GET | `/v1/estado-suscripcion` | Devuelve el estado de la suscripción actual. |
 | POST | `/v1/sri/secuencias/next` | Genera la siguiente secuencia para documentos SRI. |
 
+
+## Caja
+| Método | Ruta | Descripción | Permiso requerido |
+| ------ | ---- | ----------- | ----------------- |
+| POST | `/v1/caja/aperturas` | Abrir caja | `caja.aperturas.crear` |
+| GET | `/v1/caja/aperturas` | Listar aperturas | `caja.aperturas.ver` |
+| GET | `/v1/caja/aperturas/{id}` | Ver apertura | `caja.aperturas.ver` |
+| POST | `/v1/caja/movimientos` | Registrar movimiento | `caja.movimientos.crear` |
+| GET | `/v1/caja/movimientos` | Listar movimientos | `caja.aperturas.ver` |
+| POST | `/v1/caja/deposito` | Registrar depósito bancario | `caja.depositos.crear` |
+| POST | `/v1/caja/cierre` | Cerrar caja | `caja.cierre.crear` |
+| GET | `/v1/caja/estado` | Estado rápido de caja | `caja.aperturas.ver` |
+
+## Pagos de Venta
+| Método | Ruta | Descripción | Permiso requerido |
+| ------ | ---- | ----------- | ----------------- |
+| POST | `/v1/pagos-venta` | Registrar pago de venta | `pagos_venta.crear` |
+| GET | `/v1/pagos-venta` | Listar pagos de venta | `pagos_venta.ver` |
+| GET | `/v1/pagos-venta/{id}` | Ver pago de venta | `pagos_venta.ver` |
+| POST | `/v1/pagos-venta/{id}/anular` | Anular pago de venta | `pagos_venta.anular` |
+
+### Ejemplo Apertura de Caja
+```json
+POST /v1/caja/aperturas
+{
+  "local_id": 1,
+  "caja_id": 5,
+  "usuario_id": 41,
+  "saldo_inicial": 100.00
+}
+```
+Respuesta 201:
+```json
+{"data":{"id":1,"estado":"abierta"}}
+```
+
+### Ejemplo Pago Mixto
+```json
+POST /v1/pagos-venta
+{
+  "factura_id": 9876,
+  "items_pago": [{"metodo":"efectivo","monto":20.00}],
+  "caja": {"apertura_id": 10}
+}
+```
+
+### Códigos de error
+- 401 No autorizado
+- 403 Prohibido
+- 409 Conflicto
+- 422 Datos inválidos
+
+### Matriz RBAC
+| Permiso | admin | supervisor | cajero |
+| ------- | ----- | ---------- | ------ |
+| caja.aperturas.crear | ✓ | ✓ | ✓ |
+| caja.aperturas.ver | ✓ | ✓ | ✓ |
+| caja.movimientos.crear | ✓ | ✓ | ✓ |
+| caja.depositos.crear | ✓ | ✓ | ✓ |
+| caja.cierre.crear | ✓ | ✓ | ✓ |
+| pagos_venta.crear | ✓ | ✓ | ✓ |
+| pagos_venta.ver | ✓ | ✓ | ✓ |
+| pagos_venta.anular | ✓ | ✓ | ✓ |
