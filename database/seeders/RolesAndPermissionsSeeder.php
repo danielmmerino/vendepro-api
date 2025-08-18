@@ -27,6 +27,23 @@ class RolesAndPermissionsSeeder extends Seeder
 
         // Permisos mínimos (expande según tu UI)
         $permisos = [
+            // Usuarios
+            ['codigo' => 'usuarios.ver',                'nombre' => 'Ver usuarios'],
+            ['codigo' => 'usuarios.crear',              'nombre' => 'Crear usuarios'],
+            ['codigo' => 'usuarios.editar',             'nombre' => 'Editar usuarios'],
+            ['codigo' => 'usuarios.eliminar',           'nombre' => 'Eliminar usuarios'],
+            ['codigo' => 'usuarios.asignar_roles',      'nombre' => 'Asignar roles a usuarios'],
+            // Roles
+            ['codigo' => 'roles.ver',                   'nombre' => 'Ver roles'],
+            ['codigo' => 'roles.crear',                 'nombre' => 'Crear roles'],
+            ['codigo' => 'roles.editar',                'nombre' => 'Editar roles'],
+            ['codigo' => 'roles.eliminar',              'nombre' => 'Eliminar roles'],
+            ['codigo' => 'roles.asignar_permisos',      'nombre' => 'Asignar permisos a roles'],
+            // Permisos
+            ['codigo' => 'permisos.ver',                'nombre' => 'Ver permisos'],
+            ['codigo' => 'permisos.crear',              'nombre' => 'Crear permisos'],
+            ['codigo' => 'permisos.editar',             'nombre' => 'Editar permisos'],
+            ['codigo' => 'permisos.eliminar',           'nombre' => 'Eliminar permisos'],
             // Configuración
             ['codigo' => 'config.locales.gestionar',     'nombre' => 'Gestionar locales'],
             ['codigo' => 'config.usuarios.gestionar',    'nombre' => 'Gestionar usuarios'],
@@ -61,6 +78,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $map = [
             'SUPER_ADMIN' => array_column($permisos, 'codigo'),
             'ADMIN_LOCAL' => [
+                'usuarios.ver','usuarios.editar','roles.ver','permisos.ver',
                 'config.usuarios.gestionar','productos.ver','productos.crear_editar','inventario.movimientos',
                 'proveedores.gestionar','pedidos.crear','cocina.ver','caja.cobrar','caja.cierres',
                 'ventas.facturacion','reportes.ver','reservas.gestionar','cotizaciones.gestionar'

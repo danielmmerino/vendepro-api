@@ -80,24 +80,25 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
         Route::get('/suscripciones-locales/{id}', [SuscripcionLocalController::class, 'show']);
         Route::put('/suscripciones-locales/{id}', [SuscripcionLocalController::class, 'update']);
 
-        Route::get('/usuarios', [UsuarioController::class, 'index']);
-        Route::post('/usuarios', [UsuarioController::class, 'store']);
-        Route::get('/usuarios/{id}', [UsuarioController::class, 'show']);
-        Route::put('/usuarios/{id}', [UsuarioController::class, 'update']);
-        Route::delete('/usuarios/{id}', [UsuarioController::class, 'destroy']);
-        Route::post('/usuarios/{id}/roles', [UsuarioController::class, 'assignRoles']);
+        Route::get('/usuarios', [UsuarioController::class, 'index'])->middleware('can:usuarios.ver');
+        Route::post('/usuarios', [UsuarioController::class, 'store'])->middleware('can:usuarios.crear');
+        Route::get('/usuarios/{id}', [UsuarioController::class, 'show'])->middleware('can:usuarios.ver');
+        Route::put('/usuarios/{id}', [UsuarioController::class, 'update'])->middleware('can:usuarios.editar');
+        Route::delete('/usuarios/{id}', [UsuarioController::class, 'destroy'])->middleware('can:usuarios.eliminar');
+        Route::post('/usuarios/{id}/roles', [UsuarioController::class, 'assignRoles'])->middleware('can:usuarios.asignar_roles');
 
-        Route::get('/roles', [RolController::class, 'index']);
-        Route::post('/roles', [RolController::class, 'store']);
-        Route::get('/roles/{id}', [RolController::class, 'show']);
-        Route::put('/roles/{id}', [RolController::class, 'update']);
-        Route::delete('/roles/{id}', [RolController::class, 'destroy']);
+        Route::get('/roles', [RolController::class, 'index'])->middleware('can:roles.ver');
+        Route::post('/roles', [RolController::class, 'store'])->middleware('can:roles.crear');
+        Route::get('/roles/{id}', [RolController::class, 'show'])->middleware('can:roles.ver');
+        Route::put('/roles/{id}', [RolController::class, 'update'])->middleware('can:roles.editar');
+        Route::delete('/roles/{id}', [RolController::class, 'destroy'])->middleware('can:roles.eliminar');
+        Route::post('/roles/{id}/permisos', [RolController::class, 'assignPermissions'])->middleware('can:roles.asignar_permisos');
 
-        Route::get('/permisos', [PermisoController::class, 'index']);
-        Route::post('/permisos', [PermisoController::class, 'store']);
-        Route::get('/permisos/{id}', [PermisoController::class, 'show']);
-        Route::put('/permisos/{id}', [PermisoController::class, 'update']);
-        Route::delete('/permisos/{id}', [PermisoController::class, 'destroy']);
+        Route::get('/permisos', [PermisoController::class, 'index'])->middleware('can:permisos.ver');
+        Route::post('/permisos', [PermisoController::class, 'store'])->middleware('can:permisos.crear');
+        Route::get('/permisos/{id}', [PermisoController::class, 'show'])->middleware('can:permisos.ver');
+        Route::put('/permisos/{id}', [PermisoController::class, 'update'])->middleware('can:permisos.editar');
+        Route::delete('/permisos/{id}', [PermisoController::class, 'destroy'])->middleware('can:permisos.eliminar');
 
         Route::get('/unidades', [UnidadMedidaController::class, 'index'])->middleware('can:productos.crear_editar');
         Route::post('/unidades', [UnidadMedidaController::class, 'store'])->middleware('can:productos.crear_editar');

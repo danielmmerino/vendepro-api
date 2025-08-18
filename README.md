@@ -88,32 +88,51 @@ Puedes importar el archivo `apis.json` en Postman para probar todos los endpoint
 | PUT | `/v1/suscripciones-locales/{id}` | Actualiza una relación suscripción-local. |
 
 ### Usuarios
-| Método | Ruta | Descripción |
-| ------ | ---- | ----------- |
-| GET | `/v1/usuarios` | Lista usuarios. |
-| POST | `/v1/usuarios` | Crea un usuario. |
-| GET | `/v1/usuarios/{id}` | Muestra los datos de un usuario. |
-| PUT | `/v1/usuarios/{id}` | Actualiza un usuario. |
-| DELETE | `/v1/usuarios/{id}` | Elimina un usuario. |
-| POST | `/v1/usuarios/{id}/roles` | Asigna roles a un usuario. |
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/usuarios` | Lista usuarios. | `usuarios.ver` |
+| POST | `/v1/usuarios` | Crea un usuario. | `usuarios.crear` |
+| GET | `/v1/usuarios/{id}` | Muestra los datos de un usuario. | `usuarios.ver` |
+| PUT | `/v1/usuarios/{id}` | Actualiza un usuario. | `usuarios.editar` |
+| DELETE | `/v1/usuarios/{id}` | Elimina un usuario. | `usuarios.eliminar` |
+| POST | `/v1/usuarios/{id}/roles` | Asigna roles a un usuario. | `usuarios.asignar_roles` |
 
 ### Roles
-| Método | Ruta | Descripción |
-| ------ | ---- | ----------- |
-| GET | `/v1/roles` | Lista roles disponibles. |
-| POST | `/v1/roles` | Crea un rol. |
-| GET | `/v1/roles/{id}` | Muestra los datos de un rol. |
-| PUT | `/v1/roles/{id}` | Actualiza un rol. |
-| DELETE | `/v1/roles/{id}` | Elimina un rol. |
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/roles` | Lista roles disponibles. | `roles.ver` |
+| POST | `/v1/roles` | Crea un rol. | `roles.crear` |
+| GET | `/v1/roles/{id}` | Muestra los datos de un rol. | `roles.ver` |
+| PUT | `/v1/roles/{id}` | Actualiza un rol. | `roles.editar` |
+| DELETE | `/v1/roles/{id}` | Elimina un rol. | `roles.eliminar` |
+| POST | `/v1/roles/{id}/permisos` | Asigna permisos a un rol. | `roles.asignar_permisos` |
 
 ### Permisos
-| Método | Ruta | Descripción |
-| ------ | ---- | ----------- |
-| GET | `/v1/permisos` | Lista permisos disponibles. |
-| POST | `/v1/permisos` | Crea un permiso. |
-| GET | `/v1/permisos/{id}` | Muestra los datos de un permiso. |
-| PUT | `/v1/permisos/{id}` | Actualiza un permiso. |
-| DELETE | `/v1/permisos/{id}` | Elimina un permiso. |
+| Método | Ruta | Descripción | Permiso |
+| ------ | ---- | ----------- | ------- |
+| GET | `/v1/permisos` | Lista permisos disponibles. | `permisos.ver` |
+| POST | `/v1/permisos` | Crea un permiso. | `permisos.crear` |
+| GET | `/v1/permisos/{id}` | Muestra los datos de un permiso. | `permisos.ver` |
+| PUT | `/v1/permisos/{id}` | Actualiza un permiso. | `permisos.editar` |
+| DELETE | `/v1/permisos/{id}` | Elimina un permiso. | `permisos.eliminar` |
+
+## Matriz RBAC
+| Permiso | admin | supervisor | cajero |
+| ------- | :---: | :--------: | :----: |
+| usuarios.ver | ✓ | ✓ | — |
+| usuarios.crear | ✓ | — | — |
+| usuarios.editar | ✓ | ✓ | — |
+| usuarios.eliminar | ✓ | — | — |
+| usuarios.asignar_roles | ✓ | — | — |
+| roles.ver | ✓ | ✓ | — |
+| roles.crear | ✓ | — | — |
+| roles.editar | ✓ | — | — |
+| roles.eliminar | ✓ | — | — |
+| roles.asignar_permisos | ✓ | — | — |
+| permisos.ver | ✓ | ✓ | — |
+| permisos.crear | ✓ | — | — |
+| permisos.editar | ✓ | — | — |
+| permisos.eliminar | ✓ | — | — |
 
 ### Unidades de medida
 | Método | Ruta | Descripción |
