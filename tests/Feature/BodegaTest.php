@@ -20,24 +20,21 @@ class BodegaTest extends TestCase
     public function test_can_create_bodega(): void
     {
         $response = $this->postJson('/v1/bodegas', [
-            'codigo' => 'BOD-001',
+            'local_id' => 1,
             'nombre' => 'Matriz',
-            'estado' => 'activa',
+            'es_principal' => true,
         ]);
 
         $response->assertStatus(201)
-            ->assertJsonPath('data.codigo', 'BOD-001');
-        $this->assertDatabaseHas('bodegas', ['codigo' => 'BOD-001']);
+            ->assertJsonPath('data.nombre', 'Matriz');
+        $this->assertDatabaseHas('bodegas', ['nombre' => 'Matriz']);
     }
 
-    public function test_duplicate_codigo_returns_422(): void
+    public function test_requires_nombre_returns_422(): void
     {
-        Bodega::factory()->create(['codigo' => 'BOD-001']);
-
         $response = $this->postJson('/v1/bodegas', [
-            'codigo' => 'BOD-001',
-            'nombre' => 'Otra',
-            'estado' => 'activa',
+            'local_id' => 1,
+            'es_principal' => true,
         ]);
 
         $response->assertStatus(422);
@@ -45,23 +42,23 @@ class BodegaTest extends TestCase
 
     public function test_index_with_filters(): void
     {
-        Bodega::factory()->create(['codigo' => 'BOD-001', 'nombre' => 'Matriz', 'estado' => 'activa']);
-        Bodega::factory()->create(['codigo' => 'BOD-002', 'nombre' => 'Secundaria', 'estado' => 'inactiva']);
+        Bodega::factory()->create(['nombre' => 'Matriz', 'local_id' => 1, 'es_principal' => true]);
+        Bodega::factory()->create(['nombre' => 'Secundaria', 'local_id' => 2, 'es_principal' => false]);
 
-        $response = $this->getJson('/v1/bodegas?q=matriz&estado=activa&sort=-nombre');
+        $response = $this->getJson('/v1/bodegas?q=matriz&sort=-nombre');
         $response->assertStatus(200)
             ->assertJsonPath('pagination.total', 1)
-            ->assertJsonPath('data.0.codigo', 'BOD-001');
+            ->assertJsonPath('data.0.nombre', 'Matriz');
     }
 
     public function test_can_update_bodega(): void
     {
-        $bodega = Bodega::factory()->create(['codigo' => 'BOD-001', 'nombre' => 'Matriz']);
+        $bodega = Bodega::factory()->create(['nombre' => 'Matriz']);
 
         $response = $this->putJson("/v1/bodegas/{$bodega->id}", [
-            'codigo' => 'BOD-001',
+            'local_id' => 1,
             'nombre' => 'Central',
-            'estado' => 'activa',
+            'es_principal' => false,
         ]);
 
         $response->assertStatus(200)
@@ -70,7 +67,7 @@ class BodegaTest extends TestCase
 
     public function test_delete_blocked_when_has_saldo(): void
     {
-        $bodega = Bodega::factory()->create(['codigo' => 'BOD-001']);
+        $bodega = Bodega::factory()->create();
         DB::table('inventario_saldos')->insert([
             'bodega_id' => $bodega->id,
             'producto_id' => 1,

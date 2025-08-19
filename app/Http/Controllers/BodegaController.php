@@ -17,14 +17,7 @@ class BodegaController extends Controller
         $query = Bodega::query();
 
         if ($q = $request->query('q')) {
-            $query->where(function ($q2) use ($q) {
-                $q2->where('codigo', 'like', "%$q%")
-                    ->orWhere('nombre', 'like', "%$q%");
-            });
-        }
-
-        if ($estado = $request->query('estado')) {
-            $query->where('estado', $estado);
+            $query->where('nombre', 'like', "%$q%");
         }
 
         if ($sort = $request->query('sort')) {
@@ -35,7 +28,7 @@ class BodegaController extends Controller
                     $direction = 'desc';
                     $column = substr($part, 1);
                 }
-                if (in_array($column, ['codigo', 'nombre'])) {
+                if (in_array($column, ['nombre', 'local_id'])) {
                     $query->orderBy($column, $direction);
                 }
             }
