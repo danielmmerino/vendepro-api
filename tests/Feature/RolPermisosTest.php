@@ -10,6 +10,8 @@ class RolPermisosTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected bool $seed = true;
+
     private function login(string $email, string $password): string
     {
         $response = $this->postJson('/v1/auth/login', [

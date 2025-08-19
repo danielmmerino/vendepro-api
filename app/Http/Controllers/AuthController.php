@@ -38,7 +38,10 @@ class AuthController extends Controller
 
             $token = $this->jwt->generate($user);
 
-            return ['token' => $token];
+            return [
+                'token' => $token,
+                'local_id' => $user->local_id,
+            ];
         } catch (ValidationException $e) {
             throw $e;
         } catch (Throwable $e) {

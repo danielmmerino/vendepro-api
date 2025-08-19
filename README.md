@@ -8,7 +8,7 @@ Puedes importar el archivo `apis.json` en Postman para probar todos los endpoint
 ## Autenticación
 | Método | Ruta | Descripción |
 | ------ | ---- | ----------- |
-| POST | `/v1/auth/login` | Inicia sesión y devuelve un token JWT. |
+| POST | `/v1/auth/login` | Inicia sesión y devuelve un token JWT y el identificador del local. |
 | POST | `/v1/auth/logout` | Cierra la sesión del usuario autenticado. |
 | GET  | `/v1/auth/me` | Obtiene los datos del usuario autenticado. |
 | POST | `/v1/auth/refresh` | Renueva el token JWT. |
