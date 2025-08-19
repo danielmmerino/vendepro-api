@@ -7,6 +7,7 @@ use App\Services\JwtService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Throwable;
 
 class AuthController extends Controller
 {
@@ -16,27 +17,33 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
-
-        $user = User::where('email', $credentials['email'])->first();
-
-        if (!$user || !Hash::check($credentials['password'], $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
+        try {
+            $credentials = $request->validate([
+                'email' => ['required', 'email'],
+                'password' => ['required'],
             ]);
+
+            $user = User::where('email', $credentials['email'])->first();
+
+            if (!$user || !Hash::check($credentials['password'], $user->password)) {
+                throw ValidationException::withMessages([
+                    'email' => ['The provided credentials are incorrect.'],
+                ]);
+            }
+
+            $user->load('local');
+            if ($user->local && $user->local->subscription_expires_at && $user->local->subscription_expires_at->isPast()) {
+                return response()->json(['message' => 'Subscription inactive'], 403);
+            }
+
+            $token = $this->jwt->generate($user);
+
+            return ['token' => $token];
+        } catch (ValidationException $e) {
+            throw $e;
+        } catch (Throwable $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
         }
-
-        $user->load('local');
-        if ($user->local && $user->local->subscription_expires_at && $user->local->subscription_expires_at->isPast()) {
-            return response()->json(['message' => 'Subscription inactive'], 403);
-        }
-
-        $token = $this->jwt->generate($user);
-
-        return ['token' => $token];
     }
 
     public function logout(Request $request)
