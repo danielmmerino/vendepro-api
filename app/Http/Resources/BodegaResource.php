@@ -12,9 +12,9 @@ class BodegaResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'codigo' => $this->codigo,
+            'local_id' => $this->local_id,
             'nombre' => $this->nombre,
-            'estado' => $this->estado,
+            'es_principal' => $this->es_principal,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

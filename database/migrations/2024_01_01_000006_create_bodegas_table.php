@@ -10,11 +10,10 @@ return new class extends Migration
     {
         Schema::create('bodegas', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo')->unique();
+            $table->unsignedBigInteger('local_id');
             $table->string('nombre');
-            $table->enum('estado', ['activa', 'inactiva'])->default('activa');
+            $table->boolean('es_principal')->default(false);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

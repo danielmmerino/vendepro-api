@@ -16,9 +16,9 @@ class UpdateBodegaRequest extends FormRequest
     {
         $id = $this->route('id');
         return [
-            'codigo' => ['required', 'string', 'max:50', Rule::unique('bodegas', 'codigo')->ignore($id)],
+            'local_id' => ['required', 'integer'],
             'nombre' => ['required', 'string', 'max:255'],
-            'estado' => ['required', 'in:activa,inactiva'],
+            'es_principal' => ['required', 'boolean'],
         ];
     }
 }

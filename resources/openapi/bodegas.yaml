@@ -12,11 +12,6 @@ paths:
           schema:
             type: string
         - in: query
-          name: estado
-          schema:
-            type: string
-            enum: [activa, inactiva]
-        - in: query
           name: sort
           schema:
             type: string
@@ -83,21 +78,19 @@ components:
       properties:
         id:
           type: integer
-        codigo:
-          type: string
+        local_id:
+          type: integer
         nombre:
           type: string
-        estado:
-          type: string
-          enum: [activa, inactiva]
+        es_principal:
+          type: boolean
     BodegaInput:
       type: object
-      required: [codigo, nombre, estado]
+      required: [local_id, nombre, es_principal]
       properties:
-        codigo:
-          type: string
+        local_id:
+          type: integer
         nombre:
           type: string
-        estado:
-          type: string
-          enum: [activa, inactiva]
+        es_principal:
+          type: boolean

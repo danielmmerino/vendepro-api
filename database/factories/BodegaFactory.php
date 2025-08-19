@@ -13,9 +13,9 @@ class BodegaFactory extends Factory
     public function definition(): array
     {
         return [
-            'codigo' => $this->faker->unique()->regexify('BOD-[0-9]{3}'),
+            'local_id' => 1,
             'nombre' => $this->faker->company(),
-            'estado' => $this->faker->randomElement(['activa','inactiva']),
+            'es_principal' => $this->faker->boolean(),
         ];
     }
 }
