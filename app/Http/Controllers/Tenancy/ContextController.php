@@ -10,7 +10,7 @@ class ContextController extends Controller
     public function __invoke()
     {
         $user = auth()->user();
-        $local = DB::selectOne('SELECT l.id, l.nombre, e.id as empresa_id, e.nombre_comercial FROM locals l JOIN empresas e ON e.id = l.empresa_id WHERE l.id = ?', [$user->local_id]);
+        $local = DB::selectOne('SELECT l.id, l.nombre, e.id as empresa_id, e.nombre_comercial FROM locales l JOIN empresas e ON e.id = l.empresa_id WHERE l.id = ?', [$user->local_id]);
         if (!$local) {
             return response()->json(['error' => 'NotFound', 'message' => 'Recurso no encontrado'], 404);
         }
