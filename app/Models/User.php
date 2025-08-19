@@ -18,16 +18,26 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
+     * The table associated with the model.
+     */
+    protected $table = 'usuarios';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'token_version',
+        'empresa_id',
         'local_id',
+        'nombre',
+        'email',
+        'password_hash',
+        'telefono',
+        'activo',
+        'debe_cambiar_password',
+        'ultimo_acceso',
+        'token_version',
     ];
 
     /**
@@ -36,7 +46,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $hidden = [
-        'password',
+        'password_hash',
         'remember_token',
     ];
 
@@ -48,10 +58,18 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'ultimo_acceso' => 'datetime',
+            'password_hash' => 'hashed',
             'token_version' => 'integer',
         ];
+    }
+
+    /**
+     * Get the password for authentication.
+     */
+    public function getAuthPassword()
+    {
+        return $this->password_hash;
     }
 
     public function local(): BelongsTo

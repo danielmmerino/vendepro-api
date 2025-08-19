@@ -24,7 +24,7 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->foreign('proveedor_id')->references('id')->on('proveedores');
-            $table->foreign('usuario_id')->references('id')->on('users');
+            $table->foreign('usuario_id')->references('id')->on('usuarios');
             $table->unique(['proveedor_id', 'numero_factura']);
         });
     }

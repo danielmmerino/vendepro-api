@@ -8,15 +8,19 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('local_id')->nullable()->after('token_version')->constrained('locals')->nullOnDelete();
-        });
+        if (Schema::hasTable('usuarios') && !Schema::hasColumn('usuarios', 'local_id')) {
+            Schema::table('usuarios', function (Blueprint $table) {
+                $table->unsignedBigInteger('local_id')->nullable()->after('token_version');
+            });
+        }
     }
 
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropConstrainedForeignId('local_id');
-        });
+        if (Schema::hasTable('usuarios') && Schema::hasColumn('usuarios', 'local_id')) {
+            Schema::table('usuarios', function (Blueprint $table) {
+                $table->dropColumn('local_id');
+            });
+        }
     }
 };
