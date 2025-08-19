@@ -25,7 +25,7 @@ class AuthController extends Controller
 
             $user = User::where('email', $credentials['email'])->first();
 
-            if (!$user || !Hash::check($credentials['password'], $user->password)) {
+            if (!$user || !Hash::check($credentials['password'], $user->password_hash)) {
                 throw ValidationException::withMessages([
                     'email' => ['The provided credentials are incorrect.'],
                 ]);
@@ -89,13 +89,13 @@ class AuthController extends Controller
             'password' => ['required', 'confirmed'],
         ]);
 
-        if (!Hash::check($data['current_password'], $user->password)) {
+        if (!Hash::check($data['current_password'], $user->password_hash)) {
             throw ValidationException::withMessages([
                 'current_password' => ['Current password is incorrect.'],
             ]);
         }
 
-        $user->password = $data['password'];
+        $user->password_hash = $data['password'];
         $user->save();
         $user->increment('token_version');
 

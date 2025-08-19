@@ -16,7 +16,7 @@ class StoreCompraRequest extends ApiFormRequest
             'total' => ['required', 'numeric'],
             'estado' => ['nullable', 'in:borrador,aprobada,anulada'],
             'observacion' => ['nullable', 'string', 'max:255'],
-            'usuario_id' => ['nullable', 'uuid', 'exists:users,id'],
+            'usuario_id' => ['nullable', 'uuid', 'exists:usuarios,id'],
         ];
     }
 }

@@ -16,7 +16,7 @@ class UpdateCompraRequest extends ApiFormRequest
             'total' => ['required', 'numeric'],
             'estado' => ['required', 'in:borrador,aprobada,anulada'],
             'observacion' => ['nullable', 'string', 'max:255'],
-            'usuario_id' => ['nullable', 'uuid', 'exists:users,id'],
+            'usuario_id' => ['nullable', 'uuid', 'exists:usuarios,id'],
         ];
     }
 }

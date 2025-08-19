@@ -8,15 +8,19 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->unsignedInteger('token_version')->default(1)->after('password');
-        });
+        if (Schema::hasTable('usuarios') && !Schema::hasColumn('usuarios', 'token_version')) {
+            Schema::table('usuarios', function (Blueprint $table) {
+                $table->unsignedInteger('token_version')->default(0)->after('password_hash');
+            });
+        }
     }
 
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('token_version');
-        });
+        if (Schema::hasTable('usuarios') && Schema::hasColumn('usuarios', 'token_version')) {
+            Schema::table('usuarios', function (Blueprint $table) {
+                $table->dropColumn('token_version');
+            });
+        }
     }
 };
