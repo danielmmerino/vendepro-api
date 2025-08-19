@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\QueryException;
 
 class MenuController extends Controller
 {
@@ -32,8 +33,16 @@ class MenuController extends Controller
         $off = ($page - 1) * $per;
         $solo = (int) ($data['solo_con_stock'] ?? 0);
 
-        $cacheKey = 'menu:' . md5(json_encode([$data['local_id'], $data['categoria_id'] ?? null, $data['q'] ?? null, $solo, $page, $per]));
-        return Cache::remember($cacheKey, 60, function () use ($data, $per, $off, $page, $solo) {
+        $cacheKey = 'menu:' . md5(json_encode([
+            $data['local_id'],
+            $data['categoria_id'] ?? null,
+            $data['q'] ?? null,
+            $solo,
+            $page,
+            $per,
+        ]));
+
+        $callback = function () use ($data, $per, $off, $page, $solo) {
             $params = [
                 'local_id' => $data['local_id'],
                 'categoria_id' => $data['categoria_id'] ?? null,
@@ -98,6 +107,15 @@ WHERE p.empresa_id = l.empresa_id
                     'total' => (int) $total,
                 ],
             ];
-        });
+        };
+
+        try {
+            return Cache::remember($cacheKey, 60, $callback);
+        } catch (QueryException $e) {
+            if ($e->getCode() !== '42S02') {
+                throw $e;
+            }
+            return $callback();
+        }
     }
 }
