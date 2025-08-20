@@ -43,14 +43,6 @@ class MenuController extends Controller
         ]));
 
         $callback = function () use ($data, $per, $off, $page, $solo) {
-            $params = [
-                'local_id' => $data['local_id'],
-                'categoria_id' => $data['categoria_id'] ?? null,
-                'q' => $data['q'] ?? null,
-                'solo_con_stock' => $solo,
-                'per' => $per,
-                'off' => $off,
-            ];
             $sql = "SELECT
   p.id, p.codigo, p.nombre, p.descripcion, p.tipo,
   p.precio_venta, p.impuesto_id,
@@ -60,44 +52,67 @@ class MenuController extends Controller
     SELECT SUM(s.cantidad)
     FROM bodegas b
     JOIN stock s ON s.bodega_id = b.id
-    WHERE b.local_id = :local_id AND s.producto_id = p.id
+    WHERE b.local_id = ? AND s.producto_id = p.id
   ), 0) AS stock_local
 FROM productos p
 LEFT JOIN categorias_producto c ON c.id = p.categoria_id
 LEFT JOIN impuestos i ON i.id = p.impuesto_id
-JOIN locales l ON l.id = :local_id
+JOIN locales l ON l.id = ?
 WHERE p.empresa_id = l.empresa_id
   AND p.deleted_at IS NULL
   AND p.activo = 1
   AND p.tipo IN ('BIEN','SERVICIO','MENU')
-  AND (:categoria_id IS NULL OR p.categoria_id = :categoria_id)
-  AND (:q IS NULL OR (p.codigo LIKE CONCAT('%', :q, '%') OR p.nombre LIKE CONCAT('%', :q, '%')))
-  AND (:solo_con_stock = 0 OR COALESCE((
+  AND (? IS NULL OR p.categoria_id = ?)
+  AND (? IS NULL OR (p.codigo LIKE CONCAT('%', ?, '%') OR p.nombre LIKE CONCAT('%', ?, '%')))
+  AND (? = 0 OR COALESCE((
        SELECT SUM(s2.cantidad)
        FROM bodegas b2
        JOIN stock s2 ON s2.bodega_id = b2.id
-       WHERE b2.local_id = :local_id AND s2.producto_id = p.id
+       WHERE b2.local_id = ? AND s2.producto_id = p.id
   ), 0) > 0)
 ORDER BY COALESCE(c.orden, 9999) ASC, p.nombre ASC
-LIMIT :per OFFSET :off";
-            $rows = DB::select($sql, $params);
+LIMIT ? OFFSET ?";
+
+            $rows = DB::select($sql, [
+                $data['local_id'],
+                $data['local_id'],
+                $data['categoria_id'] ?? null,
+                $data['categoria_id'] ?? null,
+                $data['q'] ?? null,
+                $data['q'] ?? null,
+                $data['q'] ?? null,
+                $solo,
+                $data['local_id'],
+                $per,
+                $off,
+            ]);
 
             $countSql = "SELECT COUNT(1) AS total
 FROM productos p
-JOIN locales l ON l.id = :local_id
+JOIN locales l ON l.id = ?
 WHERE p.empresa_id = l.empresa_id
   AND p.deleted_at IS NULL
   AND p.activo = 1
   AND p.tipo IN ('BIEN','SERVICIO','MENU')
-  AND (:categoria_id IS NULL OR p.categoria_id = :categoria_id)
-  AND (:q IS NULL OR (p.codigo LIKE CONCAT('%', :q, '%') OR p.nombre LIKE CONCAT('%', :q, '%')))
-  AND (:solo_con_stock = 0 OR COALESCE((
+  AND (? IS NULL OR p.categoria_id = ?)
+  AND (? IS NULL OR (p.codigo LIKE CONCAT('%', ?, '%') OR p.nombre LIKE CONCAT('%', ?, '%')))
+  AND (? = 0 OR COALESCE((
        SELECT SUM(s2.cantidad)
        FROM bodegas b2
        JOIN stock s2 ON s2.bodega_id = b2.id
-       WHERE b2.local_id = :local_id AND s2.producto_id = p.id
+       WHERE b2.local_id = ? AND s2.producto_id = p.id
   ), 0) > 0)";
-            $total = DB::selectOne($countSql, $params)->total ?? 0;
+
+            $total = DB::selectOne($countSql, [
+                $data['local_id'],
+                $data['categoria_id'] ?? null,
+                $data['categoria_id'] ?? null,
+                $data['q'] ?? null,
+                $data['q'] ?? null,
+                $data['q'] ?? null,
+                $solo,
+                $data['local_id'],
+            ])->total ?? 0;
 
             return [
                 'data' => array_map(fn($r) => (array) $r, $rows),
