@@ -11,6 +11,7 @@ class MesaResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'local_id' => $this->local_id,
             'codigo' => $this->codigo,
             'nombre' => $this->nombre,
             'capacidad' => $this->capacidad,

@@ -10,6 +10,7 @@ return new class extends Migration
     {
         Schema::create('mesas', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->unsignedBigInteger('local_id');
             $table->string('codigo', 20)->unique();
             $table->string('nombre', 100)->nullable();
             $table->unsignedInteger('capacidad');

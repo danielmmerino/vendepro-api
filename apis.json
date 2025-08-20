@@ -920,6 +920,16 @@
           "name": "POST mesas",
           "request": {
             "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"local_id\":1,\"codigo\":\"M1\",\"nombre\":\"Mesa 1\",\"capacidad\":4,\"ubicacion\":\"salon\",\"estado\":\"activa\"}"
+            },
             "url": {
               "raw": "{{base_url}}/api/v1/mesas",
               "host": [

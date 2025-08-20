@@ -16,6 +16,7 @@ class UpdateMesaRequest extends FormRequest
     {
         $id = $this->route('id');
         return [
+            'local_id' => ['required', 'integer'],
             'codigo' => ['required', 'string', 'max:20', Rule::unique('mesas', 'codigo')->ignore($id)],
             'nombre' => ['nullable', 'string', 'max:100'],
             'capacidad' => ['required', 'integer', 'min:1'],

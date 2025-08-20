@@ -14,6 +14,7 @@ class StoreMesaRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'local_id' => ['required', 'integer'],
             'codigo' => ['required', 'string', 'max:20', 'unique:mesas,codigo'],
             'nombre' => ['nullable', 'string', 'max:100'],
             'capacidad' => ['required', 'integer', 'min:1'],

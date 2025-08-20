@@ -16,6 +16,10 @@ class MesaController extends Controller
     {
         $query = Mesa::query();
 
+        if ($local = $request->query('local_id')) {
+            $query->where('local_id', $local);
+        }
+
         if ($estado = $request->query('estado')) {
             $query->where('estado', $estado);
         }

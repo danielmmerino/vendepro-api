@@ -325,8 +325,8 @@ Nota: se mantiene `GET /v1/estado-suscripcion` para compatibilidad.
 ### Mesas
 | Método | Ruta | Descripción |
 | ------ | ---- | ----------- |
-| GET | `/v1/mesas` | Lista mesas disponibles. |
-| POST | `/v1/mesas` | Crea una mesa. |
+| GET | `/v1/mesas` | Lista mesas disponibles. Filtrable por `local_id`. |
+| POST | `/v1/mesas` | Crea una mesa. Requiere `local_id`. |
 | GET | `/v1/mesas/{id}` | Muestra una mesa. |
 | PUT | `/v1/mesas/{id}` | Actualiza una mesa. |
 | DELETE | `/v1/mesas/{id}` | Elimina una mesa. |
