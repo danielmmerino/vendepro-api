@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Mesa;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -44,5 +45,38 @@ class MesaTest extends TestCase
         ]);
 
         $response->assertStatus(422);
+    }
+
+    public function test_index_requires_local_id(): void
+    {
+        $response = $this->getJson('/v1/mesas');
+        $response->assertStatus(422);
+    }
+
+    public function test_can_list_mesas_by_local_id(): void
+    {
+        Mesa::create([
+            'local_id' => 1,
+            'codigo' => 'M1',
+            'nombre' => 'Mesa 1',
+            'capacidad' => 4,
+            'ubicacion' => 'salon',
+            'estado' => 'activa',
+        ]);
+
+        Mesa::create([
+            'local_id' => 2,
+            'codigo' => 'M2',
+            'nombre' => 'Mesa 2',
+            'capacidad' => 4,
+            'ubicacion' => 'salon',
+            'estado' => 'activa',
+        ]);
+
+        $response = $this->getJson('/v1/mesas?local_id=1');
+
+        $response->assertStatus(200)
+            ->assertJsonCount(1, 'data')
+            ->assertJsonPath('data.0.local_id', 1);
     }
 }
