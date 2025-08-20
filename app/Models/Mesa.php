@@ -13,6 +13,7 @@ class Mesa extends Model
 
     protected $fillable = [
         'codigo',
+        'local_id',
         'nombre',
         'capacidad',
         'ubicacion',
