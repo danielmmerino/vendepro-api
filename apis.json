@@ -218,7 +218,7 @@
           "request": {
             "method": "GET",
             "url": {
-              "raw": "{{base_url}}/api/v1/categorias",
+              "raw": "{{base_url}}/api/v1/categorias?local_id=1",
               "host": [
                 "{{base_url}}"
               ],
@@ -226,6 +226,12 @@
                 "api",
                 "v1",
                 "categorias"
+              ],
+              "query": [
+                {
+                  "key": "local_id",
+                  "value": "1"
+                }
               ]
             }
           }
