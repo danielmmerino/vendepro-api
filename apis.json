@@ -904,7 +904,7 @@
           "request": {
             "method": "GET",
             "url": {
-              "raw": "{{base_url}}/api/v1/mesas",
+              "raw": "{{base_url}}/api/v1/mesas?local_id=1",
               "host": [
                 "{{base_url}}"
               ],
@@ -912,6 +912,12 @@
                 "api",
                 "v1",
                 "mesas"
+              ],
+              "query": [
+                {
+                  "key": "local_id",
+                  "value": "1"
+                }
               ]
             }
           }

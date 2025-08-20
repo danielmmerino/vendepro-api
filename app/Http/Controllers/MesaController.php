@@ -14,11 +14,14 @@ class MesaController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Mesa::query();
-
-        if ($local = $request->query('local_id')) {
-            $query->where('local_id', $local);
+        if (!$local = $request->query('local_id')) {
+            return response()->json([
+                'error' => 'Validation',
+                'fields' => ['local_id' => ['Requerido']],
+            ], 422);
         }
+
+        $query = Mesa::query()->where('local_id', $local);
 
         if ($estado = $request->query('estado')) {
             $query->where('estado', $estado);
