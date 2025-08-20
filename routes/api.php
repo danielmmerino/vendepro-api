@@ -181,9 +181,9 @@ Route::prefix('v1')->middleware('auth.jwt')->group(function () {
         Route::put('/metodos-pago/{id}', [MetodoPagoController::class, 'update'])->middleware('can:config.locales.gestionar');
         Route::delete('/metodos-pago/{id}', [MetodoPagoController::class, 'destroy'])->middleware('can:config.locales.gestionar');
 
-        Route::get('/categorias', [CategoriaProductoController::class, 'index'])->middleware('can:productos.crear_editar');
+        Route::get('/categorias', [CategoriaProductoController::class, 'index'])->middleware('can:productos.ver');
         Route::post('/categorias', [CategoriaProductoController::class, 'store'])->middleware('can:productos.crear_editar');
-        Route::get('/categorias/{id}', [CategoriaProductoController::class, 'show'])->middleware('can:productos.crear_editar');
+        Route::get('/categorias/{id}', [CategoriaProductoController::class, 'show'])->middleware('can:productos.ver');
         Route::put('/categorias/{id}', [CategoriaProductoController::class, 'update'])->middleware('can:productos.crear_editar');
         Route::delete('/categorias/{id}', [CategoriaProductoController::class, 'destroy'])->middleware('can:productos.crear_editar');
 

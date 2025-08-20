@@ -17,6 +17,22 @@ class CategoriaProductoController extends Controller
         $off = ($page - 1) * $per;
 
         $empresa_id = $request->query('empresa_id');
+        $local_id = $request->query('local_id');
+        if (!$empresa_id && $local_id) {
+            $empresa_id = DB::table('locales')->where('id', $local_id)->value('empresa_id');
+            if (!$empresa_id) {
+                return response()->json([
+                    'error' => 'Validation',
+                    'fields' => ['local_id' => ['Inválido']],
+                ], 422);
+            }
+        }
+        if (!$empresa_id) {
+            return response()->json([
+                'error' => 'Validation',
+                'fields' => ['empresa_id' => ['Requerido']],
+            ], 422);
+        }
         $padre_id = $request->query('padre_id');
         $q = $request->query('q');
 
