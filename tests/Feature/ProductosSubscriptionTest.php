@@ -37,5 +37,8 @@ class ProductosSubscriptionTest extends TestCase
             ->getJson('/v1/productos?empresa_id=' . $empresaId);
 
         $response->assertStatus(200);
+        $data = $response->json('data');
+        $this->assertIsArray($data);
+        $this->assertArrayHasKey('url_imagen', $data[0]);
     }
 }

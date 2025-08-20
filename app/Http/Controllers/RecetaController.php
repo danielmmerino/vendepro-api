@@ -33,6 +33,7 @@ class RecetaController extends Controller
         $rows = DB::select(
             "SELECT
   r.insumo_id, p.codigo AS insumo_codigo, p.nombre AS insumo_nombre,
+  p.url_imagen AS insumo_url_imagen,
   r.cantidad, r.merma_porcentaje, p.unidad_id, um.abreviatura AS unidad
 FROM recetas r
 JOIN productos p ON p.id = r.insumo_id
@@ -103,6 +104,7 @@ VALUES (:producto_id, :insumo_id, :cantidad, :merma)",
             $rows = DB::select(
                 "SELECT
   r.insumo_id, p.codigo AS insumo_codigo, p.nombre AS insumo_nombre,
+  p.url_imagen AS insumo_url_imagen,
   r.cantidad, r.merma_porcentaje, p.unidad_id, um.abreviatura AS unidad
 FROM recetas r
 JOIN productos p ON p.id = r.insumo_id
@@ -137,6 +139,7 @@ ORDER BY p.nombre ASC",
         DB::delete("DELETE FROM recetas WHERE producto_id = :producto_id AND insumo_id = :insumo_id", ['producto_id'=>$producto_id,'insumo_id'=>$insumo_id]);
         $rows = DB::select(
             "SELECT r.insumo_id, p.codigo AS insumo_codigo, p.nombre AS insumo_nombre,
+       p.url_imagen AS insumo_url_imagen,
        r.cantidad, r.merma_porcentaje
 FROM recetas r
 JOIN productos p ON p.id = r.insumo_id
