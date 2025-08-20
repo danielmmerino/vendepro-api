@@ -61,6 +61,7 @@ class ProductoImportController extends Controller
             $activo = ($data['activo'] ?? '1') != '0' ? 1 : 0;
             $sku = $data['sku'] ?? null;
             $descripcion = $data['descripcion'] ?? null;
+            $url_imagen = $data['url_imagen'] ?? null;
             $categoria_nombre = $data['categoria_nombre'] ?? null;
             $unidad_abrev = isset($data['unidad_abrev']) ? strtoupper($data['unidad_abrev']) : null;
             $impuesto_codigo = isset($data['impuesto_codigo']) ? strtoupper($data['impuesto_codigo']) : null;
@@ -87,10 +88,10 @@ class ProductoImportController extends Controller
             }
 
             $exists = DB::selectOne("SELECT id FROM productos WHERE empresa_id = :empresa_id AND codigo = :codigo", ['empresa_id'=>$empresa_id,'codigo'=>$codigo]);
-            DB::insert("INSERT INTO productos (empresa_id, categoria_id, codigo, nombre, descripcion, tipo, sku, unidad_id, impuesto_id, precio_venta, costo_promedio, es_receta, activo, created_at, updated_at)
-VALUES (:empresa_id, :categoria_id, :codigo, :nombre, :descripcion, :tipo, :sku, :unidad_id, :impuesto_id, :precio_venta, 0, 0, :activo, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+            DB::insert("INSERT INTO productos (empresa_id, categoria_id, codigo, nombre, descripcion, tipo, sku, unidad_id, impuesto_id, precio_venta, costo_promedio, url_imagen, es_receta, activo, created_at, updated_at)
+VALUES (:empresa_id, :categoria_id, :codigo, :nombre, :descripcion, :tipo, :sku, :unidad_id, :impuesto_id, :precio_venta, 0, :url_imagen, 0, :activo, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
 ON DUPLICATE KEY UPDATE
-  categoria_id=VALUES(categoria_id), nombre=VALUES(nombre), descripcion=VALUES(descripcion), tipo=VALUES(tipo), sku=VALUES(sku), unidad_id=VALUES(unidad_id), impuesto_id=VALUES(impuesto_id), precio_venta=VALUES(precio_venta), costo_promedio=VALUES(costo_promedio), es_receta=VALUES(es_receta), activo=VALUES(activo), updated_at=CURRENT_TIMESTAMP", [
+  categoria_id=VALUES(categoria_id), nombre=VALUES(nombre), descripcion=VALUES(descripcion), tipo=VALUES(tipo), sku=VALUES(sku), unidad_id=VALUES(unidad_id), impuesto_id=VALUES(impuesto_id), precio_venta=VALUES(precio_venta), costo_promedio=VALUES(costo_promedio), url_imagen=VALUES(url_imagen), es_receta=VALUES(es_receta), activo=VALUES(activo), updated_at=CURRENT_TIMESTAMP", [
                 'empresa_id'=>$empresa_id,
                 'categoria_id'=>$categoria_id,
                 'codigo'=>$codigo,
@@ -101,6 +102,7 @@ ON DUPLICATE KEY UPDATE
                 'unidad_id'=>$unidad_id,
                 'impuesto_id'=>$impuesto_id,
                 'precio_venta'=>$precio,
+                'url_imagen'=>$url_imagen,
                 'activo'=>$activo,
             ]);
             if ($exists) {

@@ -45,7 +45,7 @@ class MenuController extends Controller
         $callback = function () use ($data, $per, $off, $page, $solo) {
             $sql = "SELECT
   p.id, p.codigo, p.nombre, p.descripcion, p.tipo,
-  p.precio_venta, p.impuesto_id,
+  p.precio_venta, p.impuesto_id, p.url_imagen,
   c.nombre AS categoria_nombre,
   i.codigo AS impuesto_codigo, i.porcentaje AS impuesto_porcentaje,
   COALESCE((

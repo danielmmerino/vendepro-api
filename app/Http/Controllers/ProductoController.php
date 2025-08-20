@@ -46,7 +46,7 @@ class ProductoController extends Controller
         $sql = "SELECT
   p.id, p.empresa_id, p.categoria_id, p.codigo, p.nombre, p.descripcion,
   p.tipo, p.sku, p.unidad_id, p.impuesto_id, p.precio_venta, p.costo_promedio,
-  p.es_receta, p.activo, p.created_at, p.updated_at,
+  p.url_imagen, p.es_receta, p.activo, p.created_at, p.updated_at,
   c.nombre AS categoria_nombre,
   um.abreviatura AS unidad,
   i.codigo AS impuesto_codigo, i.porcentaje AS impuesto_porcentaje
@@ -108,6 +108,7 @@ WHERE p.empresa_id = :empresa_id
             'impuesto_id' => ['nullable', 'integer'],
             'precio_venta' => ['numeric', 'min:0'],
             'costo_promedio' => ['numeric', 'min:0'],
+            'url_imagen' => ['nullable', 'string'],
             'es_receta' => ['boolean'],
             'activo' => ['boolean'],
         ]);
@@ -173,10 +174,10 @@ WHERE p.empresa_id = :empresa_id
             DB::insert(
                 "INSERT INTO productos
 (empresa_id, categoria_id, codigo, nombre, descripcion, tipo, sku, unidad_id, impuesto_id,
- precio_venta, costo_promedio, es_receta, activo, created_at, updated_at)
+ precio_venta, costo_promedio, url_imagen, es_receta, activo, created_at, updated_at)
 VALUES
 (:empresa_id, :categoria_id, :codigo, :nombre, :descripcion, :tipo, :sku, :unidad_id, :impuesto_id,
- :precio_venta, :costo_promedio, :es_receta, :activo, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)",
+ :precio_venta, :costo_promedio, :url_imagen, :es_receta, :activo, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)",
                 [
                     'empresa_id' => $data['empresa_id'],
                     'categoria_id' => $data['categoria_id'] ?? null,
@@ -189,6 +190,7 @@ VALUES
                     'impuesto_id' => $data['impuesto_id'] ?? null,
                     'precio_venta' => $data['precio_venta'] ?? 0,
                     'costo_promedio' => $data['costo_promedio'] ?? 0,
+                    'url_imagen' => $data['url_imagen'] ?? null,
                     'es_receta' => $data['es_receta'] ?? 0,
                     'activo' => $data['activo'] ?? 1,
                 ]
@@ -245,6 +247,7 @@ LIMIT 1",
             'impuesto_id' => ['nullable', 'integer'],
             'precio_venta' => ['numeric', 'min:0'],
             'costo_promedio' => ['numeric', 'min:0'],
+            'url_imagen' => ['nullable', 'string'],
             'es_receta' => ['boolean'],
             'activo' => ['boolean'],
         ]);
@@ -327,6 +330,7 @@ SET categoria_id   = :categoria_id,
     impuesto_id    = :impuesto_id,
     precio_venta   = :precio_venta,
     costo_promedio = :costo_promedio,
+    url_imagen     = :url_imagen,
     es_receta      = :es_receta,
     activo         = :activo,
     updated_at     = CURRENT_TIMESTAMP
@@ -342,6 +346,7 @@ WHERE id = :id AND empresa_id = :empresa_id AND deleted_at IS NULL",
                 'impuesto_id' => $data['impuesto_id'] ?? null,
                 'precio_venta' => $data['precio_venta'] ?? 0,
                 'costo_promedio' => $data['costo_promedio'] ?? 0,
+                'url_imagen' => $data['url_imagen'] ?? null,
                 'es_receta' => $data['es_receta'] ?? 0,
                 'activo' => $data['activo'] ?? 1,
                 'id' => $id,
